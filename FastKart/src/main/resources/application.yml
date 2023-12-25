@@ -1,0 +1,17 @@
+spring:
+  security:
+    oauth2:
+      client:
+        registration:
+          google:
+            client-id: 240030939656-d34pnj66v6p9d9rcbi2m92hs8180f7fm.apps.googleusercontent.com
+            client-secret: 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
+            redirect-uri: '{baseUrl}/login/oauth2/code/{registrationId}'
+            client-name: Google
+        provider:
+          google:
+            user-info-uri: 'https://www.googleapis.com/oauth2/v3/userinfo'
+            jwk-set-uri: 'https://www.googleapis.com/oauth2/v3/certs'
+
+server:
+  port: 1010
