@@ -27,7 +27,8 @@ public class userController {
 
 	@PostMapping("/userRegister")
 	public String userRegister(@Valid @ModelAttribute User user, BindingResult result,
-			@RequestParam(value = "checkbox", defaultValue = "false") boolean checkbox, Model m,HttpSession session,RedirectAttributes redirAttrs) {
+			@RequestParam(value = "checkbox", defaultValue = "false") boolean checkbox, Model m, HttpSession session,
+			RedirectAttributes redirAttrs) {
 
 		if (result.hasErrors()) {
 
@@ -47,16 +48,15 @@ public class userController {
 		user.setPassword(passwordEncoder.encode(user.getPassword()));
 		User u = udao.userRegister(user);
 
-		
-		 if (u != null) {
-			 System.out.println("User registered successfully: " + u.getName());
-			 redirAttrs.addFlashAttribute("success",  "Register successfully"); 
-			 }
-		      else {
-		 System.out.println("Failed to register user");
-		 
-		 redirAttrs.addFlashAttribute("error", "Something went wrong"); }
-		
+		if (u != null) {
+			System.out.println("User registered successfully: " + u.getName());
+			redirAttrs.addFlashAttribute("success", "Register successfully");
+		} else {
+			System.out.println("Failed to register user");
+
+			redirAttrs.addFlashAttribute("error", "Something went wrong");
+		}
+
 		return "redirect:/login";
 	}
 }

@@ -40,7 +40,7 @@ public String addSubCategory(@ModelAttribute subCategory sc , @RequestParam("cat
 			System.out.println("Your File Is Empty");
 		}
 		else {
-			sc.setSub_cat_image(file.getOriginalFilename());
+			sc.setSubcimg(file.getOriginalFilename());
 			sc.setCategory(cdao.getCategory(cid));
 			
 			File saveFile = new ClassPathResource("static/assets1/images").getFile();

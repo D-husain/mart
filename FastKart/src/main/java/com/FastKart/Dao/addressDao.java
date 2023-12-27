@@ -2,12 +2,10 @@ package com.FastKart.Dao;
 
 import java.security.Principal;
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.FastKart.Controller.basicController;
 import com.FastKart.Repository.AddressRepository;
 import com.FastKart.entities.Address;
 import com.FastKart.entities.User;

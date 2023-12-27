@@ -47,43 +47,40 @@ public class productController {
 	@Autowired
 	private ProductRepository productRepository;
 
-	@PostMapping("insertProduct")
-	private String addProduct(@ModelAttribute Product product, @RequestParam("image") MultipartFile file, @RequestParam("cid") int cid, @RequestParam("scid") int scid) {
-		
-		
-		try {
-			 if(file.isEmpty()) {
-				 
-				 System.out.println("Your File is Empty");
-			 }
-			 
-			 else {
-				 product.setPimage(file.getOriginalFilename());
-				 
-				 product.setCategory(cdao.getCategory(cid));			    
-				 product.setSubcategory(scdao.getSubCategory(scid));
-				 
-				 File saveFile = new ClassPathResource("static/assets1/images").getFile();
-				 
-				 Path path = Paths.get(saveFile.getAbsolutePath() +File.separator + file.getOriginalFilename());
-				 
-				 Files.copy(file.getInputStream(), path, StandardCopyOption.REPLACE_EXISTING);
-				 
-				 System.out.println("File is uplosded");
-			 }
-			
-			pdao.addProduct(product);
-		} catch (Exception e) {
-
-		e.printStackTrace();
-		}
-		
-		
-		
-		return "redirect:addProduct";
-		
-	}
-	
+	/*
+	 * @PostMapping("insertProduct") private String addProduct(@ModelAttribute
+	 * Product product, @RequestParam("image") MultipartFile
+	 * file, @RequestParam("cid") int cid, @RequestParam("scid") int scid) {
+	 * 
+	 * 
+	 * try { if(file.isEmpty()) {
+	 * 
+	 * System.out.println("Your File is Empty"); }
+	 * 
+	 * else { product.setPimage(file.getOriginalFilename());
+	 * 
+	 * product.setCategory(cdao.getCategory(cid));
+	 * product.setSubcategory(scdao.getSubCategory(scid));
+	 * 
+	 * File saveFile = new ClassPathResource("static/assets1/images").getFile();
+	 * 
+	 * Path path = Paths.get(saveFile.getAbsolutePath() +File.separator +
+	 * file.getOriginalFilename());
+	 * 
+	 * Files.copy(file.getInputStream(), path, StandardCopyOption.REPLACE_EXISTING);
+	 * 
+	 * System.out.println("File is uplosded"); }
+	 * 
+	 * pdao.addProduct(product); } catch (Exception e) {
+	 * 
+	 * e.printStackTrace(); }
+	 * 
+	 * 
+	 * 
+	 * return "redirect:addProduct";
+	 * 
+	 * }
+	 */
 //============================================================= DELETE PRODUCT HANDLER =================================================================
 	
 	@GetMapping("/deleteProduct/{id}")

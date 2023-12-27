@@ -1,5 +1,7 @@
 package com.FastKart.entities;
 
+import java.time.LocalDateTime;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
@@ -10,159 +12,146 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name="product")
+@Table(name = "product")
 public class Product {
-    
-
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int id;
 	private String pname;
-	private String pimage;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name="cid")
+	@JoinColumn(name = "product_image_id")
+	private ProductImg product_image;
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "category_id")
 	private Category category;
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name="scid")
+	@JoinColumn(name = "sub_category_id")
 	private subCategory subcategory;
-	private String brand;
+	
 	private int price;
-	private String exchangeable;
-	private String refundable;
-	
+	private int discount_price;
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "product_weight_id")
+	private ProductWeight Weight;
+
 	private String description;
-	
-	
-	
-	
-	public Product(int id, String pname, String pimage, Category category, subCategory subcategory, String brand,
-			int price, String exchangeable, String refundable, String description) {
-		super();
-		this.id = id;
-		this.pname = pname;
-		this.pimage = pimage;
-		this.category = category;
-		this.subcategory = subcategory;
-		this.brand = brand;
-		this.price = price;
-		this.exchangeable = exchangeable;
-		this.refundable = refundable;
-		this.description = description;
-	}
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "product_details_id")
+	private ProductDetails details;
 
-
+	private LocalDateTime created_at;
+	private LocalDateTime updated_at;
+	private LocalDateTime expiry_at;
+	
+	
 	public Product() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	
+	public Product(int id, String pname, ProductImg product_image, Category category, subCategory subcategory,
+			int price, int discount_price, ProductWeight weight, String description, ProductDetails details,
+			LocalDateTime created_at, LocalDateTime updated_at, LocalDateTime expiry_at) {
+		super();
+		this.id = id;
+		this.pname = pname;
+		this.product_image = product_image;
+		this.category = category;
+		this.subcategory = subcategory;
+		this.price = price;
+		this.discount_price = discount_price;
+		Weight = weight;
+		this.description = description;
+		this.details = details;
+		this.created_at = created_at;
+		this.updated_at = updated_at;
+		this.expiry_at = expiry_at;
+	}
+	@Override
+	public String toString() {
+		return "Product [id=" + id + ", pname=" + pname + ", product_image=" + product_image + ", category=" + category
+				+ ", subcategory=" + subcategory + ", price=" + price + ", discount_price=" + discount_price
+				+ ", Weight=" + Weight + ", description=" + description + ", details=" + details + ", created_at="
+				+ created_at + ", updated_at=" + updated_at + ", expiry_at=" + expiry_at + "]";
+	}
 	public int getId() {
 		return id;
 	}
-
-
 	public void setId(int id) {
 		this.id = id;
 	}
-
-
 	public String getPname() {
 		return pname;
 	}
-
-
 	public void setPname(String pname) {
 		this.pname = pname;
 	}
-
-
-	public String getPimage() {
-		return pimage;
+	public ProductImg getProduct_image() {
+		return product_image;
 	}
-
-
-	public void setPimage(String pimage) {
-		this.pimage = pimage;
+	public void setProduct_image(ProductImg product_image) {
+		this.product_image = product_image;
 	}
-
-
 	public Category getCategory() {
 		return category;
 	}
-
-
 	public void setCategory(Category category) {
 		this.category = category;
 	}
-
-
 	public subCategory getSubcategory() {
 		return subcategory;
 	}
-
-
 	public void setSubcategory(subCategory subcategory) {
 		this.subcategory = subcategory;
 	}
-
-
-	public String getBrand() {
-		return brand;
-	}
-
-
-	public void setBrand(String brand) {
-		this.brand = brand;
-	}
-
-
 	public int getPrice() {
 		return price;
 	}
-
-
 	public void setPrice(int price) {
 		this.price = price;
 	}
-
-
-	public String getExchangeable() {
-		return exchangeable;
+	public int getDiscount_price() {
+		return discount_price;
 	}
-
-
-	public void setExchangeable(String exchangeable) {
-		this.exchangeable = exchangeable;
+	public void setDiscount_price(int discount_price) {
+		this.discount_price = discount_price;
 	}
-
-
-	public String getRefundable() {
-		return refundable;
+	public ProductWeight getWeight() {
+		return Weight;
 	}
-
-
-	public void setRefundable(String refundable) {
-		this.refundable = refundable;
+	public void setWeight(ProductWeight weight) {
+		Weight = weight;
 	}
-
-
 	public String getDescription() {
 		return description;
 	}
-
-
 	public void setDescription(String description) {
 		this.description = description;
 	}
-	
-	
-	@Override
-	public String toString() {
-		return "product [id=" + id + ", pname=" + pname + ", pimage=" + pimage + ", category=" + category
-				+ ", subcategory=" + subcategory + ", brand=" + brand + ", price=" + price + ", exchangeable="
-				+ exchangeable + ", refundable=" + refundable + ", description=" + description + "]";
+	public ProductDetails getDetails() {
+		return details;
 	}
-	
+	public void setDetails(ProductDetails details) {
+		this.details = details;
+	}
+	public LocalDateTime getCreated_at() {
+		return created_at;
+	}
+	public void setCreated_at(LocalDateTime created_at) {
+		this.created_at = created_at;
+	}
+	public LocalDateTime getUpdated_at() {
+		return updated_at;
+	}
+	public void setUpdated_at(LocalDateTime updated_at) {
+		this.updated_at = updated_at;
+	}
+	public LocalDateTime getExpiry_at() {
+		return expiry_at;
+	}
+	public void setExpiry_at(LocalDateTime expiry_at) {
+		this.expiry_at = expiry_at;
+	}
 }

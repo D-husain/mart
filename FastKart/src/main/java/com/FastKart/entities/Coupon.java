@@ -1,5 +1,6 @@
 package com.FastKart.entities;
 
+import java.time.LocalDateTime;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -8,42 +9,39 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name="coupon")
+@Table(name = "coupon")
 public class Coupon {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int id;
-	
+
 	private String coupon_name;
 	private String coupon_code;
 	private int discount;
-	private int min_cart_subtotal;
-	private int max_cart_subtotal;
-    private String expiry_date;
-    
-    
-    
-    
-	public Coupon(int id, String coupon_name, String coupon_code, int discount, int min_cart_subtotal, int max_cart_subtotal,
-			String expiry_date) {
-		super();
-		this.id = id;
-		this.coupon_name = coupon_name;
-		this.coupon_code = coupon_code;
-		this.discount = discount;
-		this.min_cart_subtotal = min_cart_subtotal;
-		this.max_cart_subtotal = max_cart_subtotal;
-		this.expiry_date = expiry_date;
-	}
+	private int max_coupon_value;
+	private LocalDateTime expiry_date;
 	
 	
 	public Coupon() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-
-
+	public Coupon(int id, String coupon_name, String coupon_code, int discount, int max_coupon_value,
+			LocalDateTime expiry_date) {
+		super();
+		this.id = id;
+		this.coupon_name = coupon_name;
+		this.coupon_code = coupon_code;
+		this.discount = discount;
+		this.max_coupon_value = max_coupon_value;
+		this.expiry_date = expiry_date;
+	}
+	@Override
+	public String toString() {
+		return "Coupon [id=" + id + ", coupon_name=" + coupon_name + ", coupon_code=" + coupon_code + ", discount="
+				+ discount + ", max_coupon_value=" + max_coupon_value + ", expiry_date=" + expiry_date + "]";
+	}
 	public int getId() {
 		return id;
 	}
@@ -68,34 +66,16 @@ public class Coupon {
 	public void setDiscount(int discount) {
 		this.discount = discount;
 	}
-	public int getMin_cart_subtotal() {
-		return min_cart_subtotal;
+	public int getMax_coupon_value() {
+		return max_coupon_value;
 	}
-	public void setMin_cart_subtotal(int min_cart_subtotal) {
-		this.min_cart_subtotal = min_cart_subtotal;
+	public void setMax_coupon_value(int max_coupon_value) {
+		this.max_coupon_value = max_coupon_value;
 	}
-	public int getMax_cart_subtotal() {
-		return max_cart_subtotal;
-	}
-	public void setMax_cart_subtotal(int max_cart_subtotal) {
-		this.max_cart_subtotal = max_cart_subtotal;
-	}
-	public String getExpiry_date() {
+	public LocalDateTime getExpiry_date() {
 		return expiry_date;
 	}
-	public void setExpiry_date(String expiry_date) {
+	public void setExpiry_date(LocalDateTime expiry_date) {
 		this.expiry_date = expiry_date;
 	}
-    
-    
-	@Override
-	public String toString() {
-		return "Coupon [id=" + id + ", coupon_name=" + coupon_name + ", coupon_code=" + coupon_code + ", discount="
-				+ discount + ", min_cart_subtotal=" + min_cart_subtotal + ", max_cart_subtotal=" + max_cart_subtotal
-				+ ", expiry_date=" + expiry_date + "]";
-	}
-
-    
-    
-	
 }

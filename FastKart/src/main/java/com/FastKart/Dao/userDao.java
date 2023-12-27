@@ -42,13 +42,11 @@ public class userDao {
 	    }
 	 
 //===============================================	Add User Method ===================================================================================
-	public User userRegister(User u) {
-		
-		User user = userRepository.save(u);
-		return user;
+		public User userRegister(User u) {
 
-	}
-	
+			User user = userRepository.save(u);
+			return user;
+		}
 	
 //=================================================== Show All User Method =========================================================================
 	

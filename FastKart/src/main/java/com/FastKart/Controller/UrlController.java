@@ -8,7 +8,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import com.FastKart.Dao.WishListDao;
 import com.FastKart.Dao.addressDao;
@@ -27,41 +26,19 @@ import com.FastKart.entities.User;
 import com.FastKart.entities.WishList;
 
 @Controller
-public class basicController {
+public class UrlController {
 
-	@Autowired
-	private productDao pdao;
-
-	@Autowired
-	private categoryDao cdao;
-
-	@Autowired
-	private userDao udao;
-
-	@Autowired
-	private UserRepository userRepository;
-
-	@Autowired
-	private cartDao cartdao;
-
-	@Autowired
-	private WishListDao wdao;
-	
-	@Autowired
-	private addressDao addao;
-
-	@Autowired
-	private CartRepository cartRepository;
-
-	@Autowired
-	private WishListRepository wishListRepository;
+	@Autowired private productDao pdao;
+	@Autowired private categoryDao cdao;
+	@Autowired private userDao udao;
+	@Autowired private UserRepository userRepository;
+	@Autowired private cartDao cartdao;
+	@Autowired private WishListDao wdao;
+	@Autowired private addressDao addao;
+	@Autowired private CartRepository cartRepository;
+	@Autowired private WishListRepository wishListRepository;
 
 //===================================================== HANDLER TO FETCH LOGIN USER====================================================================
-	// in any situation i want to find something related to user (ex addToCart if
-	// user login) than i will use this method
-	// this method is check for user is login or not
-	// also this handler used in all handler where you need to find that user is
-	// login or not
 	
 	@ModelAttribute("loggedInUser")
 	public User getLoggedInUser(Principal principal) {
@@ -72,60 +49,26 @@ public class basicController {
 		return null;
 	}
 	
+	@GetMapping("/dashboard")
+	public String dasboard(Model m, Principal principal) {
+		return "user-dashboard";
+	}
+	
 //========================================================= HOME PAGE METHOD ==========================================================================	
-	@GetMapping("/home")
-	public String home(Model m, Principal principal) {
-
-		List<Category> showAllCategory = cdao.showAllCategory();
-		m.addAttribute("category", showAllCategory);
-
-		int id1 = 1;
-		List<Product> product1 = pdao.findProductByCategory(id1);
-		m.addAttribute("product1", product1);
-
-		int id2 = 2;
-		List<Product> product2 = pdao.findProductByCategory(id2);
-		m.addAttribute("product2", product2);
-
-		int id3 = 3;
-		List<Product> product3 = pdao.findProductByCategory(id3);
-		m.addAttribute("product3", product3);
-
-		int id4 = 4;
-		List<Product> product4 = pdao.findProductByCategory(id4);
-		m.addAttribute("product4", product4);
-
-		int id5 = 5;
-		List<Product> product5 = pdao.findProductByCategory(id5);
-		m.addAttribute("product5", product5);
-
-		int id6 = 6;
-		List<Product> product6 = pdao.findProductByCategory(id6);
-		m.addAttribute("product6", product6);
-
-		int id7 = 7;
-		List<Product> product7 = pdao.findProductByCategory(id7);
-		m.addAttribute("product7", product7);
-
-		int id8 = 8;
-		List<Product> product8 = pdao.findProductByCategory(id8);
-		m.addAttribute("product8", product8);
-
-		boolean userLoggedIn = udao.isUserLoggedIn(principal);
-		m.addAttribute("userLoggedIn", userLoggedIn);
-
-		User loggedInUser = getLoggedInUser(principal);
-		m.addAttribute("loggedInUser", loggedInUser);
-
-		return "home";
+	@GetMapping("/")
+	public String index(Model m, Principal principal) {
+		return "index";
+	}
+	
+	@GetMapping("/index-4")
+	public String home1(Model m, Principal principal) {
+		return "account/index-4";
 	}
 //========================================================== REGISTER PAGE METHOD ======================================================================	
 
-	@GetMapping("/register")
+	@GetMapping("/sign-up")
 	public String register(Model m) {
-
-		m.addAttribute("user", new User());
-		return "register";
+		return "account/sign-up";
 	}
 
 //======================================================== LOGIN PAGE METHOD =========================================================================
@@ -133,9 +76,16 @@ public class basicController {
 	@GetMapping("/login")
 	public String login() {
 
-		return "login";
+		return "account/login";
 	}
 
+//======================================================== LOGIN PAGE METHOD =========================================================================
+
+		@GetMapping("/forgot")
+		public String forgot() {
+
+			return "account/forgot";
+		}
 //======================================================= SHOP PAGE METHOD ============================================================================	
 
 	@GetMapping("/shop")
@@ -158,8 +108,21 @@ public class basicController {
 
 		return "contact-us";
 	}
+	
+	@GetMapping("/invoice")
+	public String invoice() {
+
+		return "invoice/invoice-1";
+	}
 
 //======================================================= VIEWCART PAGE METHOD ============================================================================	
+	
+	@GetMapping("/cart")
+	public String cart() {
+
+		return "cart";
+	}
+	
 	@GetMapping("/viewCart")
 	public String showCart(Model m, Principal principal, Cart cart) {
 
@@ -184,11 +147,31 @@ public class basicController {
 	}
 
 //======================================================= CHECKOUT PAGE METHOD ============================================================================
-	@GetMapping("/checkOut")
+	@GetMapping("/checkout")
 	public String checkOut() {
 
-		return "checkOut";
+		return "checkout";
 	}
+	
+	@GetMapping("/payment")
+	public String payment() {
+
+		return "payment";
+	}
+	
+	@GetMapping("/success-order")
+	public String success_order() {
+
+		return "order-success";
+	}
+	
+	@GetMapping("/order-tracking")
+	public String order_tracking() {
+
+		return "order-tracking";
+	}
+
+
 
 	
 	@GetMapping("/checkOut1")
@@ -215,15 +198,14 @@ public class basicController {
 		
 	}
 //======================================================= WISHLIST PAGE METHOD ============================================================================	
-	@GetMapping("/wishList")
+	@GetMapping("/wishlist")
 	public String wishList(Principal principal, Model m) {
-		if (principal != null) {
-			List<WishList> viewWishList = wdao.viewWishList(principal);
-			m.addAttribute("viewWishList", viewWishList);
-			return "wishList";
-		} else {
-			return "redirect:/login";
-		}
+		return "wishlist";
+		/*
+		 * if (principal != null) { List<WishList> viewWishList =
+		 * wdao.viewWishList(principal); m.addAttribute("viewWishList", viewWishList);
+		 * return "wishlist"; } else { return "redirect:/login"; }
+		 */
 	}
 
 //======================================================= USERDASHBOARD PAGE METHOD ============================================================================
@@ -234,12 +216,12 @@ public class basicController {
 	}
 
 //======================================================= PRODUCTDETAILS PAGE METHOD ============================================================================	
-	@GetMapping("/productDetails")
+	@GetMapping("/product-details")
 	public String productDetails() {
 
-		return "productDetails";
+		return "product-details";
 	}
-
+	
 //======================================================= GET ALL PRODUCT PAGE METHOD ============================================================================
 	@GetMapping("/getProduct")
 	public String product(Model m) {
