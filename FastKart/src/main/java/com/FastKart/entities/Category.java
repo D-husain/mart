@@ -24,30 +24,12 @@ public class Category {
 	private String cimage_icon;
 	@OneToMany(mappedBy = "category", cascade = CascadeType.ALL)
 	private List<Product> products;
+	
+	@OneToMany(mappedBy = "category", cascade = CascadeType.ALL)
+	private List<subCategory> subcategory;
 
 	private LocalDateTime created_at;
 	private LocalDateTime updated_at;
-	
-	public Category() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
-	public Category(int id, String cname, String cimage, String cimage_icon, List<Product> products,
-			LocalDateTime created_at, LocalDateTime updated_at) {
-		super();
-		this.id = id;
-		this.cname = cname;
-		this.cimage = cimage;
-		this.cimage_icon = cimage_icon;
-		this.products = products;
-		this.created_at = created_at;
-		this.updated_at = updated_at;
-	}
-	@Override
-	public String toString() {
-		return "Category [id=" + id + ", cname=" + cname + ", cimage=" + cimage + ", cimage_icon=" + cimage_icon
-				+ ", products=" + products + ", created_at=" + created_at + ", updated_at=" + updated_at + "]";
-	}
 	public int getId() {
 		return id;
 	}
@@ -78,6 +60,12 @@ public class Category {
 	public void setProducts(List<Product> products) {
 		this.products = products;
 	}
+	public List<subCategory> getSubcategory() {
+		return subcategory;
+	}
+	public void setSubcategory(List<subCategory> subcategory) {
+		this.subcategory = subcategory;
+	}
 	public LocalDateTime getCreated_at() {
 		return created_at;
 	}
@@ -90,4 +78,28 @@ public class Category {
 	public void setUpdated_at(LocalDateTime updated_at) {
 		this.updated_at = updated_at;
 	}
+	@Override
+	public String toString() {
+		return "Category [id=" + id + ", cname=" + cname + ", cimage=" + cimage + ", cimage_icon=" + cimage_icon
+				+ ", products=" + products + ", subcategory=" + subcategory + ", created_at=" + created_at
+				+ ", updated_at=" + updated_at + "]";
+	}
+	public Category(int id, String cname, String cimage, String cimage_icon, List<Product> products,
+			List<subCategory> subcategory, LocalDateTime created_at, LocalDateTime updated_at) {
+		super();
+		this.id = id;
+		this.cname = cname;
+		this.cimage = cimage;
+		this.cimage_icon = cimage_icon;
+		this.products = products;
+		this.subcategory = subcategory;
+		this.created_at = created_at;
+		this.updated_at = updated_at;
+	}
+	public Category() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+	
+	
 }

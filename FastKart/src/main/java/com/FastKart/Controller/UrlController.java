@@ -38,21 +38,6 @@ public class UrlController {
 	@Autowired private CartRepository cartRepository;
 	@Autowired private WishListRepository wishListRepository;
 
-//===================================================== HANDLER TO FETCH LOGIN USER====================================================================
-	
-	@ModelAttribute("loggedInUser")
-	public User getLoggedInUser(Principal principal) {
-		if (principal != null) {
-			String username = principal.getName();
-			return userRepository.getUserByUserName(username);
-		}
-		return null;
-	}
-	
-	@GetMapping("/dashboard")
-	public String dasboard(Model m, Principal principal) {
-		return "user-dashboard";
-	}
 	
 //========================================================= HOME PAGE METHOD ==========================================================================	
 	@GetMapping("/")
@@ -60,18 +45,12 @@ public class UrlController {
 		return "index";
 	}
 	
-	@GetMapping("/index-4")
-	public String home1(Model m, Principal principal) {
-		return "account/index-4";
-	}
-//========================================================== REGISTER PAGE METHOD ======================================================================	
+//========================================================== ACCOUNT PAGES ======================================================================	
 
 	@GetMapping("/sign-up")
-	public String register(Model m) {
+	public String register(Model model) {
 		return "account/sign-up";
 	}
-
-//======================================================== LOGIN PAGE METHOD =========================================================================
 
 	@GetMapping("/login")
 	public String login() {
@@ -79,14 +58,12 @@ public class UrlController {
 		return "account/login";
 	}
 
-//======================================================== LOGIN PAGE METHOD =========================================================================
+	@GetMapping("/forgot")
+	public String forgot() {
 
-		@GetMapping("/forgot")
-		public String forgot() {
-
-			return "account/forgot";
-		}
-//======================================================= SHOP PAGE METHOD ============================================================================	
+		return "account/forgot";
+	}
+//======================================================= SHOP PAGES ============================================================================	
 
 	@GetMapping("/shop")
 	public String shop() {
@@ -94,7 +71,7 @@ public class UrlController {
 		return "shop";
 	}
 
-//======================================================= ABOUT PAGE METHOD ============================================================================
+//======================================================= ABOUT PAGES ============================================================================
 
 	@GetMapping("/about")
 	public String about() {
@@ -102,7 +79,7 @@ public class UrlController {
 		return "about-us";
 	}
 
-//======================================================= CONTACT PAGE METHOD ============================================================================
+//======================================================= CONTACT PAGES ============================================================================
 	@GetMapping("/contact")
 	public String contact() {
 
@@ -115,7 +92,7 @@ public class UrlController {
 		return "invoice/invoice-1";
 	}
 
-//======================================================= VIEWCART PAGE METHOD ============================================================================	
+//======================================================= CART PAGE METHOD ============================================================================	
 	
 	@GetMapping("/cart")
 	public String cart() {
@@ -214,6 +191,11 @@ public class UrlController {
 
 		return " redirect:/user-dashboard";
 	}
+	
+	@GetMapping("/dashboard")
+	public String dasboard(Model m, Principal principal) {
+		return "user-dashboard";
+	}
 
 //======================================================= PRODUCTDETAILS PAGE METHOD ============================================================================	
 	@GetMapping("/product-details")
@@ -254,8 +236,19 @@ public class UrlController {
 	
 //============================================================== ALL MODEL ==========================================================================
 
-	// The reason to create model is when i have to fetch one functionality in more
-	// page i will use this model Instead of call method in every url
+	@ModelAttribute("loggedInUser")
+	public User getLoggedInUser(Principal principal) {
+		if (principal != null) {
+			String username = principal.getName();
+			return userRepository.getUserByUserName(username);
+		}
+		return null;
+	}
+	
+	@ModelAttribute("user")
+    public User getDefaultUser() {
+        return new User();
+    }
 
 	@ModelAttribute("cartItemCount")
 	public int countCartByUser(Principal principal) {
@@ -271,7 +264,6 @@ public class UrlController {
 		return wishListRepository.countByUser(loggedInUser);
 	}
 
-	// this model is for if wishList item ==0 than itemCount not show instead of 0
 	@ModelAttribute("wishList")
 	public List<WishList> getUserWishList(Principal principal) {
 		User loggedInUser = getLoggedInUser(principal);
@@ -279,15 +271,10 @@ public class UrlController {
 
 	}
 
-	// in any condition user is login and his cart item (Cart size) is 0 than we do
-	// not show cartitemOut instead of 0
 	@ModelAttribute("cart")
 	public List<Cart> viewCart(Principal principal) {
-
 		User loggedInUser = getLoggedInUser(principal);
-
 		return cartRepository.findByUser(loggedInUser);
-
 	}
 
 }

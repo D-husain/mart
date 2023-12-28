@@ -112,35 +112,46 @@
                         </div>
 
                         <div class="input-box">
-                            <form class="row g-4">
+                            <form class="row g-4" action="/userRegister" method="post" th:object="${user}">
                                 <div class="col-12">
                                     <div class="form-floating theme-form-floating">
-                                        <input type="text" class="form-control" id="fullname" placeholder="Full Name">
+                                        <input type="text" th:field="*{name}" th:classappend="${#fields.hasErrors('name')? 'is-invalid' : ''}" class="form-control" id="fullname" placeholder="Full Name">
                                         <label for="fullname">Full Name</label>
+                                        <div th:each="e:${#fields.errors('name')}" th:text="${e}" th:errors="*{name}" id="validationServer03Feedback" class="invalid-feedback">
+											Please provide a valid name.
+										</div>
                                     </div>
                                 </div>
                                 <div class="col-12">
                                     <div class="form-floating theme-form-floating">
-                                        <input type="email" class="form-control" id="email" placeholder="Email Address">
+                                        <input th:field="*{email}" type="email" th:classappend="${#fields.hasErrors('email') ?'is-invalid': ''}" class="form-control" id="email" placeholder="Email Address">
                                         <label for="email">Email Address</label>
+                                        <div th:each="e:${#fields.errors('email')}" th:text="${e}" th:errors="*{email}" id="validationServer03Feedback" class="invalid-feedback">
+											Please provide a valid email.
+										</div>
                                     </div>
                                 </div>
 
                                 <div class="col-12">
                                     <div class="form-floating theme-form-floating">
-                                        <input type="password" class="form-control" id="password"
+                                        <input type="password" th:field="*{password}" th:classappend="${#fields.hasErrors('password')? 'is-invalid': ''}" class="form-control" id="password"
                                             placeholder="Password">
                                         <label for="password">Password</label>
+                                        <div th:each="e:${#fields.errors('password')}" th:text="${e}" th:errors="*{password}" id="validationServer03Feedback" class="invalid-feedback">
+											Please provide a valid email.
+										</div>
                                     </div>
                                 </div>
 
                                 <div class="col-12">
                                     <div class="forgot-box">
                                         <div class="form-check ps-0 m-0 remember-box">
-                                            <input class="checkbox_animated check-box" type="checkbox" id="flexCheckDefault">
+                                            <input th:field="*{checkbox}" th:classappend="${#fields.hasErrors('checkbox') ? 'is-invalid': ''}" class="checkbox_animated check-box" type="checkbox" id="flexCheckDefault">
                                             <label class="form-check-label" for="flexCheckDefault">I agree with
                                                 <span>Terms</span> and <span>Privacy</span></label>
-                                        </div>
+											<div th:each="e:${#fields.errors('checkbox')}" th:text="${e}" th:errors="*{checkbox}" id="validationServer03Feedback" class="invalid-feedback">
+												Please provide a valid Terms.</div>
+										</div>
                                     </div>
                                 </div>
 
@@ -179,7 +190,7 @@
 
                         <div class="sign-up-box">
                             <h4>Already have an account?</h4>
-                            <a href="login.html">Log In</a>
+                            <a href="login">Log In</a>
                         </div>
                     </div>
                 </div>
