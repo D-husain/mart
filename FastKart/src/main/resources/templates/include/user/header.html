@@ -14,10 +14,16 @@
                             <div class="notification-slider">
                                 <div>
                                     <div class="timer-notification">
-                                        <h6><strong class="me-1">Welcome to Fastkart!</strong>Wrap new offers/gift
-                                            every signle day on Weekends.<strong class="ms-1">New Coupon Code:Fast024
+                                        <h6><strong class="me-1">Welcome to Fastkart!</strong>Wrap New Discount Coupon Code: <strong class="ms-1">FREE10
                                             </strong>
-
+                                        </h6>
+                                    </div>
+                                </div>
+                                
+                                <div>
+                                    <div class="timer-notification">
+                                        <h6><strong class="me-1">Welcome to Fastkart!</strong>Free Delivery For Order Over
+                                        <strong class="ms-1"> ₹3000 </strong>.
                                         </h6>
                                     </div>
                                 </div>
@@ -156,7 +162,7 @@
                                         </div>
                                     </li>
                                     <li class="right-side">
-                                        <a href="contact-us.html" class="delivery-login-box">
+                                        <a href="/contact" class="delivery-login-box">
                                             <div class="delivery-icon">
                                                 <i data-feather="phone-call"></i>
                                             </div>
@@ -169,8 +175,8 @@
                                     <li class="right-side">
                                         <a href="wishlist" class="btn p-0 position-relative header-wishlist">
                                             <i data-feather="heart"></i>
-                                             <span class="position-absolute top-0 start-100 translate-middle badge">[[${wishListCount}]]
-                                                    <span class="visually-hidden">unread messages</span>
+                                             <span class="position-absolute top-0 start-100 translate-middle badge" id="wishlistcount">0
+                                                    <span class="visually-hidden" id="wishlistcount">unread messages</span>
                                                 </span>
                                         </a>
                                     </li>
@@ -187,7 +193,7 @@
                                             <div class="onhover-div">
                                                 <ul class="cart-list">
                                                 
-                                                    <li class="product-box-contain">
+                                                    <li th:each="c, iterStat : ${viewCart}" class="product-box-contain">
                                                         <div class="drop-cart">
                                                             <a href="product-left-thumbnail.html" class="drop-image">
                                                                 <img src="../assets/images/vegetable/product/1.png"
@@ -196,9 +202,9 @@
 
                                                             <div class="drop-contain">
                                                                 <a href="product-left-thumbnail.html">
-                                                                    <h5>Fantasy Crunchy Choco Chip Cookies</h5>
+                                                                    <h5>[[${c.product.pname}]]</h5>
                                                                 </a>
-                                                                <h6><span>1 x</span> $80.58</h6>
+                                                                <h6><span>[[${c.quntity}]] x</span> ₹[[${c.product.price}]]</h6>
                                                                 <button class="close-button close_button">
                                                                     <i class="fa-solid fa-xmark"></i>
                                                                 </button>
@@ -206,14 +212,21 @@
                                                         </div>
                                                     </li>
 
-                                                </ul>
+												<div th:unless="${viewCart.size() > 0}">
+													<div class="emptycart-content text-center">
+														<h3 class="title">Unfortunately, Your Cart Is Empty</h3>
+														<h6 class="sub-title">Please Add Something In your Cart</h6>
+													</div>
+												</div>
+												
+											</ul>
 
-                                                <div class="price-box">
+                                                <div th:if="${viewCart.size() > 0}" class="price-box">
                                                     <h5>Total :</h5>
-                                                    <h4 class="theme-color fw-bold">$106.58</h4>
+                                                    <h4 class="theme-color fw-bold">₹[[${subTotalOfCart}]]</h4>
                                                 </div>
 
-                                                <div class="button-group">
+                                                <div th:if="${viewCart.size() > 0}" class="button-group">
                                                     <a href="cart" class="btn btn-sm cart-button">View Cart</a>
                                                     <a href="checkout" class="btn btn-sm cart-button theme-bg-color
                                                     text-white">Checkout</a>
@@ -292,394 +305,36 @@
                                 </div>
 
                                 <ul class="category-list">
-                                    <li class="onhover-category-list">
-                                        <a href="javascript:void(0)" class="category-name">
-                                            <img src="https://themes.pixelstrap.com/fastkart/assets/svg/1/vegetable.svg" alt="">
-                                            <h6>Vegetables & Fruit</h6>
-                                            <i class="fa-solid fa-angle-right"></i>
-                                        </a>
 
-                                        <div class="onhover-category-box">
-                                            <div class="list-1">
-                                                <div class="category-title-box">
-                                                    <h5>Organic Vegetables</h5>
-                                                </div>
-                                                <ul>
-                                                    <li>
-                                                        <a href="javascript:void(0)">Potato & Tomato</a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="javascript:void(0)">Cucumber & Capsicum</a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="javascript:void(0)">Leafy Vegetables</a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="javascript:void(0)">Root Vegetables</a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="javascript:void(0)">Beans & Okra</a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="javascript:void(0)">Cabbage & Cauliflower</a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="javascript:void(0)">Gourd & Drumstick</a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="javascript:void(0)">Specialty</a>
-                                                    </li>
-                                                </ul>
-                                            </div>
+								<li th:each="c, iterStat : ${categoryshow}" class="onhover-category-list">
+								<a href="javascript:void(0)" class="category-name"> 
+									<img src="https://themes.pixelstrap.com/fastkart/assets/svg/1/vegetable.svg" alt="">
+											<h6>[[${c.cname}]]</h6> 
+										<i class="fa-solid fa-angle-right"></i>
+								</a>
 
-                                            <div class="list-2">
-                                                <div class="category-title-box">
-                                                    <h5>Fresh Fruit</h5>
-                                                </div>
-                                                <ul>
-                                                    <li>
-                                                        <a href="javascript:void(0)">Banana & Papaya</a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="javascript:void(0)">Kiwi, Citrus Fruit</a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="javascript:void(0)">Apples & Pomegranate</a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="javascript:void(0)">Seasonal Fruits</a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="javascript:void(0)">Mangoes</a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="javascript:void(0)">Fruit Baskets</a>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </li>
+									<div th:with="subcatList=${subcategoryshow[c.id]}" class="onhover-category-box">
+											<div th:each="sub : ${subcatList}" class="list-1">
+												<div class="category-title-box">
+													<h5>[[${sub.subcname}]]</h5>
+												</div>
+												<ul th:with="subcatItemList=${subcategoryItemshow[sub.id]}">
+													<li th:each="subitem : ${subcatItemList}">
+														<a href="javascript:void(0)">[[${subitem.subitemname}]]</a>
+													</li>
+													<div th:unless="${subcatItemList.size() > 0}">
+														<p align="justify">No subcategoriesItam available.</p>
+													</div>
+												</ul>
+											</div>
+											<div th:unless="${subcatList.size() > 0}">
+												<p align="justify">No subCategories available.</p>
+											</div>
+									</div>
+									
+								</li>
 
-                                    <li class="onhover-category-list">
-                                        <a href="javascript:void(0)" class="category-name">
-                                            <img src="https://themes.pixelstrap.com/fastkart/assets/svg/1/cup.svg" alt="">
-                                            <h6>Beverages</h6>
-                                            <i class="fa-solid fa-angle-right"></i>
-                                        </a>
-
-                                        <div class="onhover-category-box w-100">
-                                            <div class="list-1">
-                                                <div class="category-title-box">
-                                                    <h5>Energy & Soft Drinks</h5>
-                                                </div>
-                                                <ul>
-                                                    <li>
-                                                        <a href="javascript:void(0)">Soda & Cocktail Mix</a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="javascript:void(0)">Soda & Cocktail Mix</a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="javascript:void(0)">Sports & Energy Drinks</a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="javascript:void(0)">Non Alcoholic Drinks</a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="javascript:void(0)">Packaged Water</a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="javascript:void(0)">Spring Water</a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="javascript:void(0)">Flavoured Water</a>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </li>
-
-                                    <li class="onhover-category-list">
-                                        <a href="javascript:void(0)" class="category-name">
-                                            <img src="https://themes.pixelstrap.com/fastkart/assets/svg/1/meats.svg" alt="">
-                                            <h6>Meats & Seafood</h6>
-                                            <i class="fa-solid fa-angle-right"></i>
-                                        </a>
-
-                                        <div class="onhover-category-box">
-                                            <div class="list-1">
-                                                <div class="category-title-box">
-                                                    <h5>Meat</h5>
-                                                </div>
-                                                <ul>
-                                                    <li>
-                                                        <a href="javascript:void(0)">Fresh Meat</a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="javascript:void(0)">Frozen Meat</a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="javascript:void(0)">Marinated Meat</a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="javascript:void(0)">Fresh & Frozen Meat</a>
-                                                    </li>
-                                                </ul>
-                                            </div>
-
-                                            <div class="list-2">
-                                                <div class="category-title-box">
-                                                    <h5>Seafood</h5>
-                                                </div>
-                                                <ul>
-                                                    <li>
-                                                        <a href="javascript:void(0)">Fresh Water Fish</a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="javascript:void(0)">Dry Fish</a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="javascript:void(0)">Frozen Fish & Seafood</a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="javascript:void(0)">Marine Water Fish</a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="javascript:void(0)">Canned Seafood</a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="javascript:void(0)">Prawans & Shrimps</a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="javascript:void(0)">Other Seafood</a>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </li>
-
-                                    <li class="onhover-category-list">
-                                        <a href="javascript:void(0)" class="category-name">
-                                            <img src="https://themes.pixelstrap.com/fastkart/assets/svg/1/breakfast.svg" alt="">
-                                            <h6>Breakfast & Dairy</h6>
-                                            <i class="fa-solid fa-angle-right"></i>
-                                        </a>
-
-                                        <div class="onhover-category-box">
-                                            <div class="list-1">
-                                                <div class="category-title-box">
-                                                    <h5>Breakfast Cereals</h5>
-                                                </div>
-                                                <ul>
-                                                    <li>
-                                                        <a href="javascript:void(0)">Oats & Porridge</a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="javascript:void(0)">Kids Cereal</a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="javascript:void(0)">Muesli</a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="javascript:void(0)">Flakes</a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="javascript:void(0)">Granola & Cereal Bars</a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="javascript:void(0)">Instant Noodles</a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="javascript:void(0)">Pasta & Macaroni</a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="javascript:void(0)">Frozen Non-Veg Snacks</a>
-                                                    </li>
-                                                </ul>
-                                            </div>
-
-                                            <div class="list-2">
-                                                <div class="category-title-box">
-                                                    <h5>Dairy</h5>
-                                                </div>
-                                                <ul>
-                                                    <li>
-                                                        <a href="javascript:void(0)">Milk</a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="javascript:void(0)">Curd</a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="javascript:void(0)">Paneer, Tofu & Cream</a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="javascript:void(0)">Butter & Margarine</a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="javascript:void(0)">Condensed, Powdered Milk</a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="javascript:void(0)">Buttermilk & Lassi</a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="javascript:void(0)">Yogurt & Shrikhand</a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="javascript:void(0)">Flavoured, Soya Milk</a>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </li>
-
-                                    <li class="onhover-category-list">
-                                        <a href="javascript:void(0)" class="category-name">
-                                            <img src="https://themes.pixelstrap.com/fastkart/assets/svg/1/frozen.svg" alt="">
-                                            <h6>Frozen Foods</h6>
-                                            <i class="fa-solid fa-angle-right"></i>
-                                        </a>
-
-                                        <div class="onhover-category-box w-100">
-                                            <div class="list-1">
-                                                <div class="category-title-box">
-                                                    <h5>Noodle, Pasta</h5>
-                                                </div>
-                                                <ul>
-                                                    <li>
-                                                        <a href="javascript:void(0)">Instant Noodles</a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="javascript:void(0)">Hakka Noodles</a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="javascript:void(0)">Cup Noodles</a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="javascript:void(0)">Vermicelli</a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="javascript:void(0)">Instant Pasta</a>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </li>
-
-                                    <li class="onhover-category-list">
-                                        <a href="javascript:void(0)" class="category-name">
-                                            <img src="https://themes.pixelstrap.com/fastkart/assets/svg/1/biscuit.svg" alt="">
-                                            <h6>Biscuits & Snacks</h6>
-                                            <i class="fa-solid fa-angle-right"></i>
-                                        </a>
-
-                                        <div class="onhover-category-box">
-                                            <div class="list-1">
-                                                <div class="category-title-box">
-                                                    <h5>Biscuits & Cookies</h5>
-                                                </div>
-                                                <ul>
-                                                    <li>
-                                                        <a href="javascript:void(0)">Salted Biscuits</a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="javascript:void(0)">Marie, Health, Digestive</a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="javascript:void(0)">Cream Biscuits & Wafers</a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="javascript:void(0)">Glucose & Milk Biscuits</a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="javascript:void(0)">Cookies</a>
-                                                    </li>
-                                                </ul>
-                                            </div>
-
-                                            <div class="list-2">
-                                                <div class="category-title-box">
-                                                    <h5>Bakery Snacks</h5>
-                                                </div>
-                                                <ul>
-                                                    <li>
-                                                        <a href="javascript:void(0)">Bread Sticks & Lavash</a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="javascript:void(0)">Cheese & Garlic Bread</a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="javascript:void(0)">Puffs, Patties, Sandwiches</a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="javascript:void(0)">Breadcrumbs & Croutons</a>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </li>
-
-                                    <li class="onhover-category-list">
-                                        <a href="javascript:void(0)" class="category-name">
-                                            <img src="https://themes.pixelstrap.com/fastkart/assets/svg/1/grocery.svg" alt="">
-                                            <h6>Grocery & Staples</h6>
-                                            <i class="fa-solid fa-angle-right"></i>
-                                        </a>
-
-                                        <div class="onhover-category-box">
-                                            <div class="list-1">
-                                                <div class="category-title-box">
-                                                    <h5>Grocery</h5>
-                                                </div>
-                                                <ul>
-                                                    <li>
-                                                        <a href="javascript:void(0)">Lemon, Ginger & Garlic</a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="javascript:void(0)">Indian & Exotic Herbs</a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="javascript:void(0)">Organic Vegetables</a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="javascript:void(0)">Organic Fruits</a>
-                                                    </li>
-                                                </ul>
-                                            </div>
-
-                                            <div class="list-2">
-                                                <div class="category-title-box">
-                                                    <h5>Organic Staples</h5>
-                                                </div>
-                                                <ul>
-                                                    <li>
-                                                        <a href="javascript:void(0)">Organic Dry Fruits</a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="javascript:void(0)">Organic Dals & Pulses</a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="javascript:void(0)">Organic Millet & Flours</a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="javascript:void(0)">Organic Sugar, Jaggery</a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="javascript:void(0)">Organic Masalas & Spices</a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="javascript:void(0)">Organic Rice, Other Rice</a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="javascript:void(0)">Organic Flours</a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="javascript:void(0)">Organic Edible Oil, Ghee</a>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </li>
-                                </ul>
+							</ul>
                             </div>
                         </div>
 
@@ -693,73 +348,12 @@
                                     </div>
                                     <div class="offcanvas-body">
                                         <ul class="navbar-nav">
-                                            <li class="nav-item dropdown">
-                                                <a class="nav-link dropdown-toggle" href="javascript:void(0)"
-                                                    data-bs-toggle="dropdown">Home</a>
-
-                                                <ul class="dropdown-menu">
-                                                    <li>
-                                                        <a class="dropdown-item" href="index.html">Kartshop</a>
-                                                    </li>
-                                                    <li>
-                                                        <a class="dropdown-item" href="index-2.html">Sweetshop</a>
-                                                    </li>
-                                                    <li>
-                                                        <a class="dropdown-item" href="index-3.html">Organic</a>
-                                                    </li>
-                                                    <li>
-                                                        <a class="dropdown-item" href="index-4.html">Supershop</a>
-                                                    </li>
-                                                    <li>
-                                                        <a class="dropdown-item" href="index-5.html">Classic shop</a>
-                                                    </li>
-                                                    <li>
-                                                        <a class="dropdown-item" href="index-6.html">Furniture</a>
-                                                    </li>
-                                                    <li>
-                                                        <a class="dropdown-item" href="index-7.html">Search Oriented</a>
-                                                    </li>
-                                                    <li>
-                                                        <a class="dropdown-item" href="index-8.html">Category Focus</a>
-                                                    </li>
-                                                    <li>
-                                                        <a class="dropdown-item" href="index-9.html">Fashion</a>
-                                                    </li>
-                                                </ul>
+                                            <li class="nav-item">
+                                                <a class="nav-link" href="/">Home</a>
                                             </li>
 
-                                            <li class="nav-item dropdown">
-                                                <a class="nav-link dropdown-toggle" href="javascript:void(0)"
-                                                    data-bs-toggle="dropdown">Shop</a>
-
-                                                <ul class="dropdown-menu">
-                                                    <li>
-                                                        <a class="dropdown-item" href="shop-category-slider.html">Shop
-                                                            Category Slider</a>
-                                                    </li>
-                                                    <li>
-                                                        <a class="dropdown-item" href="shop-category.html">Shop
-                                                            Category Sidebar</a>
-                                                    </li>
-                                                    <li>
-                                                        <a class="dropdown-item" href="shop-banner.html">Shop Banner</a>
-                                                    </li>
-                                                    <li>
-                                                        <a class="dropdown-item" href="shop-left-sidebar.html">Shop Left
-                                                            Sidebar</a>
-                                                    </li>
-                                                    <li>
-                                                        <a class="dropdown-item" href="shop-list.html">Shop List</a>
-                                                    </li>
-                                                    <li>
-                                                        <a class="dropdown-item" href="shop-right-sidebar.html">Shop
-                                                            Right Sidebar</a>
-                                                    </li>
-                                                    <li>
-                                                        <a class="dropdown-item" href="shop-top-filter.html">Shop Top
-                                                            Filter</a>
-                                                    </li>
-                                                </ul>
+                                            <li class="nav-item">
+                                                <a class="nav-link" href="/shop">Shop</a>
                                             </li>
 
                                             <li class="nav-item dropdown">

@@ -112,12 +112,6 @@
                         </div>
 
                         <div class="input-box">
-							<div th:if="${param.error}">
-								<p style="color: red;">Invalid username or password</p>
-							</div>
-							<div class="alert alert-success" role="alert" th:text="${success}" th:if="${success}"></div>
-							<div class="alert alert-danger" role="alert" th:text="${error}" th:if="${error}"></div>
-							
                             <form class="row g-4" method="post">
                                 <div class="col-12">
                                     <div class="form-floating theme-form-floating log-in-form">
@@ -136,7 +130,7 @@
                                 <div class="col-12">
                                     <div class="forgot-box">
                                         <div class="form-check ps-0 m-0 remember-box">
-                                            <input class="checkbox_animated check-box" type="checkbox" id="flexCheckDefault">
+                                            <input class="checkbox_animated check-box" name="remember-me" type="checkbox" id="flexCheckDefault">
                                             <label class="form-check-label" for="flexCheckDefault">Remember me</label>
                                         </div>
                                         <a href="forgot" class="forgot-password">Forgot Password?</a>
@@ -157,13 +151,13 @@
                         <div class="log-in-button">
                             <ul>
                                 <li>
-                                    <a href="https://www.google.com/" class="btn google-button w-100">
+                                    <a th:href="@{/oauth2/authorization/google}" class="btn google-button w-100">
                                         <img src="../assets/images/inner-page/google.png" class="blur-up lazyload"
                                             alt=""> Log In with Google
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="https://www.facebook.com/" class="btn google-button w-100">
+                                    <a th:href="@{/oauth2/authorization/facebook}" class="btn google-button w-100">
                                         <img src="../assets/images/inner-page/facebook.png" class="blur-up lazyload"
                                             alt=""> Log In with Facebook
                                     </a>
@@ -244,6 +238,37 @@
         </div>
     </div>
     <!-- Tap to top end -->
+    
+    <div th:if="${param.error}" class="position-fixed top-0 end-0 p-3 d-flex"
+		style="animation: slideIn 0.5s ease-in-out forwards; z-index: 100; z-index: 100;">
+		<div class="toast fade show bg-light" id="errorToast">
+			<div class="toast-body theme-color text-center h6">Invalid username or password</div>
+		</div>
+	</div>
+	
+	<div th:if="${param.logout}" class="position-fixed top-0 end-0 p-3 d-flex"
+		style="animation: slideIn 0.5s ease-in-out forwards; z-index: 100; z-index: 100;">
+		<div class="toast fade show bg-light" id="errorToast">
+			<div class="toast-body theme-color text-center h6">You have been logged out !!!</div>
+		</div>
+	</div>
+
+	<div th:if="${success}" class="position-fixed top-0 end-0 p-3 d-flex"
+		style="animation: slideIn 0.5s ease-in-out forwards; z-index: 100; z-index: 100;">
+		<div class="toast fade show bg-light" id="errorToast">
+			<div class="toast-body theme-color text-center h6">[[${success}]]</div>
+		</div>
+	</div>
+
+	<script type="text/javascript">
+	document.addEventListener('DOMContentLoaded', function() {
+		setTimeout(function() {
+			var errorToast = document.getElementById('errorToast');
+			var bsToast = new bootstrap.Toast(errorToast);
+			bsToast.hide();
+		}, 3000); // Adjust the time in milliseconds as needed
+	});
+	</script>
 
     <!-- Bg overlay Start -->
     <div class="bg-overlay"></div>

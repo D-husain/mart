@@ -16,8 +16,7 @@
     <!--Google font-->
     <link rel="preconnect" href="https://fonts.googleapis.com/">
     <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@200;300;400;600;700;800;900&amp;display=swap"
-        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@200;300;400;600;700;800;900&amp;display=swap" rel="stylesheet">
 
     <!-- Icons -->
     <link rel="stylesheet" type="text/css" href="invoice/assets/css/vendors/font-awesome.css">
@@ -28,11 +27,6 @@
     <!-- Theme css -->
     <link rel="stylesheet" type="text/css" href="invoice/assets/css/style.css">
     
-    <!-- Include jsPDF library -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
-    <!-- Include jsPDF Autotable plugin -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.13/jspdf.plugin.autotable.min.js"></script>
-
 </head>
 
 <body class="bg-light">
@@ -64,12 +58,9 @@
 
                                             <div class="address-box">
                                                 <ul>
-                                                    <li class="theme-color">Issue Date : <span class="text-content">20
-                                                            March, 2022</span></li>
-                                                    <li class="theme-color">Invoice No : <span
-                                                            class="text-content">904679</span></li>
-                                                    <li class="theme-color">Email : <span
-                                                            class="text-content">user@gmail.com</span></li>
+                                                    <li class="theme-color">Issue Date : <span class="text-content">20 March, 2022</span></li>
+                                                    <li class="theme-color">Invoice No : <span class="text-content">904679</span></li>
+                                                    <li class="theme-color">Email : <span class="text-content">user@gmail.com</span></li>
                                                 </ul>
                                             </div>
                                         </div>
@@ -131,8 +122,7 @@
                                                 <td>
                                                     <ul class="text-start item-detail">
                                                         <li>Dates Medjoul Premium...</li>
-                                                        <li class="text-content">Lorem ipsum dolor sit, amet,
-                                                            consectetur adipisicing elit.
+                                                        <li class="text-content">Lorem ipsum dolor sit, amet, consectetur adipisicing elit.
                                                         </li>
                                                     </ul>
                                                 </td>
@@ -146,8 +136,7 @@
                                                 <td>
                                                     <ul class="text-start item-detail">
                                                         <li>Good Life Walnut Kernels...</li>
-                                                        <li class="text-content">Lorem ipsum dolor sit, amet,
-                                                            consectetur adipisicing elit.
+                                                        <li class="text-content">Lorem ipsum dolor sit, amet, consectetur adipisicing elit.
                                                         </li>
                                                     </ul>
                                                 </td>
@@ -219,27 +208,6 @@
             </div>
         </div>
     </section>
-
-	<script>
-        // Function to generate PDF
-        function generatePDF() {
-            var doc = new jsPDF('p', 'pt', 'a4');
-
-            // Add the content to the PDF
-            var element = document.getElementById('invoiceid');
-            
-            // Generate PDF from HTML
-            doc.html(element, {
-                callback: function (doc) {
-                    // Save the PDF with a filename
-                    doc.save('invoice.pdf');
-                }
-            });
-        }
-    </script>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
-<!-- Example with CDN -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
 
 </body>
 

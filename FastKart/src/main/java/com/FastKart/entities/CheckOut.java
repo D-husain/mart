@@ -21,27 +21,17 @@ public class CheckOut {
 	@ManyToOne
 	@JoinColumn(name = "address_id")
 	private Address address;
+	private String deliveryoption;
+	private String paymentoption;
+	
+	@ManyToOne
+	@JoinColumn(name = "user_id")
+	private User user;
 	
 	private LocalDateTime created_at;
 	private LocalDateTime updated_at;
 	
 	
-	public CheckOut() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
-	public CheckOut(int id, Address address, LocalDateTime created_at, LocalDateTime updated_at) {
-		super();
-		this.id = id;
-		this.address = address;
-		this.created_at = created_at;
-		this.updated_at = updated_at;
-	}
-	@Override
-	public String toString() {
-		return "CheckOut [id=" + id + ", address=" + address + ", created_at=" + created_at + ", updated_at="
-				+ updated_at + "]";
-	}
 	public int getId() {
 		return id;
 	}
@@ -53,6 +43,24 @@ public class CheckOut {
 	}
 	public void setAddress(Address address) {
 		this.address = address;
+	}
+	public String getDeliveryoption() {
+		return deliveryoption;
+	}
+	public void setDeliveryoption(String deliveryoption) {
+		this.deliveryoption = deliveryoption;
+	}
+	public String getPaymentoption() {
+		return paymentoption;
+	}
+	public void setPaymentoption(String paymentoption) {
+		this.paymentoption = paymentoption;
+	}
+	public User getUser() {
+		return user;
+	}
+	public void setUser(User user) {
+		this.user = user;
 	}
 	public LocalDateTime getCreated_at() {
 		return created_at;
@@ -66,4 +74,26 @@ public class CheckOut {
 	public void setUpdated_at(LocalDateTime updated_at) {
 		this.updated_at = updated_at;
 	}
+	
+	@Override
+	public String toString() {
+		return "CheckOut [id=" + id + ", address=" + address + ", deliveryoption=" + deliveryoption + ", paymentoption="
+				+ paymentoption + ", user=" + user + ", created_at=" + created_at + ", updated_at=" + updated_at + "]";
+	}
+	public CheckOut(int id, Address address, String deliveryoption, String paymentoption, User user,
+			LocalDateTime created_at, LocalDateTime updated_at) {
+		super();
+		this.id = id;
+		this.address = address;
+		this.deliveryoption = deliveryoption;
+		this.paymentoption = paymentoption;
+		this.user = user;
+		this.created_at = created_at;
+		this.updated_at = updated_at;
+	}
+	public CheckOut() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+	
 }

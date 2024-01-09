@@ -11,7 +11,7 @@
     <meta name="keywords" content="Fastkart">
     <meta name="author" content="Fastkart">
     <link rel="icon" href="../assets/images/favicon/1.png" type="image/x-icon">
-    <title>On-demand last-mile delivery</title>
+    <title>Fast kart</title>
 
     <!-- Google font -->
     <link rel="preconnect" href="https://fonts.gstatic.com/">
@@ -47,6 +47,8 @@
 
     <!-- Template css -->
     <link id="color-link" rel="stylesheet" type="text/css" href="../assets/css/style.css">
+    
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 
 <body class="bg-effect">
@@ -212,155 +214,24 @@
                         <div class="category-menu">
                             <h3>Category</h3>
                             <ul>
-                                <li>
+                                <li th:each="c, iterStat : ${categoryshow}">
                                     <div class="category-list">
                                         <img src="https://themes.pixelstrap.com/fastkart/assets/svg/1/vegetable.svg" class="blur-up lazyload" alt="">
                                         <h5>
-                                            <a href="shop-left-sidebar.html">Vegetables & Fruit</a>
+                                            <a href="shop-left-sidebar.html">[[${c.cname}]]</a>
                                         </h5>
                                     </div>
                                 </li>
-                                <li>
-                                    <div class="category-list">
-                                        <img src="https://themes.pixelstrap.com/fastkart/assets/svg/1/cup.svg" class="blur-up lazyload" alt="">
-                                        <h5>
-                                            <a href="shop-left-sidebar.html">Beverages</a>
-                                        </h5>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="category-list">
-                                        <img src="https://themes.pixelstrap.com/fastkart/assets/svg/1/meats.svg" class="blur-up lazyload" alt="">
-                                        <h5>
-                                            <a href="shop-left-sidebar.html">Meats & Seafood</a>
-                                        </h5>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="category-list">
-                                        <img src="https://themes.pixelstrap.com/fastkart/assets/svg/1/breakfast.svg" class="blur-up lazyload" alt="">
-                                        <h5>
-                                            <a href="shop-left-sidebar.html">Breakfast & Dairy</a>
-                                        </h5>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="category-list">
-                                        <img src="https://themes.pixelstrap.com/fastkart/assets/svg/1/frozen.svg" class="blur-up lazyload" alt="">
-                                        <h5>
-                                            <a href="shop-left-sidebar.html">Frozen Foods</a>
-                                        </h5>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="category-list">
-                                        <img src="https://themes.pixelstrap.com/fastkart/assets/svg/1/biscuit.svg" class="blur-up lazyload" alt="">
-                                        <h5>
-                                            <a href="shop-left-sidebar.html">Biscuits & Snacks</a>
-                                        </h5>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="category-list">
-                                        <img src="https://themes.pixelstrap.com/fastkart/assets/svg/1/grocery.svg" class="blur-up lazyload" alt="">
-                                        <h5>
-                                            <a href="shop-left-sidebar.html">Grocery & Staples</a>
-                                        </h5>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="category-list">
-                                        <img src="https://themes.pixelstrap.com/fastkart/assets/svg/1/drink.svg" class="blur-up lazyload" alt="">
-                                        <h5>
-                                            <a href="shop-left-sidebar.html">Wines & Alcohol Drinks</a>
-                                        </h5>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="category-list">
-                                        <img src="https://themes.pixelstrap.com/fastkart/assets/svg/1/milk.svg" class="blur-up lazyload" alt="">
-                                        <h5>
-                                            <a href="shop-left-sidebar.html">Milk & Dairies</a>
-                                        </h5>
-                                    </div>
-                                </li>
-                                <li class="pb-30">
-                                    <div class="category-list">
-                                        <img src="https://themes.pixelstrap.com/fastkart/assets/svg/1/pet.svg" class="blur-up lazyload" alt="">
-                                        <h5>
-                                            <a href="shop-left-sidebar.html">Pet Foods</a>
-                                        </h5>
-                                    </div>
-                                </li>
+                               <br>
                             </ul>
-
-                            <!-- <ul class="value-list">
-                                <li>
-                                    <div class="category-list">
-                                        <h5 class="ms-0 text-title">
-                                            <a href="shop-left-sidebar.html">Value of the Day</a>
-                                        </h5>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="category-list">
-                                        <h5 class="ms-0 text-title">
-                                            <a href="shop-left-sidebar.html">Top 50 Offers</a>
-                                        </h5>
-                                    </div>
-                                </li>
-                                <li class="mb-0">
-                                    <div class="category-list">
-                                        <h5 class="ms-0 text-title">
-                                            <a href="shop-left-sidebar.html">New Arrivals</a>
-                                        </h5>
-                                    </div>
-                                </li>
-                            </ul> -->
                         </div>
 
-                        <div class="ratio_156 section-t-space">
-                            <div class="home-contain hover-effect">
-                                <img src="../assets/images/vegetable/banner/8.jpg" class="bg-img blur-up lazyload"
-                                    alt="">
-                                <div class="home-detail p-top-left home-p-medium">
-                                    <div>
-                                        <h6 class="text-yellow home-banner">Seafood</h6>
-                                        <h3 class="text-uppercase fw-normal"><span
-                                                class="theme-color fw-bold">Freshes</span> Products</h3>
-                                        <h3 class="fw-light">every hour</h3>
-                                        <button onclick="location.href = '/shop';"
-                                            class="btn btn-animation btn-md mend-auto">Shop Now <i
-                                                class="fa-solid fa-arrow-right icon"></i></button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
 
-                        <div class="ratio_medium section-t-space">
-                            <div class="home-contain hover-effect">
-                                <img src="../assets/images/vegetable/banner/11.jpg" class="img-fluid blur-up lazyload"
-                                    alt="">
-                                <div class="home-detail p-top-left home-p-medium">
-                                    <div>
-                                        <h4 class="text-yellow text-exo home-banner">Organic</h4>
-                                        <h2 class="text-uppercase fw-normal mb-0 text-russo theme-color">fresh</h2>
-                                        <h2 class="text-uppercase fw-normal text-title">Vegetables</h2>
-                                        <p class="mb-3">Super Offer to 50% Off</p>
-                                        <button onclick="location.href = 'shop-left-sidebar.html';"
-                                            class="btn btn-animation btn-md mend-auto">Shop Now <i
-                                                class="fa-solid fa-arrow-right icon"></i></button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="section-t-space">
+                        <div th:if="${Latestproducts.size() > 0}" class="section-t-space">
                             <div class="category-menu">
-                                <h3>Trending Products</h3>
-
+                                <h3>Latest Products</h3>
                                 <ul class="product-list border-0 p-0 d-block">
-                                    <li>
+                                    <li th:each="p, iterStat : ${Latestproducts}">
                                         <div class="offer-product">
                                             <a href="product-left-thumbnail.html" class="offer-image">
                                                 <img src="../assets/images/vegetable/product/23.png"
@@ -370,67 +241,10 @@
                                             <div class="offer-detail">
                                                 <div>
                                                     <a href="product-left-thumbnail.html" class="text-title">
-                                                        <h6 class="name">Meatigo Premium Goat Curry</h6>
+                                                        <h6 class="name">[[${p.pname}]]</h6>
                                                     </a>
                                                     <span>450 G</span>
-                                                    <h6 class="price theme-color">$ 70.00</h6>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </li>
-
-                                    <li>
-                                        <div class="offer-product">
-                                            <a href="product-left-thumbnail.html" class="offer-image">
-                                                <img src="../assets/images/vegetable/product/24.png"
-                                                    class="blur-up lazyload" alt="">
-                                            </a>
-
-                                            <div class="offer-detail">
-                                                <div>
-                                                    <a href="product-left-thumbnail.html" class="text-title">
-                                                        <h6 class="name">Dates Medjoul Premium Imported</h6>
-                                                    </a>
-                                                    <span>450 G</span>
-                                                    <h6 class="price theme-color">$ 40.00</h6>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </li>
-
-                                    <li>
-                                        <div class="offer-product">
-                                            <a href="product-left-thumbnail.html" class="offer-image">
-                                                <img src="../assets/images/vegetable/product/25.png"
-                                                    class="blur-up lazyload" alt="">
-                                            </a>
-
-                                            <div class="offer-detail">
-                                                <div>
-                                                    <a href="product-left-thumbnail.html" class="text-title">
-                                                        <h6 class="name">Good Life Walnut Kernels</h6>
-                                                    </a>
-                                                    <span>200 G</span>
-                                                    <h6 class="price theme-color">$ 52.00</h6>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </li>
-
-                                    <li class="mb-0">
-                                        <div class="offer-product">
-                                            <a href="product-left-thumbnail.html" class="offer-image">
-                                                <img src="../assets/images/vegetable/product/26.png"
-                                                    class="blur-up lazyload" alt="">
-                                            </a>
-
-                                            <div class="offer-detail">
-                                                <div>
-                                                    <a href="product-left-thumbnail.html" class="text-title">
-                                                        <h6 class="name">Apple Red Premium Imported</h6>
-                                                    </a>
-                                                    <span>1 KG</span>
-                                                    <h6 class="price theme-color">$ 80.00</h6>
+                                                    <h6 class="price theme-color">₹[[${p.discount_price}]]</h6>
                                                 </div>
                                             </div>
                                         </div>
@@ -478,7 +292,7 @@
                             </span>
                             <p>Don't miss this opportunity at a special discount just for this week.</p>
                         </div>
-                        <div class="timing-box">
+                        <div th:if="${Todayproducts.size() > 0}" class="timing-box">
                             <div class="timing">
                                 <i data-feather="clock"></i>
                                 <h6 class="name">Expires in :</h6>
@@ -522,17 +336,20 @@
                     <div class="product-border overflow-hidden wow fadeInUp">
                         <div class="product-box-slider no-arrow">
                         
-                            <div>
+                            <div th:each="p, iterStat : ${Todayproducts}">
                                 <div class="row m-0">
                                     <div class="col-12 px-0">
                                         <div class="product-box">
                                             <div class="product-image">
+													<form th:id="'addToWishlistForm'+${iterStat.index+1}">
 													<div class="label-flex product-detail">
-														<button class="btn p-0 wishlist btn-wishlist notifi-wishlist">
+													<input type="hidden" name="pid" th:value="${p.id}">
+														<button th:id="'addToWishlistBtn'+${iterStat.index+1}" class="btn p-0 wishlist btn-wishlist">
 															<!-- <i class="fa-solid fa-heart"></i> -->
 															<i class="fa-regular fa-heart theme-color"></i>
 														</button>
 													</div>
+														</form>
 													<a href="/product-details">
                                                     <img src="../assets/images/vegetable/product/1.png" class="img-fluid blur-up lazyload" alt="">
                                                 </a>
@@ -547,12 +364,12 @@
                                             </div>
                                             <div class="product-detail">
                                                 <a href="/product-details">
-                                                    <h6 class="name h-100">Chocalate Powder</h6>
+                                                    <h6 class="name h-100">[[${p.pname}]]</h6>
                                                 </a>
 
                                                 <h5 class="sold text-content">
-                                                    <span class="theme-color price">$26.69</span>
-                                                    <del>28.56</del>
+                                                    <span class="theme-color price">₹[[${p.discount_price}]]</span>
+                                                    <del>₹[[${p.price}]]</del>
                                                 </h5>
 
                                                 <div class="product-rating mt-sm-2 mt-1">
@@ -576,18 +393,24 @@
 
                                                     <h6 class="theme-color">In Stock</h6>
                                                 </div>
-
+												
+												<form th:id="'addToCartForm'+${iterStat.index+1}">
+												<input type="hidden" name="pid" th:value="${p.id}">
+												<input type="hidden" name="qty" th:value="1">
                                                 <div class="add-to-cart-box">
-                                                    <button class="btn btn-add-cart addcart-button theme-color">Add
+                                                    <button th:id="'addToCartBtn'+${iterStat.index+1}" class="btn btn-add-cart addcart-button theme-color">Add
                                                     <span style="margin-left: 10px;"><i class="fa-solid fa-bag-shopping theme-color"></i></span>
                                                     </button>
                                                 </div>
+                                                </form>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            
+                             <div th:unless="${Todayproducts.size() > 0}">
+								<p>no product</p>                            
+                            </div>
                         </div>
                     </div>
                     </div><br>
@@ -603,68 +426,16 @@
                     </div>
 
                     <div class="category-slider-2 product-wrapper no-arrow">
-                        <div>
+                    
+                        <div  th:each="c, iterStat : ${Weekcategory}">
                             <a href="shop-left-sidebar.html" class="category-box category-dark">
                                 <div>
                                     <img src="https://themes.pixelstrap.com/fastkart/assets/svg/1/vegetable.svg" class="blur-up lazyload" alt="">
-                                    <h5>Vegetables & Fruit</h5>
+                                    <h5>[[${c.cname}]]</h5>
                                 </div>
                             </a>
                         </div>
 
-                        <div>
-                            <a href="shop-left-sidebar.html" class="category-box category-dark">
-                                <div>
-                                    <img src="https://themes.pixelstrap.com/fastkart/assets/svg/1/cup.svg" class="blur-up lazyload" alt="">
-                                    <h5>Beverages</h5>
-                                </div>
-                            </a>
-                        </div>
-
-                        <div>
-                            <a href="shop-left-sidebar.html" class="category-box category-dark">
-                                <div>
-                                    <img src="https://themes.pixelstrap.com/fastkart/assets/svg/1/meats.svg" class="blur-up lazyload" alt="">
-                                    <h5>Meats & Seafood</h5>
-                                </div>
-                            </a>
-                        </div>
-
-                        <div>
-                            <a href="shop-left-sidebar.html" class="category-box category-dark">
-                                <div>
-                                    <img src="https://themes.pixelstrap.com/fastkart/assets/svg/1/breakfast.svg" class="blur-up lazyload" alt="">
-                                    <h5>Breakfast</h5>
-                                </div>
-                            </a>
-                        </div>
-
-                        <div>
-                            <a href="shop-left-sidebar.html" class="category-box category-dark">
-                                <div>
-                                    <img src="https://themes.pixelstrap.com/fastkart/assets/svg/1/frozen.svg" class="blur-up lazyload" alt="">
-                                    <h5>Frozen Foods</h5>
-                                </div>
-                            </a>
-                        </div>
-
-                        <div>
-                            <a href="shop-left-sidebar.html" class="category-box category-dark">
-                                <div>
-                                    <img src="https://themes.pixelstrap.com/fastkart/assets/svg/1/milk.svg" class="blur-up lazyload" alt="">
-                                    <h5>Milk & Dairies</h5>
-                                </div>
-                            </a>
-                        </div>
-
-                        <div>
-                            <a href="shop-left-sidebar.html" class="category-box category-dark">
-                                <div>
-                                    <img src="https://themes.pixelstrap.com/fastkart/assets/svg/1/pet.svg" class="blur-up lazyload" alt="">
-                                    <h5>Pet Food</h5>
-                                </div>
-                            </a>
-                        </div>
                     </div>
 
                     <div class="section-t-space section-b-space">
@@ -703,7 +474,7 @@
                     </div>
 
                     <div class="title d-block">
-                        <h2>Food Cupboard</h2>
+                        <h2>Pet Foods</h2>
                         <span class="title-leaf">
                             <svg class="icon-width">
                                 <use xlink:href="https://themes.pixelstrap.com/fastkart/assets/svg/leaf.svg#leaf"></use>
@@ -714,7 +485,7 @@
 
                     <div class="product-border overflow-hidden wow fadeInUp">
                         <div class="product-box-slider no-arrow">
-                            <div>
+                            <div th:each="p, iterStat : ${Petfood}">
                                 <div class="row m-0">
                                     <div class="col-12 px-0">
                                         <div class="product-box">
@@ -780,23 +551,33 @@
                                     </div>
                                 </div>
                             </div>
-
-                        </div>
-                    </div>
-
-                    <div class="section-t-space">
-                        <div class="banner-contain">
-                            <img src="../assets/images/vegetable/banner/15.jpg" class="bg-img blur-up lazyload" alt="">
-                            <div class="banner-details p-center p-4 text-white text-center">
-                                <div>
-                                    <h3 class="lh-base fw-bold offer-text">Get $3 Cashback! Min Order of $30</h3>
-                                    <h6 class="coupon-code">Use Code : GROCERY1920</h6>
-                                </div>
+                            
+                            <div th:unless="${Petfood.size() > 0}">
+								<p>no product</p>                            
                             </div>
+
                         </div>
                     </div>
 
-                    <div class="section-t-space section-b-space">
+					<div class="section-t-space">
+						<div class="banner-contain">
+							<img src="../assets/images/vegetable/banner/15.jpg"
+								class="bg-img blur-up lazyload" alt="">
+							<div class="banner-details p-center p-4 text-white text-center">
+								<div>
+									<h3 class="lh-base fw-bold offer-text">Get 10% Discount!</h3>
+									<h6 class="coupon-code">
+										Your Promo Code: <span id="coupon">FREE10</span>
+										<button class="border-0 bg-transparent" id="copyButton">
+											<i class="fa-regular fa-copy text-white"></i>
+										</button>
+									</h6>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<div class="section-t-space section-b-space">
                         <div class="row g-md-4 g-3">
                             <div class="col-xxl-8 col-xl-12 col-md-7">
                                 <div class="banner-contain hover-effect">
@@ -832,93 +613,94 @@
                         </div>
                     </div>
 
-                    <div class="title d-block">
-                        <div>
-                            <h2>Our best Seller</h2>
-                            <span class="title-leaf">
-                                <svg class="icon-width">
-                                    <use xlink:href="https://themes.pixelstrap.com/fastkart/assets/svg/leaf.svg#leaf"></use>
-                                </svg>
-                            </span>
-                            <p>A virtual assistant collects the products from your list</p>
-                        </div>
+
+					<div class="title d-block">
+                        <h2>Snacks Foods</h2>
+                        <span class="title-leaf">
+                            <svg class="icon-width">
+                                <use xlink:href="https://themes.pixelstrap.com/fastkart/assets/svg/leaf.svg#leaf"></use>
+                            </svg>
+                        </span>
+                        <p>A virtual assistant collects the products from your list</p>
                     </div>
 
-                    <div class="best-selling-slider product-wrapper wow fadeInUp">
-                        <div>
-                            <ul class="product-list">
-                                <li>
-                                    <div class="offer-product">
-                                        <a href="product-left-thumbnail.html" class="offer-image">
-                                            <img src="../assets/images/vegetable/product/11.png"
-                                                class="blur-up lazyload" alt="">
-                                        </a>
-
-                                        <div class="offer-detail">
-                                            <div>
-                                                <a href="product-left-thumbnail.html" class="text-title">
-                                                    <h6 class="name">Tuffets Whole Wheat Bread</h6>
+                    <div class="product-border overflow-hidden wow fadeInUp">
+                        <div class="product-box-slider no-arrow">
+                            <div th:each="p, iterStat : ${Snacksfood}">
+                                <div class="row m-0">
+                                    <div class="col-12 px-0">
+                                        <div class="product-box">
+                                            <div class="product-image">
+                                            <div class="label-flex product-detail">
+														<button class="btn p-0 wishlist btn-wishlist notifi-wishlist">
+															<!-- <i class="fa-solid fa-heart"></i> -->
+															<i class="fa-regular fa-heart theme-color"></i>
+														</button>
+													</div>
+                                                <a href="product-left-thumbnail.html">
+                                                    <img src="../assets/images/vegetable/product/1.png"
+                                                        class="img-fluid blur-up lazyload" alt="">
                                                 </a>
-                                                <span>500 G</span>
-                                                <h6 class="price theme-color">$ 10.00</h6>
+                                                <ul style="justify-content: space-evenly;" class="product-option">
+                                                    <li data-bs-toggle="tooltip" data-bs-placement="top" title="">
+                                                        <a href="javascript:void(0)" data-bs-toggle="modal"
+                                                            data-bs-target="#view">
+                                                            <i data-feather="eye"></i>
+                                                        </a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                            <div class="product-detail">
+                                                <a href="product-left-thumbnail.html">
+                                                    <h6 class="name h-100">Chocalate Powder</h6>
+                                                </a>
+
+                                                <h5 class="sold text-content">
+                                                    <span class="theme-color price">$26.69</span>
+                                                    <del>28.56</del>
+                                                </h5>
+
+                                                <div class="product-rating mt-sm-2 mt-1">
+                                                    <ul class="rating">
+                                                        <li>
+                                                            <i data-feather="star" class="fill"></i>
+                                                        </li>
+                                                        <li>
+                                                            <i data-feather="star" class="fill"></i>
+                                                        </li>
+                                                        <li>
+                                                            <i data-feather="star" class="fill"></i>
+                                                        </li>
+                                                        <li>
+                                                            <i data-feather="star" class="fill"></i>
+                                                        </li>
+                                                        <li>
+                                                            <i data-feather="star"></i>
+                                                        </li>
+                                                    </ul>
+
+                                                    <h6 class="theme-color">In Stock</h6>
+                                                </div>
+
+                                                <div class="add-to-cart-box">
+                                                    <button class="btn btn-add-cart addcart-button theme-color">Add
+                                                    <span style="margin-left: 10px;"><i class="fa-solid fa-bag-shopping theme-color"></i></span>
+                                                    </button>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
-                                </li>
+                                </div>
+                            </div>
+                            
+                            <div th:unless="${Snacksfood.size() > 0}">
+								<p>no product</p>                            
+                            </div>
 
-                            </ul>
-                        </div>
-
-                        <div>
-                            <ul class="product-list">
-                                <li>
-                                    <div class="offer-product">
-                                        <a href="product-left-thumbnail.html" class="offer-image">
-                                            <img src="../assets/images/vegetable/product/15.png"
-                                                class="blur-up lazyload" alt="">
-                                        </a>
-
-                                        <div class="offer-detail">
-                                            <div>
-                                                <a href="product-left-thumbnail.html" class="text-title">
-                                                    <h6 class="name">Tuffets Britannia Cheezza</h6>
-                                                </a>
-                                                <span>500 G</span>
-                                                <h6 class="price theme-color">$ 10.00</h6>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </li>
-
-                            </ul>
-                        </div>
-
-                        <div>
-                            <ul class="product-list">
-                                <li>
-                                    <div class="offer-product">
-                                        <a href="product-left-thumbnail.html" class="offer-image">
-                                            <img src="../assets/images/vegetable/product/19.png"
-                                                class="blur-up lazyload" alt="">
-                                        </a>
-
-                                        <div class="offer-detail">
-                                            <div>
-                                                <a href="product-left-thumbnail.html" class="text-title">
-                                                    <h6 class="name">Good Life Refined Sunflower Oil</h6>
-                                                </a>
-                                                <span>1 L</span>
-                                                <h6 class="price theme-color">$ 10.00</h6>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </li>
-
-                            </ul>
                         </div>
                     </div>
-
-                    <div class="section-t-space">
+                    
+                      <div class="section-t-space">
                         <div class="banner-contain hover-effect">
                             <img src="../assets/images/vegetable/banner/14.jpg" class="bg-img blur-up lazyload" alt="">
                             <div class="banner-details p-center banner-b-space w-100 text-center">
@@ -1195,10 +977,53 @@
     <!-- Auto Height Js -->
     <script src="../assets/js/auto-height.js"></script>
 
-    <!-- Timer Js -->
-    <script src="../assets/js/timer1.js"></script>
+	<!-- Timer Js -->
+	<script>
+	  // Function to update countdown
+	  function updateCountdown() {
+	    const now = new Date(); // Get current time
+	    const endOfDay = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 23, 59, 59); // Set end of day time
+	
+	    const timeDiff = endOfDay - now; // Calculate time difference
+	
+	    if (timeDiff > 0) {
+	      const seconds = Math.floor((timeDiff / 1000) % 60);
+	      const minutes = Math.floor((timeDiff / 1000 / 60) % 60);
+	      const hours = Math.floor((timeDiff / (1000 * 60 * 60)) % 24);
+	      const days = Math.floor(timeDiff / (1000 * 60 * 60 * 24));
+	
+	      // Update HTML elements
+	      document.querySelector('#clockdiv-1 .days h6').textContent = days;
+	      document.querySelector('#clockdiv-1 .hours h6').textContent = hours;
+	      document.querySelector('#clockdiv-1 .minutes h6').textContent = minutes;
+	      document.querySelector('#clockdiv-1 .seconds h6').textContent = seconds;
+	    } else {
+	      // If the end time is reached, display 'Expired' or take relevant action
+	      document.querySelector('#clockdiv-1').innerHTML = '<h6>Expired</h6>';
+	    }
+	  }
+	
+	  // Update countdown every second
+	  setInterval(updateCountdown, 1000);
+	
+	  // Run once on page load
+	  updateCountdown();
+	</script>
 
-    <!-- Fly Cart Js -->
+	<script type="text/javascript">
+	document.getElementById('copyButton').addEventListener('click', function() {
+	    const couponCode = document.getElementById('coupon').innerText.trim();
+	    const el = document.createElement('textarea');
+	    el.value = couponCode;
+	    document.body.appendChild(el);
+	    el.select();
+	    document.execCommand('copy');
+	    document.body.removeChild(el);
+	    alert('Code copied to clipboard: ' + couponCode);
+	});
+	</script>
+	
+	<!-- Fly Cart Js -->
     <script src="../assets/js/fly-cart.js"></script>
 
     <!-- Quantity js -->
@@ -1213,6 +1038,100 @@
 
     <!-- thme setting js -->
     <script src="../assets/js/theme-setting.js"></script>
+    
+     <!-- ajax call --> 
+    <script type="text/javascript">
+    $(document).ready(function() {
+    	for (let i = 1; i <= 10000; i++) {
+    		$('#addToWishlistBtn' + i).click(function(e) {
+    			e.preventDefault(); // Prevent the default form submission
+
+    			var formData = $('#addToWishlistForm' + i).serialize(); // Serialize form data
+
+    			$.ajax({
+    				type: 'POST',
+    				url: 'user/addToWishlist',
+    				data: formData,
+    				success: function(response) {
+    					//fetchheaderwishData();
+    					//fetchwishlistcount();
+
+    					if (response === "Product added successfully.") {
+    						alert('Product added successfully.');
+    						$('#insertwishlist').addClass('show');
+    						setTimeout(function() {
+    							$('#insertwishlist').removeClass('show');
+    						}, 3000);
+    					}
+    					else if (response === "Product is already in your wishlist.") {
+    						alert('Product is already in your wishlist.');
+    						$('#sem').addClass('show');
+    						setTimeout(function() {
+    							$('#sem').removeClass('show');
+    						}, 3000);
+    					}
+    				},
+    				error: function(xhr) {
+    					if (xhr.status === 401) {
+    						alert('error not login');
+    						$('#infowishlist').addClass('show');
+    						setTimeout(function() {
+    							$('#infowishlist').removeClass('show');
+    						}, 3000);
+    					} else {
+    						console.error('Error:', xhr);
+    						alert('error not add wishlist');
+    					}
+    				}
+    			});
+    		});
+    	}
+    });
+    
+    
+    
+    $(document).ready(function() {
+    	for (let i = 1; i <= 10000; i++) {
+    		$('#addToCartBtn' + i).click(function(e) {
+    			e.preventDefault(); // Prevent the default form submission
+
+    			var formData = $('#addToCartForm' + i).serialize(); // Serialize form data
+
+    			$.ajax({
+    				type: 'POST',
+    				url: 'user/addToCart',
+    				data: formData,
+    				success: function(response) {
+    					//fetchheaderCartData();
+    					//fetchheadertotal();
+    					//fetchcartcount();
+    					//fetchWishlistData();
+
+    					if (response === "Product added successfully.") {
+    						alert('Product added successfully.');
+    						$('#insert').addClass('show');
+    						setTimeout(function() {
+    							$('#insert').removeClass('show');
+    						}, 3000);
+    					}
+    				},
+    				error: function(xhr) {
+    					if (xhr.status === 401) {
+    						alert('error not login');
+    						$('#info').addClass('show');
+    						setTimeout(function() {
+    							$('#info').removeClass('show');
+    						}, 3000);
+    					} else {
+    						console.error('Error:', xhr);
+    						alert('error not add');
+    					}
+    				}
+    			});
+    		});
+    	}
+    });
+    </script>
 </body>
 
 

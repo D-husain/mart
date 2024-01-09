@@ -112,12 +112,13 @@
                         </div>
 
                         <div class="input-box">
+                        <div class="alert alert-danger" role="alert" th:text="${error}" th:if="${error}"></div>
                             <form class="row g-4" action="/userRegister" method="post" th:object="${user}">
                                 <div class="col-12">
                                     <div class="form-floating theme-form-floating">
-                                        <input type="text" th:field="*{name}" th:classappend="${#fields.hasErrors('name')? 'is-invalid' : ''}" class="form-control" id="fullname" placeholder="Full Name">
+                                        <input type="text" th:field="*{username}" th:classappend="${#fields.hasErrors('username')? 'is-invalid' : ''}" class="form-control" id="fullname" placeholder="Full Name">
                                         <label for="fullname">Full Name</label>
-                                        <div th:each="e:${#fields.errors('name')}" th:text="${e}" th:errors="*{name}" id="validationServer03Feedback" class="invalid-feedback">
+                                        <div th:each="e:${#fields.errors('username')}" th:text="${e}" th:errors="*{username}" id="validationServer03Feedback" class="invalid-feedback">
 											Please provide a valid name.
 										</div>
                                     </div>
@@ -161,7 +162,7 @@
                             </form>
                         </div>
 
-                        <div class="other-log-in">
+                        <!-- <div class="other-log-in">
                             <h6>or</h6>
                         </div>
 
@@ -182,7 +183,7 @@
                                     </a>
                                 </li>
                             </ul>
-                        </div>
+                        </div> -->
 
                         <div class="other-log-in">
                             <h6></h6>

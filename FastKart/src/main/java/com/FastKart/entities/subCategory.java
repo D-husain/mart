@@ -1,6 +1,7 @@
 package com.FastKart.entities;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -27,22 +28,6 @@ public class subCategory {
 
 	private LocalDateTime created_at;
 	private LocalDateTime updated_at;
-	
-	public subCategory() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
-	public subCategory(int id, String subcname, String subcimg, String subcicon, Category category,
-			LocalDateTime created_at, LocalDateTime updated_at) {
-		super();
-		this.id = id;
-		this.subcname = subcname;
-		this.subcimg = subcimg;
-		this.subcicon = subcicon;
-		this.category = category;
-		this.created_at = created_at;
-		this.updated_at = updated_at;
-	}
 	public int getId() {
 		return id;
 	}
@@ -85,4 +70,26 @@ public class subCategory {
 	public void setUpdated_at(LocalDateTime updated_at) {
 		this.updated_at = updated_at;
 	}
+	@Override
+	public String toString() {
+		return "subCategory [id=" + id + ", subcname=" + subcname + ", subcimg=" + subcimg + ", subcicon=" + subcicon
+				+ ", category=" + category + ",  created_at=" + created_at
+				+ ", updated_at=" + updated_at + "]";
+	}
+	public subCategory(int id, String subcname, String subcimg, String subcicon, Category category,
+			List<SubCategoryItem> subCategoryItems, LocalDateTime created_at, LocalDateTime updated_at) {
+		super();
+		this.id = id;
+		this.subcname = subcname;
+		this.subcimg = subcimg;
+		this.subcicon = subcicon;
+		this.category = category;
+		this.created_at = created_at;
+		this.updated_at = updated_at;
+	}
+	public subCategory() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+	
 }

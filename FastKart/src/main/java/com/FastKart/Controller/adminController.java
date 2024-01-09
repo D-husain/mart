@@ -1,13 +1,11 @@
 package com.FastKart.Controller;
 
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import com.FastKart.Dao.categoryDao;
@@ -15,41 +13,42 @@ import com.FastKart.Dao.couponDao;
 import com.FastKart.Dao.productDao;
 import com.FastKart.Dao.subCategoryDao;
 import com.FastKart.Dao.userDao;
-import com.FastKart.Repository.CategoryRepository;
 import com.FastKart.entities.Category;
 import com.FastKart.entities.Coupon;
 import com.FastKart.entities.Product;
 import com.FastKart.entities.User;
 import com.FastKart.entities.subCategory;
 
+import jakarta.servlet.http.HttpServletRequest;
+
 @Controller
 
 public class adminController {
 
-	@Autowired
-	private categoryDao cdao;
+	@Autowired private categoryDao cdao;
+	@Autowired private subCategoryDao scdao;
+	@Autowired private productDao pdao;
+	@Autowired private userDao udao;
+	@Autowired private couponDao coupondao;
 	
-	@Autowired
-	private subCategoryDao scdao;
 	
-	@Autowired
-	private productDao pdao;
-	
-	@Autowired
-	private userDao udao;
-	
-	@Autowired
-	private couponDao coupondao;
-	
-	@Autowired
-	private CategoryRepository categoryRepository;
-//========================================================== Handler to get Admin index page ==============================================================
-	@GetMapping("/index")
+//================================================================================================================================================================================
+	@GetMapping("/admin")
 	public String adminDashboard() {
-		
-		return "admin/admin-index";
+		return "admin/index";
+	}
+	
+	@GetMapping("/admin-login")
+	public String adminLogin() {
+		return "admin/login";
 	}
 		
+	@PostMapping("/login")
+	public String login(HttpServletRequest request) {
+	    // Your login logic
+	    return "redirect:/admin"; // Redirect to a dashboard or another page after successful login
+	}
+
 //========================================================= Handler to get Admin addCategory page =========================================================	
 		@GetMapping("/addCategory")
 		public String addCategory() {

@@ -1,22 +1,27 @@
 package com.FastKart.Config;
 
-import org.springframework.boot.autoconfigure.security.SecurityProperties.User;
+import javax.sql.DataSource;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.rememberme.JdbcTokenRepositoryImpl;
+import org.springframework.security.web.authentication.rememberme.PersistentTokenRepository;
 
 @Configuration
 @EnableWebSecurity
 public class myConfig {
+	
+		@Autowired
+		private DataSource dataSource;
 
-	// 3 important bean that is mendatory in every spring boot login configuration
 		@Bean
 		public BCryptPasswordEncoder passwordEncoder() {
 			return new BCryptPasswordEncoder();
@@ -25,8 +30,6 @@ public class myConfig {
 		@Bean
 		public UserDetailsService userDetailsService(){
 			return new userDetailsImple();
-			
-
 		}
 
 		public DaoAuthenticationProvider authenticationProvider() {
@@ -37,56 +40,49 @@ public class myConfig {
 
 			return daoAuthenticationProvider;
 		}
-
-	// configure method 
-
 		
-		/*
-		 * protected void configure(AuthenticationManagerBuilder auth) throws Exception
-		 * { auth.authenticationProvider(authenticationProvider()); }
-		 */
-		 
-
 		@Bean
-		public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-			http
-			.authorizeHttpRequests((authorize) -> authorize
-					.requestMatchers("/admin/**").hasRole("ADMIN")
-					.requestMatchers("/user/**").hasRole("USER")
-					.requestMatchers("/**").permitAll()
-					.requestMatchers("/css/**").permitAll()
-					.requestMatchers("/image/**").permitAll()
-					.requestMatchers("/do_register").permitAll()
-					.requestMatchers("/index").permitAll()
-			)
-			.formLogin(form -> form
-					.loginPage("/login")
-					.defaultSuccessUrl("/")
-					//.failureUrl("/login")
-					//.failureHandler((request, response, exception) -> System.out.println(exception))
-					.permitAll()
-					
-					 ) 
-			.oauth2Login ( oauth2Login -> oauth2Login .loginPage("/login")
-			
-		            .failureHandler((request, response, exception) -> {
-		                String errorMessage = "Invalid username or password";
-		                request.getSession().setAttribute("errorMessage", errorMessage);
-		                response.sendRedirect("/login?error=true");
-		            })
-			)
-			
-			.logout(logout -> logout
-				       .logoutUrl("/logout")
-				       .logoutSuccessUrl("/login")
-				       .invalidateHttpSession(true)
-				       .deleteCookies("JSESSIONID") 
-			)
-			
-			.csrf(AbstractHttpConfigurer::disable);
-
-			return http.build();
-
+		public PersistentTokenRepository persistentTokenRepository() {
+			JdbcTokenRepositoryImpl tokenRepo = new JdbcTokenRepositoryImpl();
+			tokenRepo.setDataSource(dataSource);
+			return tokenRepo;
 		}
+
+		 @Bean
+		    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+		        http
+		            .authorizeHttpRequests(authorize -> authorize
+		                .requestMatchers("/admin/**").hasRole("ADMIN")
+		                .requestMatchers("/user/**").hasRole("USER")
+		                .requestMatchers("/**").permitAll()
+		                .requestMatchers("/css/**").permitAll()
+		                .requestMatchers("/image/**").permitAll()
+		                .requestMatchers("/do_register").permitAll()
+		                .requestMatchers("/").permitAll()
+		            )
+		            .formLogin(form -> form
+		                .loginPage("/login")
+		                .defaultSuccessUrl("/")
+		                .permitAll()
+		            )
+		            
+		            .oauth2Login(oauth2Login -> oauth2Login.loginPage("/login")
+		                .failureHandler((request, response, exception) -> {
+		                    String errorMessage = "Invalid username or password";
+		                    request.getSession().setAttribute("errorMessage", errorMessage);
+		                    response.sendRedirect("/login?error=true");
+		                })
+		            )
+		            .logout(logout -> logout
+		                .logoutUrl("/logout")
+		                .logoutSuccessUrl("/login?logout=true")
+		                .invalidateHttpSession(true)
+		                .deleteCookies("JSESSIONID")
+		            )
+		            
+		            .csrf(AbstractHttpConfigurer::disable);
+
+		        return http.build();
+		    }
 		
 }

@@ -24,6 +24,7 @@ public class customUserDetails implements UserDetails {
 
 		return List.of(simpleGrantedAuthority);
 	}
+	
 
 	@Override
 	public String getPassword() {

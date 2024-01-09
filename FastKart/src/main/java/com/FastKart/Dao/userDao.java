@@ -1,6 +1,7 @@
 package com.FastKart.Dao;
 
 import java.security.Principal;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,8 +14,8 @@ import com.FastKart.entities.User;
 @Service
 public class userDao {
 
-	@Autowired
-	private UserRepository userRepository;
+	@Autowired private UserRepository userRepository;
+	
 
 	@ModelAttribute("loggedInUser")
 	public User getLoggedInUser(Principal principal) {
@@ -25,7 +26,7 @@ public class userDao {
 		return null;
 	}
 
-//========================================= method for check if user is login or not====================================================================
+
 	public boolean isUserLoggedIn(Principal principal) {
 
 		if (principal != null && principal.getName() != null && !principal.getName().isEmpty()) {
@@ -37,18 +38,32 @@ public class userDao {
 		return false;
 	}
 
-//===============================================	Add User Method ===================================================================================
+
 	public User userRegister(User u) {
 		User user = userRepository.save(u);
 		return user;
 	}
 
-//=================================================== Show All User Method =========================================================================
 
 	public List<User> ShowAllUser() {
 
 		List<User> findAll = (List<User>) userRepository.findAll();
 		return findAll;
+	}
+	
+	public List<User> showAllUsers(Principal principal) {
+	    User loggedInUser = getLoggedInUser(principal);
+	    
+	    List<User> allUsers = (List<User>) userRepository.findAll();
+	    List<User> usersToShow = new ArrayList<>();
+
+	    for (User user : allUsers) {
+	        if (user.getId()==(loggedInUser.getId())) {
+	            usersToShow.add(user);
+	            break;
+	        }
+	    }
+	    return usersToShow;
 	}
 
 	public List<User> fechAllUser() {

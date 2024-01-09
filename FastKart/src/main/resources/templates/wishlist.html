@@ -41,6 +41,8 @@
 
     <!-- Template css -->
     <link id="color-link" rel="stylesheet" type="text/css" href="../assets/css/style.css">
+    
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 
 <body>
@@ -91,50 +93,38 @@
     <!-- Wishlist Section Start -->
 	<section class="wishlist-section section-b-space">
 		<div class="container-fluid-lg">
-			<div class="row g-sm-3 g-2">
-
-				<div class="col-xxl-2 col-lg-3 col-md-4 col-6 product-box-contain">
-					<div class="product-box-3 h-100">
-						<div class="product-header">
-							<div class="product-image">
-								<a href="product-left-thumbnail.html"> 
-								<img src="../assets/images/cake/product/2.png" class="img-fluid blur-up lazyload" alt="">
-								</a>
-
-								<div class="product-header-top">
-									<button class="btn wishlist-button close_button">
-										<i data-feather="x"></i>
-									</button>
-								</div>
-							</div>
-						</div>
-						<div class="product-footer">
-							<div class="product-detail">
-								<span class="span-name">Vegetable</span> <a
-									href="product-left-thumbnail.html">
-									<h5 class="name">Fresh Bread and Pastry Flour 200 g</h5>
-								</a>
-								<h6 class="unit mt-1">250 ml</h6>
-								<h5 class="price">
-									<span class="theme-color">$08.02</span>
-									<del>$15.15</del>
-								</h5>
-
-								<div class="add-to-cart-box bg-white">
-									<button class="btn btn-add-cart addcart-button theme-color">
-										Add <span style="margin-left: 10px;">
-										<i class="fa-solid fa-bag-shopping theme-color"></i></span>
-									</button>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
+		
+			<div class="row g-sm-3 g-2" id="wishlistItems">
 
 			</div>
+			
 		</div>
 		</section>
 	<!-- Wishlist Section End -->
+	
+	<!-- Remove Wishlist Modal Start -->
+    <div class="modal fade theme-modal" id="removeWishlist" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-fullscreen-sm-down">
+            <div class="modal-content">
+                <div class="modal-header d-block text-center">
+                    <h5 class="modal-title w-100" id="exampleModalLabel22">Are You Sure?</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                        <i class="fa-solid fa-xmark"></i>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="remove-box">
+                        <p>want to remove this product?</p>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-animation btn-md fw-bold" data-bs-dismiss="modal">No</button>
+                    <button class="btn theme-bg-color btn-md fw-bold text-light" id="confirmDelete">Yes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Remove Wishlist Modal End -->
 
     <!-- Footer Section Start -->
     <footer th:insert="include/user/footer :: footer"> </footer>
@@ -237,6 +227,9 @@
 
     <!-- thme setting js -->
     <script src="../assets/js/theme-setting.js"></script>
+    
+    <!-- ajax call --> 
+    <script src="assets/ajax/user/wishlist.js"></script>
 </body>
 
 

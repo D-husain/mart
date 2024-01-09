@@ -1,16 +1,13 @@
 package com.FastKart.entities;
 
 import java.time.LocalDateTime;
-import java.util.List;
 
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
@@ -24,7 +21,9 @@ public class Address {
 	@JoinColumn(name = "user_id")
 	private User user;
 	private String name;
+	private String contact;
 	private String address;
+	private String type;
 	private String country;
 	private String city;
 	private String state;
@@ -115,20 +114,31 @@ public class Address {
 	}
 
 
-	@Override
-	public String toString() {
-		return "Address [id=" + id + ", user=" + user + ", name=" + name + ", address=" + address + ", country="
-				+ country + ", city=" + city + ", state=" + state + ", pinCode=" + pinCode + ", created_at="
-				+ created_at + ", updated_at=" + updated_at + "]";
+	public String getContact() {
+		return contact;
 	}
 
-	public Address(int id, User user, String name, String address, String country, String city, String state,
-			int pinCode, LocalDateTime created_at, LocalDateTime updated_at, List<CheckOut> checkout) {
+	public void setContact(String contact) {
+		this.contact = contact;
+	}
+
+	public String getType() {
+		return type;
+	}
+
+	public void setType(String type) {
+		this.type = type;
+	}
+
+	public Address(int id, User user, String name, String contact, String address, String type, String country,
+			String city, String state, int pinCode, LocalDateTime created_at, LocalDateTime updated_at) {
 		super();
 		this.id = id;
 		this.user = user;
 		this.name = name;
+		this.contact = contact;
 		this.address = address;
+		this.type = type;
 		this.country = country;
 		this.city = city;
 		this.state = state;
@@ -137,10 +147,16 @@ public class Address {
 		this.updated_at = updated_at;
 	}
 
+	@Override
+	public String toString() {
+		return "Address [id=" + id + ", user=" + user + ", name=" + name + ", contact=" + contact + ", address="
+				+ address + ", type=" + type + ", country=" + country + ", city=" + city + ", state=" + state
+				+ ", pinCode=" + pinCode + ", created_at=" + created_at + ", updated_at=" + updated_at + "]";
+	}
+
 	public Address() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	
-	
+
 }

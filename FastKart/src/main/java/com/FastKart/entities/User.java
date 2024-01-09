@@ -25,23 +25,12 @@ public class User {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
-
-	@NotBlank(message = "User name cannot be null!!")
-	@Size(min = 3, max = 10, message = "User name must be between 3-10 characters!!")
-	private String name;
-
-	@NotBlank(message = "Email is necessary")
-	@Pattern(regexp = "^[a-zA-Z0-9._%+-]+@gmail\\.com$", message = "Invalid email format. Must be in the 'example@gmail.com' format.")
+	private String username;
 	private String email;
-
-	@NotBlank(message = "Password is mandatory")
-	//@Pattern(regexp = "^(?=.*[A-Z])(?=.*[a-z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,}$", message = "Password must be at least 8 characters long and include at least one uppercase letter, one lowercase letter, one digit, and one special character.")
 	private String password;
-
 	private String role;
-
-	@AssertTrue(message = "Checkbox must be checked")
 	private boolean checkbox;
+	private String verificationCode;
 
 	private LocalDateTime created_at;
 	private LocalDateTime updated_at;
@@ -63,12 +52,12 @@ public class User {
 		this.id = id;
 	}
 
-	public String getName() {
-		return name;
+	public String getUsername() {
+		return username;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setUsername(String username) {
+		this.username = username;
 	}
 
 	public String getEmail() {
@@ -101,6 +90,14 @@ public class User {
 
 	public void setCheckbox(boolean checkbox) {
 		this.checkbox = checkbox;
+	}
+
+	public String getVerificationCode() {
+		return verificationCode;
+	}
+
+	public void setVerificationCode(String verificationCode) {
+		this.verificationCode = verificationCode;
 	}
 
 	public LocalDateTime getCreated_at() {
@@ -145,24 +142,23 @@ public class User {
 
 	@Override
 	public String toString() {
-		return "User [id=" + id + ", name=" + name + ", email=" + email + ", password=" + password + ", role=" + role
-				+ ", checkbox=" + checkbox + ", created_at=" + created_at + ", updated_at=" + updated_at
-				+ ", addresses=" + addresses + ", wishlist=" + wishlist + ", cart=" + cart + "]";
+		return "User [id=" + id + ", username=" + username + ", email=" + email + ", password=" + password + ", role="
+				+ role + ", checkbox=" + checkbox + ", verificationCode=" + verificationCode + ", created_at="
+				+ created_at + ", updated_at=" + updated_at + ", addresses=" + addresses + ", wishlist=" + wishlist
+				+ ", cart=" + cart + "]";
 	}
 
-	public User(int id,
-			@NotBlank(message = "User name cannot be null!!") @Size(min = 3, max = 10, message = "User name must be between 3-10 characters!!") String name,
-			@NotBlank(message = "Email is necessary") @Pattern(regexp = "^[a-zA-Z0-9._%+-]+@gmail\\.com$", message = "Invalid email format. Must be in the 'example@gmail.com' format.") String email,
-			@NotBlank(message = "Password is mandatory") String password, String role,
-			@AssertTrue(message = "Checkbox must be checked") boolean checkbox, LocalDateTime created_at,
-			LocalDateTime updated_at, List<Address> addresses, List<WishList> wishlist, List<Cart> cart) {
+	public User(int id, String username, String email, String password, String role, boolean checkbox,
+			String verificationCode, LocalDateTime created_at, LocalDateTime updated_at, List<Address> addresses,
+			List<WishList> wishlist, List<Cart> cart) {
 		super();
 		this.id = id;
-		this.name = name;
+		this.username = username;
 		this.email = email;
 		this.password = password;
 		this.role = role;
 		this.checkbox = checkbox;
+		this.verificationCode = verificationCode;
 		this.created_at = created_at;
 		this.updated_at = updated_at;
 		this.addresses = addresses;
@@ -175,5 +171,6 @@ public class User {
 		// TODO Auto-generated constructor stub
 	}
 
+	
 	
 }
