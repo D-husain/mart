@@ -43,11 +43,11 @@ public class adminController {
 		return "admin/login";
 	}
 		
-	@PostMapping("/login")
-	public String login(HttpServletRequest request) {
-	    // Your login logic
-	    return "redirect:/admin"; // Redirect to a dashboard or another page after successful login
-	}
+	/*
+	 * @PostMapping("/login") public String login(HttpServletRequest request) { //
+	 * Your login logic return "redirect:/admin"; // Redirect to a dashboard or
+	 * another page after successful login }
+	 */
 
 //========================================================= Handler to get Admin addCategory page =========================================================	
 		@GetMapping("/addCategory")
