@@ -45,6 +45,16 @@ public class SubCategoryDTO {
 	public void setCname(String cname) {
 		this.cname = cname;
 	}
+	public SubCategoryDTO(int id, String subcname, String subcimg, String subcicon, int cid, String cname) {
+		super();
+		this.id = id;
+		this.subcname = subcname;
+		this.subcimg = subcimg;
+		this.subcicon = subcicon;
+		this.cid = cid;
+		this.cname = cname;
+	}
+	
 	
 	
 }

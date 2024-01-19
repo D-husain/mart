@@ -44,8 +44,24 @@
     
      <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
      <link href="https://maxcdn.bootstrapcdn.com/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/5.3.0/js/bootstrap.min.js"></script>
-    
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/5.3.0/js/bootstrap.min.js"></script>
+		
+	<style type="text/css">
+	.order-table tbody tr td label.primary {
+		background-color: rgba(144, 234, 255, 0.46);
+		color: #44ace9
+	}
+	.order-table tbody tr td label.info {
+		background-color: hsl(258.06deg 96.02% 80.22% / 44%);
+		color: #5525e9e0
+	}
+	.order-table tbody tr td label.warning {
+		background-color: rgba(247, 211, 126, 0.41);
+		color: #ff9900
+	}
+	
+	</style>
+	
 </head>
 
 <body>
@@ -106,15 +122,13 @@
                         </div>
                         <div class="profile-box">
                             <div class="cover-image">
-                                <img src="../assets/images/inner-page/cover-img.jpg" class="img-fluid blur-up lazyload"
-                                    alt="">
+                                <img src="../assets/images/inner-page/cover-img.jpg" class="img-fluid blur-up lazyload" alt="">
                             </div>
 
                             <div class="profile-contain">
                                 <div class="profile-image">
                                     <div class="position-relative">
-                                        <img src="../assets/images/inner-page/user/1.jpg"
-                                            class="blur-up lazyload update_img" alt="">
+                                        <img src="../assets/images/inner-page/user/1.jpg" class="blur-up lazyload update_img" alt="">
                                         <div class="cover-icon">
                                             <i class="fa-solid fa-pen">
                                                 <input type="file" onchange="readURL(this,0)">
@@ -273,23 +287,28 @@
                                             <div class="row g-4">
                                                 <div class="col-xxl-6">
                                                     <div class="dashboard-detail">
-                                                        <h6 class="text-content">Default Billing Address</h6>
-														<h6 class="text-content">You have not set a default billing address.</h6>
-														<!-- <h6 class="text-content">MARK JECNO</h6>
-														<h6 class="text-content">vicki.pope@gmail.com</h6>
-														<h6 class="text-content">9724567867</h6> -->
-														<!-- <a data-bs-toggle="pill" role="tab" data-bs-target="#pills-address">Edit Address</a> -->
+                                                        <h6 class="text-content text-dark">Default Billing Address</h6>
+														 <tr th:each="address, iterStat : ${defaultaddress}">
+														<h6 class="text-content">[[${address.name}]]</h6>
+														<h6 class="text-content">[[${address.user.email}]]</h6>
+														<h6 class="text-content">[[${address.contact}]]</h6>
+														<h6 class="text-content">[[${address.address}]]</h6>
+                                                        </tr>
 													</div>
+													<div th:unless="${defaultaddress.size() > 0}">
+                                                    	<h6 class="text-content">You have not set a default billing address.</h6>
+                                                    </div>
                                                 </div>
 
                                                 <div class="col-xxl-6">
-                                                    <div th:each="s, iterStat : ${shipping}"  class="dashboard-detail">
+                                                    <div class="dashboard-detail">
                                                         <h6 class="text-content text-dark">Default Shipping Address</h6>
+                                                        <tr th:each="s, iterStat : ${shipping}">
 														<h6 class="text-content">[[${s.address.name}]]</h6>
 														<h6 class="text-content">[[${s.user.email}]]</h6>
 														<h6 class="text-content">[[${s.address.contact}]]</h6>
 														<h6 class="text-content">[[${s.address.address}]]</h6>
-                                                        
+                                                        </tr>
                                                     </div>
                                                     <div th:unless="${shipping.size() > 0}">
                                                     	<h6 class="text-content">You have not set a default shipping address.</h6>
@@ -301,8 +320,7 @@
                                 </div>
                             </div>
 
-                            <div class="tab-pane fade show" id="pills-order" role="tabpanel"
-                                aria-labelledby="pills-order-tab">
+                            <div class="tab-pane fade show" id="pills-order" role="tabpanel" aria-labelledby="pills-order-tab">
                                 <div class="dashboard-order">
                                     <div class="title">
                                         <h2>My Orders History</h2>
@@ -312,109 +330,48 @@
                                             </svg>
                                         </span>
                                     </div>
-
+  									<p class="theme-color">*Click on order id to see full details</p>
+  									 <p class="theme-color">* You can only download invoice after the order delivered.</p>
                                     <div class="order-tab dashboard-bg-box">
                                         <div class="table-responsive">
                                             <table class="table order-table">
                                                 <thead>
                                                     <tr>
+                                                    	<th scope="col">ID</th>
                                                         <th scope="col">Order ID</th>
-                                                        <th scope="col">Product Name</th>
+                                                        <th scope="col">Order Date</th>
                                                         <th scope="col">Status</th>
                                                         <th scope="col">Price</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                    <tr>
-                                                        <td class="product-image">#254834</td>
+                                                
+                                                    <tr th:each="o, iterStat : ${orders}">
+                                                    	<td>[[${iterStat.index+1}]]</td>
+                                                        <td class="product-image text-dark" data-bs-toggle="modal" th:data-bs-target="'#order-detils'+${o.id}">#[[${o.id}]]</td>
                                                         <td>
-                                                            <h6>Fantasy Crunchy Choco Chip Cookies</h6>
+                                                            <h6>[[${o.orderdate}]]</h6>
                                                         </td>
-                                                        <td>
-                                                            <label class="success">Shipped</label>
-                                                        </td>
-                                                        <td>
-                                                            <h6>$25.69</h6>
-                                                        </td>
-                                                    </tr>
-
-                                                    <tr>
-                                                        <td class="product-image">#355678</td>
-                                                        <td>
-                                                            <h6>Peanut Butter Bite Premium Butter Cookies 600 g</h6>
-                                                        </td>
-                                                        <td>
-                                                            <label class="danger">Pending</label>
-                                                        </td>
-                                                        <td>
-                                                            <h6>$25.69</h6>
-                                                        </td>
-                                                    </tr>
-
-                                                    <tr>
-                                                        <td class="product-image">#647536</td>
-                                                        <td>
-                                                            <h6>Yumitos Chilli Sprinkled Potato Chips 100 g</h6>
-                                                        </td>
-                                                        <td>
-                                                            <label class="success">Shipped</label>
-                                                        </td>
-                                                        <td>
-                                                            <h6>$25.69</h6>
+														<th:block th:if="${o.status eq 1}">
+															<td><label class="primary">Pending</label></td>
+														</th:block>
+														<th:block th:if="${o.status eq 2}">
+															<td><label class="info">Active</label></td>
+														</th:block>
+														<th:block th:if="${o.status eq 3}">
+															<td><label class="warning">Shipping</label></td>
+														</th:block>
+														<th:block th:if="${o.status eq 4}">
+															<td><label class="success">Delivered</label></td>
+														</th:block>
+														<th:block th:if="${o.status eq 5}">
+															<td><label class="danger">Cancelled</label></td>
+														</th:block>
+														<td>
+                                                            <h6>₹[[${o.total}]]</h6>
                                                         </td>
                                                     </tr>
 
-                                                    <tr>
-                                                        <td class="product-image">#125689</td>
-                                                        <td>
-                                                            <h6>healthy Long Life Toned Milk 1 L</h6>
-                                                        </td>
-                                                        <td>
-                                                            <label class="danger">Pending</label>
-                                                        </td>
-                                                        <td>
-                                                            <h6>$25.69</h6>
-                                                        </td>
-                                                    </tr>
-
-                                                    <tr>
-                                                        <td class="product-image">#215487</td>
-                                                        <td>
-                                                            <h6>Raw Mutton Leg, Packaging 5 Kg</h6>
-                                                        </td>
-                                                        <td>
-                                                            <label class="danger">Pending</label>
-                                                        </td>
-                                                        <td>
-                                                            <h6>$25.69</h6>
-                                                        </td>
-                                                    </tr>
-
-                                                    <tr>
-                                                        <td class="product-image">#365474</td>
-                                                        <td>
-                                                            <h6>Cold Brew Coffee Instant Coffee 50 g</h6>
-                                                        </td>
-                                                        <td>
-                                                            <label class="success">Shipped</label>
-                                                        </td>
-                                                        <td>
-                                                            <h6>$25.69</h6>
-                                                        </td>
-                                                    </tr>
-
-                                                    <tr>
-                                                        <td class="product-image">#368415</td>
-                                                        <td>
-                                                            <h6>SnackAmor Combo Pack of Jowar Stick and Jowar Chips</h6>
-                                                        </td>
-                                                        <td>
-                                                            <label class="danger">Pending</label>
-                                                        </td>
-                                                        <td>
-                                                            <h6>$25.69</h6>
-                                                        </td>
-                                                    </tr>
                                                 </tbody>
                                             </table>
                                         </div>
@@ -445,23 +402,19 @@
                                 </div>
                             </div>
 
-							<div class="tab-pane fade show" id="pills-address"
-								role="tabpanel" aria-labelledby="pills-address-tab">
+							<div class="tab-pane fade show" id="pills-address" role="tabpanel" aria-labelledby="pills-address-tab">
 								<div class="dashboard-address">
 									<div class="title title-flex">
 										<div>
 											<h2>My Address Book</h2>
 											<span class="title-leaf"> <svg
 													class="icon-width bg-gray">
-                                                    <use
-														xlink:href="https://themes.pixelstrap.com/fastkart/assets/svg/leaf.svg#leaf"></use>
+                                                    <use xlink:href="https://themes.pixelstrap.com/fastkart/assets/svg/leaf.svg#leaf"></use>
                                                 </svg>
 											</span>
 										</div>
 
-										<button
-											class="btn theme-bg-color text-white btn-sm fw-bold mt-lg-0 mt-3"
-											data-bs-toggle="modal" data-bs-target="#add-address">
+										<button class="btn theme-bg-color text-white btn-sm fw-bold mt-lg-0 mt-3" data-bs-toggle="modal" data-bs-target="#add-address">
 											<i data-feather="plus" class="me-2"></i> Add New Address
 										</button>
 									</div>
@@ -473,8 +426,7 @@
 											<div class="address-box">
 												<div>
 													<div class="form-check">
-														<input class="form-check-input" type="radio" name="jack"
-															id="flexRadioDefault2" checked>
+														<input class="form-check-input" type="radio" name="jack" id="flexRadioDefault2" checked>
 													</div>
 
 													<div class="label">
@@ -510,14 +462,10 @@
 												</div>
 
 												<div class="button-group">
-													<button class="btn btn-sm add-button w-100"
-														data-bs-toggle="modal"
-														th:data-bs-target="'#editProfile'+${address.id}">
+													<button class="btn btn-sm add-button w-100" data-bs-toggle="modal" th:data-bs-target="'#editProfile'+${address.id}">
 														<i data-feather="edit"></i>Edit
 													</button>
-													<button class="btn btn-sm add-button w-100"
-														data-bs-toggle="modal"
-														th:data-bs-target="'#removeProfile'+${address.id}">
+													<button class="btn btn-sm add-button w-100" data-bs-toggle="modal" th:data-bs-target="'#removeProfile'+${address.id}">
 														<i data-feather="trash-2"></i> Remove
 													</button>
 												</div>
@@ -611,22 +559,22 @@
                                                 </div>
                                             </div>
 
-											<div class="mt-5" id="resetform">
-												<h4>Reset password</h4>
+											<div class="mt-2" id="resetform">
+												<h4>Change password</h4>
 												<form action="/user-change-password" method="post">
 													<div class="modal-body">
 														<div class="row g-4">
 
 															<div class="col-xxl-12">
 																<div class="form-floating theme-form-floating">
-																	<input type="password" class="form-control" name="oldpassword" id="opassword" value=""> 
+																	<input type="password" class="form-control" name="oldpassword" id="opassword" placeholder="Enter old password"> 
 																	<label for="opassword">Old Password</label>
 																</div>
 															</div>
 
 															<div class="col-xxl-12">
 																<div class="form-floating theme-form-floating">
-																	<input type="password" class="form-control" name="newpassword" id="npassword" value="">
+																	<input type="password" class="form-control" name="newpassword" id="npassword" placeholder="Enter new password">
 																	 <label for="opassword">New Password</label>
 																</div>
 															</div>
@@ -718,6 +666,197 @@
     <!-- Bg overlay Start -->
     <div class="bg-overlay"></div>
     <!-- Bg overlay End -->
+    
+    <!--Order detils modal box start -->
+	<tr th:each="order: ${orders}">
+		<div class="modal fade theme-modal" th:id="'order-detils'+${order.id}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+			<div class="modal-dialog modal-xl modal-dialog-centered" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Order Details</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                        <i class="fa-solid fa-xmark"></i>
+                    </button>
+                </div>
+					<div class="p-8 lg:px-16 md:px-10 px-5 py-10">
+		<div class="px-0 xl:px-16">
+               
+			<div class="d-flex gap-10 my-5 mx-auto">
+				<div class="col-span-1 mx-auto">
+					<table class="w-full">
+						<tr class="border-b-2">
+							<th colspan='2' class="text-left py-1 font-semibold text-first">Order information</th>
+						</tr>
+						<tr>
+							<td class="pt-1 text-gray-600">Order id</td>
+							<td class="pt-1 font-medium">: <span>[[${order.id}]]</span></td>
+						</tr>
+						<tr>
+							<td class="pt-1 text-gray-600">Order date</td>
+							<td class="pt-1 font-medium">: <span>[[${order.orderdate}]]</span></td>
+						</tr>
+						<tr>
+							<td class="pt-1 text-gray-600">Total payment</td>
+							<td class="pt-1 font-medium">: <span>&#8377; [[${order.total}]]</span></td>
+						</tr>
+						<tr>
+							<td class="pt-1 text-gray-600">Payment method</td>
+							<td class="pt-1 font-medium">: <span>[[${order.CheckOut.paymentoption}]]</span></td>
+						</tr>
+						<tr>
+							<td class="pt-1 text-gray-600">Order status</td>
+							<td class="pt-1 font-medium">:
+								<th:block th:if="${order.status == 1}">
+									<label class="text-warning">Pending</label>
+								</th:block>
+								<th:block th:if="${order.status == 2}">
+									<label class="text-primary">Active</label>
+								</th:block>
+								<th:block th:if="${order.status == 3}">
+									<label class="text-info">Shipping</label>
+								</th:block>
+								<th:block th:if="${order.status == 4}">
+									<label class="text-success">Delivered</label>
+								</th:block>
+								<th:block th:if="${order.status == 5}">
+									<label class="text-danger">Cancelled</label>
+								</th:block>
+							</td>
+						</tr>
+						<tr>
+							<th:block th:if="${order.status == 4}">
+							<td class="pt-1 text-gray-600">Invoice</td>
+							<td class="pt-1 font-medium">: <label class="text-dark">
+							<a class="link-secondary" th:href="@{/invoice/{id}(id=${order.id})}">&nbsp;&nbsp;<i class="fa-solid fa-download"></i></a></label></td>
+							</th:block>
+						</tr>
+					</table>
+				</div>
+				<div class="col-span-1 mx-auto">
+					<table class="w-full">
+						<tr class="border-b-2">
+							<th colspan='2' class="text-left py-1 font-semibold text-first">Shipping address</th>
+						</tr>
+						<tr>
+							<td class="pt-1 text-gray-600">Name</td>
+							<td class="pt-1 font-medium">: <span>[[${order.CheckOut.Address.name}]]</span></td>
+						</tr>
+						<tr>
+							<td class="pt-1 text-gray-600">Email</td>
+							<td class="pt-1 font-medium">: <span>[[${order.User.email}]]</span></td>
+						</tr>
+						<tr>
+							<td class="pt-1 text-gray-600">Phone</td>
+							<td class="pt-1 font-medium">: <span>[[${order.CheckOut.Address.contact}]]</span></td>
+						</tr>
+						<tr>
+							<td class="pt-1 text-gray-600">Address</td>
+							<td class="pt-1 font-medium d-inline-block text-truncate" style="max-width: 250px;" th:title="${order.CheckOut.Address.address}">: 
+							<span>[[${order.CheckOut.Address.address}]]</span></td>
+						</tr>
+						<tr>
+							<td class="pt-1 text-gray-600">Suburb</td>
+							<td class="pt-1 font-medium">: <span>[[${order.CheckOut.Address.city}]]</span></td>
+						</tr>
+						<tr>
+							<td class="pt-1 text-gray-600">State/Territory</td>
+							<td class="pt-1 font-medium">: <span>[[${order.CheckOut.Address.country}]]</span></td>
+						</tr>
+						<tr>
+	                        <td class="pt-1 text-gray-600">Postal code</td>
+	                        <td class="pt-1 font-medium">: <span>[[${order.CheckOut.Address.pinCode}]]</span></td>
+	                    </tr>
+					</table>
+				</div>
+				<div class="col-span-1 mx-auto">
+					<table th:each="address, iterStat : ${defaultaddress}" class="w-full">
+						<tr class="border-b-2">
+							<th colspan='2' class="text-left py-1 font-semibold text-first">Billing address</th>
+						</tr>
+						<tr>
+							<td class="pt-1 text-gray-600">Name</td>
+							<td class="pt-1 font-medium">: <span>[[${address.name}]]</span></td>
+						</tr>
+						<tr>
+							<td class="pt-1 text-gray-600">Email</td>
+							<td class="pt-1 font-medium">: <span>[[${address.User.email}]]</span></td>
+						</tr>
+						<tr>
+							<td class="pt-1 text-gray-600">Phone</td>
+							<td class="pt-1 font-medium">:<span>[[${address.contact}]]</span></td>
+						</tr>
+						<tr>
+							<td class="pt-1 text-gray-600">Address</td>
+							<td class="pt-1 font-medium d-inline-block text-truncate" style="max-width: 250px;" th:title="${address.address}">: 
+							<span>[[${address.address}]]</span></td>
+						</tr>
+						<tr>
+							<td class="pt-1 text-gray-600">Suburb</td>
+							<td class="pt-1 font-medium">: <span>[[${address.city}]]</span></td>
+						</tr>
+						<tr>
+							<td class="pt-1 text-gray-600">State/Territory</td>
+							<td class="pt-1 font-medium">: <span>[[${address.country}]]</span></td>
+						</tr>
+						<tr>
+							<td class="pt-1 text-gray-600">Postal code</td>
+							<td class="pt-1 font-medium">: <span>[[${address.pinCode}]]</span></td>
+						</tr>
+					</table>
+				</div>
+			</div>
+			<div class="col-10 p-5 bg-light mb-3 mx-auto">
+				<h1 class="text-sm font-semibold text-first">Order details</h1>
+				<div class="overflow-auto">
+	
+					<table class="min-w-[500px] w-full my-8 table">
+						<tr class="border-b-2">
+							<th class="w-2/3 text-left py-2">Product</th>
+							<th class="text-left py-2">Price</th>
+							<th class="text-left py-2">Quantity</th>
+							<th class="text-left py-2">Total</th>
+						</tr>
+						
+						 <div th:with="orderDetailsList=${orderDetailsMap.get(order.id)}">
+						<tr th:each="details : ${orderDetailsList}" class="text-sm">
+							<td class="theme-color"><a th:href="@{/product-details/{id}(id=${details.product.id})}">[[${details.product.pname}]]</a></td>
+							<td class="py-2">&#8377;[[${details.price}]]</td>
+							<td class="py-2">x [[${details.qty}]]</td>
+							<td class="py-2">&#8377;[[${details.total}]]</td>
+						</tr>
+						</div>
+	
+						<tr class="border-y-2">
+							<td colspan="3" class="py-2 font-semibold">Subtotal</td>
+							<td class="py-2">&#8377;[[${order.amount}]]</td>
+						</tr>
+						<tr class="border-b-2">
+							<td colspan="3" class="py-2 font-semibold">Shipping Charges</td>
+							<td th:text="${order.charge eq 0 ? 'FREE' : '₹' + order.charge}" th:classappend="${order.charge eq 0 ? 'theme-color' : ''}"></td>
+						</tr>
+	
+						<tr class="border-y-2" th:if="${order.discount != 0}">
+							<td colspan="3" class="py-2 font-semibold">Discount</td>
+							<td>-&#8377;[[${order.discount}]]</td>
+						</tr>
+	
+						<tr class="border-b-2">
+							<td colspan="3" class="py-2 font-semibold">Total</td>
+							<td class="text-first font-semibold">&#8377;[[${order.total}]]</td>
+						</tr>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+					<div class="modal-footer">
+						 <button type="button" class="btn btn-secondary btn-md" data-bs-dismiss="modal">Close</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</tr>
+	<!-- Order detils modal box end -->
 
     <!-- Add address modal box start -->
     <div class="modal fade theme-modal" id="add-address" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">

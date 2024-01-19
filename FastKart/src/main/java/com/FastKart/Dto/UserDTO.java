@@ -118,6 +118,28 @@ public class UserDTO {
 	public void setUpdated_at(LocalDateTime updated_at) {
 		this.updated_at = updated_at;
 	}
+	public UserDTO(int id, String name, String email, String password, String role, boolean checkbox, int addressid,
+			String adduname, String contact, String address, String country, String city, String state, int pinCode,
+			LocalDateTime created_at, LocalDateTime updated_at) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.email = email;
+		this.password = password;
+		this.role = role;
+		this.checkbox = checkbox;
+		this.addressid = addressid;
+		this.adduname = adduname;
+		this.contact = contact;
+		this.address = address;
+		this.country = country;
+		this.city = city;
+		this.state = state;
+		this.pinCode = pinCode;
+		this.created_at = created_at;
+		this.updated_at = updated_at;
+	}
+	
 	
 	
 }

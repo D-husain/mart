@@ -1,10 +1,14 @@
 package com.FastKart.Controller;
 
 import java.security.Principal;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -13,9 +17,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.springframework.web.util.UriComponentsBuilder;
 
+import com.FastKart.Dao.OrderDao;
 import com.FastKart.Dao.SubCategoryItemDao;
 import com.FastKart.Dao.UserCouponDao;
 import com.FastKart.Dao.WishListDao;
@@ -27,15 +35,20 @@ import com.FastKart.Dao.couponDao;
 import com.FastKart.Dao.productDao;
 import com.FastKart.Dao.subCategoryDao;
 import com.FastKart.Dao.userDao;
+import com.FastKart.Dto.ProductDTO;
 import com.FastKart.Repository.CartRepository;
 import com.FastKart.Repository.CheckOutRepository;
+import com.FastKart.Repository.ProductRepository;
 import com.FastKart.Repository.UserRepository;
 import com.FastKart.Repository.WishListRepository;
 import com.FastKart.entities.Address;
 import com.FastKart.entities.Cart;
 import com.FastKart.entities.Category;
 import com.FastKart.entities.CheckOut;
+import com.FastKart.entities.Contact;
 import com.FastKart.entities.Coupon;
+import com.FastKart.entities.OrderDetails;
+import com.FastKart.entities.Orders;
 import com.FastKart.entities.Product;
 import com.FastKart.entities.SubCategoryItem;
 import com.FastKart.entities.User;
@@ -65,6 +78,9 @@ public class UrlController {
 	@Autowired private checkoutDao ckdao;
 	@Autowired private WishListRepository wishListRepository;
 	@Autowired private CheckOutRepository checkOutRepository;
+	@Autowired private OrderDao orderdao;
+	@Autowired private ProductRepository productrepo;
+	
 	
 	
 //========================================================= HOME PAGE METHOD ==========================================================================	
@@ -132,12 +148,141 @@ public class UrlController {
 		return"account/reset-password";
 	}
 
-//======================================================= SHOP PAGES ==========================================================================================================	
+//======================================================= SHOP PAGES =======================================================================================	
 
 	@GetMapping("/shop")
-	public String shop() {
+	public String shop(@RequestParam(name = "category", required = false) String category,
+			@RequestParam(name = "subcategoryitem", required = false) String subcategoryitem,Model model) {
 
+		List<Product> productList = null;
+
+	    if (category == null && subcategoryitem == null) {
+	        productList = pdao.showAllProduct();
+	    }
+	    else if (category != null && subcategoryitem == null) {
+	        productList = pdao.viewProductsByCategoryName(category);
+	    }
+	    else if(category == null && subcategoryitem != null) {
+	    	productList = pdao.viewProductsBySubCategoryItemName(subcategoryitem);
+	    }
+	    
+	    model.addAttribute("product", productList);
+	    
 		return "shop";
+	}
+	
+	@GetMapping("api/shop")
+	public ResponseEntity<List<ProductDTO>> shop(
+			@RequestParam(name = "category", required = false) String category,
+			@RequestParam(name = "subcategoryitem", required = false) String subcategoryitem) {
+
+	    List<ProductDTO> productDTOList = new ArrayList<>();
+	    List<Product> productList = null;
+
+	    if (category == null && subcategoryitem == null) {
+	        productList = pdao.showAllProduct();
+	    }
+	    else if (category != null && subcategoryitem == null) {
+	        productList = pdao.viewProductsByCategoryName(category);
+	    }
+	    else if(category == null && subcategoryitem != null) {
+	    	productList = pdao.viewProductsBySubCategoryItemName(subcategoryitem);
+	    }
+
+	    for (Product product : productList) {
+	        ProductDTO productDTO = pdao.mapProductToDTO(product);
+	        productDTOList.add(productDTO);
+	    }
+
+	    System.out.println("Filtered products count: " + productList.size());
+
+	    return new ResponseEntity<>(productDTOList, HttpStatus.OK);
+	}
+	
+	@GetMapping("/api/sort")
+	public ResponseEntity<List<ProductDTO>> sortProducts(@RequestParam("sort") String sortType) {
+	    List<ProductDTO> productDTOList = new ArrayList<>();
+	    List<Product> sortedProducts;
+
+	    switch (sortType) {
+	        case "low":
+	            sortedProducts = productrepo.sortByPriceLowToHigh();
+	            break;
+	        case "high":
+	            sortedProducts = productrepo.sortByPriceHighToLow();
+	            break;
+	        case "aToz":
+	            sortedProducts = productrepo.sortByProductNameA();
+	            break;
+	        case "zToa":
+	            sortedProducts = productrepo.sortByProductNameZ();
+	            break;
+	        default:
+	            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+	    }
+
+	    for (Product product : sortedProducts) {
+	        ProductDTO productDTO = pdao.mapProductToDTO(product);
+	        productDTOList.add(productDTO);
+	    }
+
+	    if (!productDTOList.isEmpty()) {
+	        return new ResponseEntity<>(productDTOList, HttpStatus.OK);
+	    } else {
+	        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+	    }
+	}
+	
+	@GetMapping("/filterByPriceRange")
+    public ResponseEntity<List<ProductDTO>> filterByPriceRange( @RequestParam(name = "min", required = false, defaultValue = "0") int min,
+            @RequestParam(name = "max", required = false, defaultValue = "9999999") int max) {
+		 List<ProductDTO> productDTOList = new ArrayList<>();
+        
+        List<Product> filteredProducts = pdao.filterByPriceRange(min, max);
+        
+        for (Product product : filteredProducts) {
+	        ProductDTO productDTO = pdao.mapProductToDTO(product);
+	        productDTOList.add(productDTO);
+	    }
+
+        if (!productDTOList.isEmpty()) {
+            return new ResponseEntity<>(productDTOList, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+
+	
+//======================================================= PRODUCTDETAILS PAGE METHOD ========================================================================	
+
+	@GetMapping("/product-details/{id}")
+	public String productDetails(@PathVariable("id") int id, Model model, Principal principal) {
+		Product product = pdao.findProductById(id);
+		model.addAttribute("product", product);
+
+		if (product != null) {
+			List<Product> relatedProducts = pdao.viewProductsByCategoryId(product.getCategory().getId());
+			model.addAttribute("related", relatedProducts);
+			
+			// Using UriComponentsBuilder to construct the URL
+	        String productDetailsUrl = UriComponentsBuilder.fromPath("http://localhost:8080/product-details/{id}").buildAndExpand(product.getId()).toUriString();
+	        
+	        model.addAttribute("productDetailsUrl", productDetailsUrl);
+		}
+		return "product-details";
+	}
+
+	
+	@GetMapping("/product/{id}")
+	public ResponseEntity<ProductDTO> getProductById(@PathVariable int id) {
+	    Product product = pdao.findProductById(id);
+
+	    if (product != null) {
+	        ProductDTO productDTO = pdao.mapProductToDTO(product);
+	        return new ResponseEntity<>(productDTO, HttpStatus.OK);
+	    } else {
+	        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+	    }
 	}
 
 //======================================================= ABOUT PAGES ========================================================================================================
@@ -151,11 +296,13 @@ public class UrlController {
 	// ======================================================= SEARCH PAGES ==================================================================================================
 
 	@GetMapping("/search")
-	public String search() {
-
+	public String search(@Param("keyword") String keyword, Model model, HttpSession session) {
+		List<Product> products = pdao.ProductSearch(keyword);
+		model.addAttribute("product", products);
+		model.addAttribute("keyword", keyword);
 		return "search";
 	}
-
+	
 //======================================================= CONTACT PAGES ======================================================================================================
 	@GetMapping("/contact")
 	public String contact() {
@@ -304,7 +451,7 @@ public class UrlController {
 			int totalWithShipping = cartdao.getTotalWithShipping(carts, cart);
 			model.addAttribute("totalWithShipping", totalWithShipping);
 			
-			List<CheckOut> shipping=ckdao.showShippingAddress(principal);
+			List<CheckOut> shipping=ckdao.showShippingAddressCreatedAtAfter(principal);
 			model.addAttribute("shipping", shipping);
 
 			UserCoupon coupon = (UserCoupon) session.getAttribute("coupon");
@@ -340,10 +487,16 @@ public class UrlController {
 	}
 
 	@GetMapping("/success-order")
-	public String success_order(Model model) {
+	public String success_order(Model model,Principal principal) {
+		 List<Orders> orders = orderdao.showUsersOrder(principal);
+		    model.addAttribute("orders", orders);
+		    
+		    Map<Integer, List<OrderDetails>> orderDetailsMap = orderdao.getOrderDetailsMap(orders);
+	        model.addAttribute("orderDetailsMap", orderDetailsMap);
 
 		return "order-success";
 	}
+	
 	
 	@GetMapping("/order-cancel")
 	public String order_cancel(Model model, Principal principal, Cart cart, HttpSession session) {
@@ -391,6 +544,9 @@ public class UrlController {
 			List<Address> showAllAddress = addao.showAllAddress(principal);
 			model.addAttribute("userAddress", showAllAddress);
 			
+			List<Address> defaultaddress=addao.getDefaultShippingAddress(principal);
+			model.addAttribute("defaultaddress", defaultaddress);
+			
 			List<User> showAllUser = udao.showAllUsers(principal);
 
 			if (!showAllUser.isEmpty()) {
@@ -403,19 +559,25 @@ public class UrlController {
 			        model.addAttribute("contact", user.getAddresses().get(0).getContact());
 			        model.addAttribute("address", user.getAddresses().get(0).getAddress());
 			    } else {
-			        model.addAttribute("contact", "");
-			        model.addAttribute("address", "");
+			        model.addAttribute("contact", "Contact is empty");
+			        model.addAttribute("address", "Address is empty");
 			    }
 			} else {
-			    model.addAttribute("name", "");
-			    model.addAttribute("email", "");
-			    model.addAttribute("contact", "");
-			    model.addAttribute("address", "");
+			    model.addAttribute("name", "Name is empty");
+			    model.addAttribute("email", "Email is empty");
+			    model.addAttribute("contact", "Contact is empty");
+			    model.addAttribute("address", "Address is empty");
 			}
 
 			
-			List<CheckOut> shipping=ckdao.showShippingAddress(principal);
+			List<CheckOut> shipping=ckdao.showShippingAddressCreatedAtAfter(principal);
 			model.addAttribute("shipping", shipping);
+			
+			 List<Orders> orders = orderdao.showUsersOrder(principal);
+			 model.addAttribute("orders", orders);
+			    
+			  Map<Integer, List<OrderDetails>> orderDetailsMap = orderdao.getOrderDetailsMap(orders);
+		      model.addAttribute("orderDetailsMap", orderDetailsMap);
 			
 			return "user-dashboard";
 		} else {
@@ -423,14 +585,6 @@ public class UrlController {
 		}
 
 	}
-
-//======================================================= PRODUCTDETAILS PAGE METHOD ============================================================================	
-	@GetMapping("/product-details")
-	public String productDetails() {
-
-		return "product-details";
-	}
-
 
 //==================================================== COMFIRM ORDER PAGE HANDLER ================================================================
 	@GetMapping("/comfirmOrder")
@@ -478,6 +632,15 @@ public class UrlController {
 		return cartRepository.findByUser(loggedInUser);
 	}
 	
+	@ModelAttribute("orders")
+	public Orders getDefaultorders() {
+		return new Orders();
+	}
+	
+	@ModelAttribute("contact")
+	public Contact getDefaultcontact() {
+		return new Contact();
+	}
 	
 	@ModelAttribute("/userAddress")
 	public List<CheckOut> showAllAddress(Principal principal){

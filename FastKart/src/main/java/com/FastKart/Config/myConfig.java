@@ -24,42 +24,75 @@ public class myConfig {
 		public UserDetailsService userDetailsService(){
 			return new userDetailsImple();
 		}
-
-		public DaoAuthenticationProvider authenticationProvider() {
-
-			DaoAuthenticationProvider daoAuthenticationProvider = new DaoAuthenticationProvider();
-			daoAuthenticationProvider.setUserDetailsService(this.userDetailsService());
-			daoAuthenticationProvider.setPasswordEncoder(passwordEncoder());
-
-			return daoAuthenticationProvider;
+		
+		@Bean
+		public UserDetailsService adminDetailsService(){
+			return new adminDetailsImple();
 		}
+
+		@Bean
+		public DaoAuthenticationProvider authenticationProvider() {
+		    DaoAuthenticationProvider daoAuthenticationProvider = new DaoAuthenticationProvider();
+		    daoAuthenticationProvider.setUserDetailsService(userDetailsService());
+		    daoAuthenticationProvider.setPasswordEncoder(passwordEncoder());
+		    return daoAuthenticationProvider;
+		}
+
+		@Bean
+		public DaoAuthenticationProvider adminAuthenticationProvider() {
+		    DaoAuthenticationProvider daoAuthenticationProvider = new DaoAuthenticationProvider();
+		    daoAuthenticationProvider.setUserDetailsService(adminDetailsService());
+		    daoAuthenticationProvider.setPasswordEncoder(passwordEncoder());
+		    return daoAuthenticationProvider;
+		}
+
 		
 
-		 @Bean
-		    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-		        http
-		            .authorizeHttpRequests(authorize -> authorize
-		                .requestMatchers("/admin").hasRole("ADMIN")
-		                .requestMatchers("/").hasRole("USER")
-		                .requestMatchers("/**").permitAll()
-		                .requestMatchers("/css/**").permitAll()
-		                .requestMatchers("/image/**").permitAll()
-		            )
-		            .formLogin(form -> form
-		                .loginPage("/login")
-		                .defaultSuccessUrl("/")
-		                .permitAll()
-		            )
-		            
-		            .oauth2Login(oauth2Login -> oauth2Login.loginPage("/login")
-		                .failureHandler((request, response, exception) -> {
-		                    response.sendRedirect("/login?error=true");
-		                })
-		            )
-	            
-		            .csrf(AbstractHttpConfigurer::disable);
+		@Bean
+		public SecurityFilterChain userSecurityFilterChain(HttpSecurity http) throws Exception {
+		    http
+		    .authenticationProvider(authenticationProvider())
+		        .authorizeHttpRequests(authorize -> authorize
+		            .requestMatchers("/user/**").hasRole("USER")
+		            .requestMatchers("/**","/css/**", "/image/**", "/do_register", "/").permitAll()
+		        )
+		        .formLogin(form -> form
+		            .loginPage("/login")
+		            .defaultSuccessUrl("/")
+		            .permitAll()
+		        )
+		        .oauth2Login(oauth2Login -> oauth2Login.loginPage("/login")
+		            .failureHandler((request, response, exception) -> {
+		                response.sendRedirect("/login?error=true");
+		            })
+		        )
+		        .csrf(AbstractHttpConfigurer::disable);
 
-		        return http.build();
-		    }
+		    return http.build();
+		}
+
+		@Bean
+		public SecurityFilterChain adminSecurityFilterChain(HttpSecurity http) throws Exception {
+		    http
+		    .authenticationProvider(adminAuthenticationProvider())
+		        .authorizeHttpRequests(authorize -> authorize
+		            .requestMatchers("/admin/**").hasRole("ADMIN")
+		            .requestMatchers("/admin/assets/css/**", "/admin/assets/image/**", "/do_register").permitAll()
+		        )
+		        .formLogin(form -> form
+		            .loginPage("/admin/login")
+		            .defaultSuccessUrl("/admin/dashboard")
+		            .permitAll()
+		        )
+		        .oauth2Login(oauth2Login -> oauth2Login.loginPage("/admin/login")
+		            .failureHandler((request, response, exception) -> {
+		                response.sendRedirect("/admin/login?error=true");
+		            })
+		        )
+		        .csrf(AbstractHttpConfigurer::disable);
+
+		    return http.build();
+		}
+
 		
 }

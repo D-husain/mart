@@ -3,8 +3,9 @@ package com.FastKart.Dao;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.crossstore.ChangeSetPersister.NotFoundException;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import com.FastKart.Dto.ProductDTO;
 import com.FastKart.Repository.CategoryRepository;
@@ -43,7 +44,18 @@ public class productDao {
 		return SnacksFoodProducts;
 	}
 	
-
+	public List<Product> viewProductsByCategoryName(String category) {
+		return productRepository.findByProductCategoryName(category);
+	}
+	
+	public List<Product> viewProductsBySubCategoryName(String subcategory) {
+		return productRepository.findByProductSubCategoryName(subcategory);
+	}
+	
+	public List<Product> viewProductsBySubCategoryItemName(String subcategoryitem) {
+		return productRepository.findByProductSubCategoryItemName(subcategoryitem);
+	}
+	
 	public List<Product> findProductByCategory(int id) {
 		Category findCategoryById = categoryRepository.findById(id).get();
 		List<Product> findProductByCategory = productRepository.findProductByCategory(findCategoryById); 
@@ -62,7 +74,14 @@ public class productDao {
 			return productRepository.findProductByCategory(category);
 		}
 	}
+	
 
+	public List<Product> ProductSearch(String keyword) {
+        if (keyword != null) {
+            return productRepository.search(keyword);
+        }
+        return (List<Product>) productRepository.findAll();
+    }
 	
 	
 	
@@ -72,44 +91,57 @@ public class productDao {
 	}
 	
 	public ProductDTO getapiProductById(int id) {
-        Product product = null;
-		try {
-			product = productRepository.findById(id)
-			        .orElseThrow(() -> new NotFoundException());
-		} catch (NotFoundException e) {
-			e.printStackTrace();
-		}
-        return mapProductToDTO(product);
-    }
+	    try {
+	        Product product = productRepository.findById(id)
+	                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Product not found"));
+
+	        return mapProductToDTO(product);
+	    } catch (Exception e) {
+	        throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Internal server error", e);
+	    }
+	}
 	
 	public ProductDTO mapProductToDTO(Product product) {
-	    ProductDTO productDTO = new ProductDTO();
-	    productDTO.setId(product.getId());
-	    productDTO.setPname(product.getPname());
-	    productDTO.setCname(product.getCategory().getCname());
-	    // ... continue setting other basic fields
+		ProductDTO productDTO = new ProductDTO();
+		  productDTO.setId(product.getId());
+		  productDTO.setPname(product.getPname());
+		  productDTO.setPrice(product.getPrice());
+		  productDTO.setDiscount_price(product.getDiscount_price());
+		  productDTO.setDescription(product.getDescription());
 
-	    // Set the additional attributes in ProductDTO
-	    productDTO.setSubcname(product.getSubcategory().getSubcname());
-	    productDTO.setDiscount_price(product.getDiscount_price());
-	    productDTO.setKg(product.getWeight().getKg());
-	    productDTO.setStore_information(product.getDetails().getStore_information());
-	    productDTO.setType(product.getDetails().getType());
-	    productDTO.setSKU(product.getDetails().getSKU());
-	    productDTO.setMFG(product.getDetails().getMFG());
-	    productDTO.setStock(product.getDetails().getStock());
-	    // ... set other additional fields
+		  if (product.getCategory() != null) {
+		      productDTO.setCname(product.getCategory().getCname());
+		  }
+		  
+		  if (product.getSubcategory() != null) {
+		      productDTO.setSubcname(product.getSubcategory().getSubcname());
+		  }
 
-	    // Set image URLs or paths
-	    productDTO.setImage1(product.getProduct_image().getImage1());
-	    productDTO.setImage2(product.getProduct_image().getImage2());
-	    productDTO.setImage3(product.getProduct_image().getImage3());
-	    productDTO.setImage4(product.getProduct_image().getImage4());
+		  if (product.getDetails() != null) {
+		      productDTO.setNetQuantity(product.getDetails().getNetQuantity());
+		      productDTO.setStore_information(product.getDetails().getStore_information());
+		      productDTO.setType(product.getDetails().getType());
+		      productDTO.setSKU(product.getDetails().getSKU());
+		      productDTO.setMFG(product.getDetails().getMFG());
+		      productDTO.setStock(product.getDetails().getStock());
+		      // ... set other details
+		  }
 
-	    // Set timestamps
-	    productDTO.setCreated_at(product.getCreated_at());
-	    productDTO.setUpdated_at(product.getUpdated_at());
-	    productDTO.setExpiry_at(product.getExpiry_at());
+		  if (product.getWeight() != null) {
+		      productDTO.setKg(product.getWeight().getKg());
+		  }
+
+		  if (product.getProduct_image() != null) {
+		      productDTO.setImage1(product.getProduct_image().getImage1());
+		      productDTO.setImage2(product.getProduct_image().getImage2());
+		      productDTO.setImage3(product.getProduct_image().getImage3());
+		      productDTO.setImage4(product.getProduct_image().getImage4());
+		  }
+
+		  // Set timestamps
+		  productDTO.setCreated_at(product.getCreated_at());
+		  productDTO.setUpdated_at(product.getUpdated_at());
+		  productDTO.setExpiry_at(product.getExpiry_at());
 
 	    return productDTO;
 	}
@@ -118,6 +150,15 @@ public class productDao {
 	public void deleteProduct(int id) {
 		productRepository.deleteById(id);
 	}
+
+	public List<Product> viewProductsByCategoryId(int cid) {
+		return productRepository.findByProductCategoryId(cid);
+	}
+
+	public List<Product> filterByPriceRange(int min, int max) {
+        return productRepository.findByPriceBetween(min, max);
+    }
+
 
 	
 }

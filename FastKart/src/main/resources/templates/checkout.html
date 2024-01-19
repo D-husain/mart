@@ -119,6 +119,7 @@
 																	<input class="form-check-input" type="radio" name="addressId" th:value="${address.id}"
 																		id="flexRadioDefault1" required checked="checked">
 																</div>
+																<!-- <input type="hidden" name="shippingId" th:value="${id}"> -->
 
 																<div class="label">
 																	<label>[[${address.type}]]</label>
@@ -144,8 +145,7 @@
 
 																	<li>
 																		<h6 class="text-content mb-0">
-																			<span class="text-title"> Phone :</span> +91 97245
-																			79296
+																			<span class="text-title"> Phone :</span> +91 [[${address.contact}]]
 																		</h6>
 																	</li>
 																</ul>
@@ -283,8 +283,12 @@
                                 <li th:each="c, iterStat : ${viewCart}">
                                     <img src="../assets/images/vegetable/product/1.png"
                                         class="img-fluid blur-up lazyloaded checkout-image" alt="">
-                                    <h4>[[${c.product.pname}]] <span>X [[${c.quntity}]]</span></h4>
+                                    <h4 class="text-truncate" style="max-width: 200px;" th:title="${c.product.pname}">[[${c.product.pname}]] </h4>&nbsp;	<span>X [[${c.quntity}]]</span>
                                     <h4 class="price">₹[[${c.product.price}]]</h4>
+                                     <input type="hidden" name="qty" th:value="${c.quntity}">
+           							<input type="hidden" name="pid" th:value="${c.product.id}">
+           							<input type="hidden" name="price" th:value="${c.product.price}">
+           							<input type="hidden" name="totals" th:value="${c.total}"/>
                                 </li>
 
                             </ul>
@@ -301,6 +305,7 @@
                                 <li>
                                     <h4>Order Total</h4>
                                     <h4 class="price">₹[[${subTotalOfCart}]]</h4>
+                                     <input type="hidden" name="amount" th:value="${subTotalOfCart}"/>
                                 </li>
 
                                 <li>
@@ -309,16 +314,27 @@
 										th:text="${shippingTotal eq 0 ? 'FREE' : '₹' + shippingTotal}"
 										th:classappend="${shippingTotal eq 0 ? 'theme-color' : ''}">
 									</h4>
+									<input type="hidden" name="charge" th:value="${shippingTotal}"/>
                                 </li>
 
                                 <li th:if="${session.coupon != null}">
                                     <h4 class="">Coupon Discount</h4>
                                     <h4 class="price theme-color">-₹[[${discountAmount}]]</h4>
+                                    <input type="hidden" name="discount" th:value="${discountAmount}"/>
                                 </li>
+                                
+                                 <li th:if="${session.coupon == null}">
+                                    <input type="hidden" name="discount" th:value="0"/>
+                                </li>
+                                
                                 <li class="list-total">
                                     <h4>Total (IND)</h4>
-                                    <h4 th:if="${session.coupon == null}" class="price theme-color">₹[[${totalWithShipping}]]</h4>
-                                    <h4 th:if="${session.coupon != null}" class="price theme-color">₹[[${discountedSubtotal}]]</h4>
+                                    <h4 th:if="${session.coupon == null}" class="price theme-color">₹[[${totalWithShipping}]]
+                                     <input type="hidden" name=total th:value="${totalWithShipping}"/>
+                                     </h4>
+                                    <h4 th:if="${session.coupon != null}" class="price theme-color">₹[[${discountedSubtotal}]]
+                                    <input type="hidden" name="total" th:value="${discountedSubtotal}"/>
+                                    </h4>
                                 </li>
                                 
                             </ul>

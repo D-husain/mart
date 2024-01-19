@@ -46,7 +46,6 @@ public class userDao {
 
 
 	public List<User> ShowAllUser() {
-
 		List<User> findAll = (List<User>) userRepository.findAll();
 		return findAll;
 	}
@@ -69,5 +68,5 @@ public class userDao {
 	public List<User> fechAllUser() {
 		return (List<User>) this.userRepository.findAll();
 	}
-
+	
 }

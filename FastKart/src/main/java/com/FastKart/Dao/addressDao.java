@@ -33,6 +33,11 @@ public class addressDao {
 		User loggedInUser = udao.getLoggedInUser(principal);
 		return addressRepository.findByUser(loggedInUser);
 	}
+	
+	public List<Address> getDefaultShippingAddress(Principal principal) {
+		User loggedInUser = udao.getLoggedInUser(principal);
+		return addressRepository.findDefaultAddress(loggedInUser);
+	}
 
 	public Address getAddressById(int id) {
 		Address addressById = addressRepository.findById(id).get();

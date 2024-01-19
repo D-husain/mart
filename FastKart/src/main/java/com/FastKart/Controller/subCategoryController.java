@@ -1,17 +1,9 @@
 package com.FastKart.Controller;
 
-import java.io.File;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.nio.file.StandardCopyOption;
-
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -19,58 +11,64 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.FastKart.Dao.categoryDao;
 import com.FastKart.Dao.subCategoryDao;
+import com.FastKart.FileUpload.Upload_File;
+import com.FastKart.entities.Category;
 import com.FastKart.entities.subCategory;
+
+import jakarta.servlet.http.HttpSession;
 
 @Controller
 public class subCategoryController {
 
-@Autowired
-private subCategoryDao scDao;
+	@Autowired private subCategoryDao scDao;
+	@Autowired private categoryDao cdao;
+	@Autowired private Upload_File fileuploadhelper;
 
-@Autowired
-private categoryDao cdao;
-	
-@PostMapping("/insertAddSubCategory")
-public String addSubCategory(@ModelAttribute subCategory sc , @RequestParam("cat_image") MultipartFile file, @RequestParam("cid") int cid) {
-	 
-	
-	try {
+	String uploadCategory = "src/main/resources/static/assets/images/category/subcategory";
+
+	@PostMapping("/subcategoryadd")
+	public String categoryadd(@RequestParam("subcategoryImage") MultipartFile subcategoryImage,@RequestParam("subcategoryIcon") MultipartFile subcategoryIcon, 
+			@RequestParam("subcategorynName") String subcategorynName,@RequestParam("category") String selectcategory,HttpSession hs) {
+		Category c = cdao.getCategoryByName(selectcategory);
 		
-		if(file.isEmpty()) {
-			System.out.println("Your File Is Empty");
+		subCategory subcategory = new subCategory();
+		subcategory.setCategory(c);
+		subcategory.setSubcname(subcategorynName);
+		subcategory.setSubcimg(subcategoryImage.getOriginalFilename());
+		subcategory.setSubcicon(subcategoryIcon.getOriginalFilename());
+
+		try {
+			if (!subcategoryImage.isEmpty()) {
+				boolean isUploaded = fileuploadhelper.uploadFile(subcategoryImage, uploadCategory);
+				fileuploadhelper.uploadFile(subcategoryIcon, uploadCategory);
+				if (isUploaded) {
+					hs.setAttribute("message", "data successfully Inserted");
+				}
+			} else {
+				hs.setAttribute("message", "file is empty");
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
-		else {
-			sc.setSubcimg(file.getOriginalFilename());
-			sc.setCategory(cdao.getCategory(cid));
-			
-			File saveFile = new ClassPathResource("static/assets1/images").getFile();
-			
-			Path path = Paths.get(saveFile.getAbsolutePath() + File.separator + file.getOriginalFilename());
-			
-			Files.copy(file.getInputStream(), path, StandardCopyOption.REPLACE_EXISTING);
-			
-			System.out.println("file is uploaded");
+
+		boolean s = scDao.addsubCategory(subcategory);
+		if (s) {
+			hs.setAttribute("message", "data successfully Inserted...");
+		} else {
+			hs.setAttribute("message", "data is not inserted");
 		}
-		
-		subCategory addSubCategory = scDao.addSubCategory(sc);
-	} catch (Exception e) {
-		e.printStackTrace();
+
+		return "redirect:/sub-category";
 	}
-	
-	
-	return "redirect:addSubCategory";
-}
-
 
 //============================================================================ DELETE SUBCATEGORY HANDLER ==============================================
 
-@GetMapping("/deleteSubCategory/{id}")
-public String deketeSubCategory(@PathVariable("id") Integer id, Model m) {
-	
-	scDao.deleteSubCategory(id);
-	return "redirect:/subCategory";
-	
-	
-	
-}
+	@GetMapping("/deleteSubCategory/{id}")
+	public String deketeSubCategory(@PathVariable("id") Integer id, Model m) {
+
+		scDao.deleteSubCategory(id);
+		return "redirect:/subCategory";
+
+	}
 }

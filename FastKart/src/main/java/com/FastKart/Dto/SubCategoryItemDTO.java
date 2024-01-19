@@ -58,5 +58,18 @@ public class SubCategoryItemDTO {
 	public void setCname(String cname) {
 		this.cname = cname;
 	}
+	public SubCategoryItemDTO(int id, String subitemname, int subid, String subcname, String subcimg, String subcicon,
+			int cid, String cname) {
+		super();
+		this.id = id;
+		this.subitemname = subitemname;
+		this.subid = subid;
+		this.subcname = subcname;
+		this.subcimg = subcimg;
+		this.subcicon = subcicon;
+		this.cid = cid;
+		this.cname = cname;
+	}
+	
 	
 }

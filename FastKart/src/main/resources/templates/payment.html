@@ -92,7 +92,7 @@
 
     <!-- Checkout section Start -->
     <section class="checkout-section-2 section-b-space">
-    <form action="/user-orders" method="post" th:object="${orders}">
+    <form action="/user-orders" method="post" id="someFormId">
         <div class="container-fluid-lg">
             <div class="row g-sm-4 g-3">
                 <div class="col-lg-8">
@@ -266,6 +266,10 @@
                                         class="img-fluid blur-up lazyloaded checkout-image" alt="">
                                     <h4>[[${c.product.pname}]] <span>X [[${c.quntity}]]</span></h4>
                                     <h4 class="price">₹[[${c.product.price}]]</h4>
+                                    <input type="hidden" name="qty" th:value="${c.quntity}">
+           							<input type="hidden" name="pid" th:value="${c.product.id}">
+           							<input type="hidden" name="price" th:value="${c.product.price}">
+           							<input type="hidden" name="totals" th:value="${c.total}"/>
                                 </li>
 
                             </ul>
@@ -282,6 +286,7 @@
                                 <li>
                                     <h4>Order Total</h4>
                                     <h4 class="price">₹[[${subTotalOfCart}]]</h4>
+                                    <input type="hidden" name="amount" th:value="${subTotalOfCart}"/>
                                 </li>
 
                                 <li>
@@ -290,16 +295,27 @@
 										th:text="${shippingTotal eq 0 ? 'FREE' : '₹' + shippingTotal}"
 										th:classappend="${shippingTotal eq 0 ? 'theme-color' : ''}">
 									</h4>
+									<input type="hidden" name="charge" th:value="${shippingTotal}"/>
                                 </li>
 
                                 <li th:if="${session.coupon != null}">
                                     <h4 class="">Coupon Discount</h4>
                                     <h4 class="price theme-color">-₹[[${discountAmount}]]</h4>
+                                    <input type="hidden" name="discount" th:value="${discountAmount}"/>
                                 </li>
+                                
+                                 <li th:if="${session.coupon == null}">
+                                    <input type="hidden" name="discount" th:value="0"/>
+                                </li>
+                                
                                 <li class="list-total">
                                     <h4>Total (IND)</h4>
-                                    <h4 th:if="${session.coupon == null}" class="price theme-color">₹[[${totalWithShipping}]]</h4>
-                                    <h4 th:if="${session.coupon != null}" class="price theme-color">₹[[${discountedSubtotal}]]</h4>
+                                    <h4 th:if="${session.coupon == null}" class="price theme-color">₹[[${totalWithShipping}]]
+                                    <input type="hidden" name=total th:value="${totalWithShipping}"/>
+                                    </h4>
+                                    <h4 th:if="${session.coupon != null}" class="price theme-color">₹[[${discountedSubtotal}]]
+                                    <input type="hidden" name="total" th:value="${discountedSubtotal}"/>
+                                    </h4>
                                 </li>
                                 
                             </ul>
@@ -389,7 +405,7 @@
 			"image" : "http://localhost:8080/assets/images/logo/1.png",
 			//"order_id": "order_9A33XWu170gUtm", //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
 			"handler" : function(response) {
-				document.getElementById('orderId').submit();
+				document.getElementById('someFormId').submit();
 			},
 			//"callback_url": "order.jsp",
 			"prefill" : {

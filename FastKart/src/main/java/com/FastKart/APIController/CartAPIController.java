@@ -16,6 +16,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.FastKart.Dao.cartDao;
+import com.FastKart.Dao.userDao;
+import com.FastKart.Dto.AddToCartRequest;
 import com.FastKart.Dto.CartDTO;
 import com.FastKart.Repository.CartRepository;
 import com.FastKart.entities.Cart;
@@ -25,17 +27,22 @@ public class CartAPIController {
 	
 	@Autowired private cartDao cartdao;
 	@Autowired private CartRepository cartrepo;
+	@Autowired private userDao udao;
 
 	
 	@PostMapping("user/addToCart")
-	public ResponseEntity<String> addToCart(@RequestParam int pid, @RequestBody Cart cart, @RequestParam int qty, Principal principal) {
-	    if (principal == null) {
-	        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Please log in to add items to your cart.");
-	    } else {
-	        cartdao.addToCart(cart, pid, qty, principal); // Assuming cartdao.addToCart() method adds the product to the cart in the database
-	        return ResponseEntity.status(HttpStatus.OK).body("Product added successfully.");
-	    }
-	}
+    public ResponseEntity<String> addToCart(@RequestBody AddToCartRequest addToCartRequest, Principal principal) {
+        if (principal != null && udao.isUserLoggedIn(principal)) {
+            try {
+            	cartdao.addToCart(addToCartRequest.getCart(), addToCartRequest.getProductId(), addToCartRequest.getQuantity(), principal);
+                return ResponseEntity.ok("Item added to cart successfully");
+            } catch (Exception e) {
+                return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to add item to cart");
+            }
+        } else {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("User not logged in");
+        }
+    }
 	
 	@GetMapping("/cart/data")
 	public ResponseEntity<List<CartDTO>> getCartList( Principal principal) {

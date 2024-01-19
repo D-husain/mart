@@ -218,7 +218,7 @@
                                     <div class="category-list">
                                         <img src="https://themes.pixelstrap.com/fastkart/assets/svg/1/vegetable.svg" class="blur-up lazyload" alt="">
                                         <h5>
-                                            <a href="shop-left-sidebar.html">[[${c.cname}]]</a>
+                                            <a th:href="@{/shop(category=${c.cname})}">[[${c.cname}]]</a>
                                         </h5>
                                     </div>
                                 </li>
@@ -233,14 +233,14 @@
                                 <ul class="product-list border-0 p-0 d-block">
                                     <li th:each="p, iterStat : ${Latestproducts}">
                                         <div class="offer-product">
-                                            <a href="product-left-thumbnail.html" class="offer-image">
+                                            <a th:href="@{/product-details/{id}(id=${p.id})}" class="offer-image">
                                                 <img src="../assets/images/vegetable/product/23.png"
                                                     class="blur-up lazyload" alt="">
                                             </a>
 
                                             <div class="offer-detail">
                                                 <div>
-                                                    <a href="product-left-thumbnail.html" class="text-title">
+                                                    <a th:href="@{/product-details/{id}(id=${p.id})}" class="text-title">
                                                         <h6 class="name">[[${p.pname}]]</h6>
                                                     </a>
                                                     <span>450 G</span>
@@ -350,7 +350,7 @@
 														</button>
 													</div>
 														</form>
-													<a href="/product-details">
+													<a th:href="@{/product-details/{id}(id=${p.id})}">
                                                     <img src="../assets/images/vegetable/product/1.png" class="img-fluid blur-up lazyload" alt="">
                                                 </a>
                                                 <ul style="justify-content: space-evenly;" class="product-option">
@@ -363,7 +363,7 @@
                                                 
                                             </div>
                                             <div class="product-detail">
-                                                <a href="/product-details">
+                                                <a th:href="@{/product-details/{id}(id=${p.id})}">
                                                     <h6 class="name h-100">[[${p.pname}]]</h6>
                                                 </a>
 
@@ -428,7 +428,7 @@
                     <div class="category-slider-2 product-wrapper no-arrow">
                     
                         <div  th:each="c, iterStat : ${Weekcategory}">
-                            <a href="shop-left-sidebar.html" class="category-box category-dark">
+                            <a th:href="@{/shop(category=${c.cname})}" class="category-box category-dark">
                                 <div>
                                     <img src="https://themes.pixelstrap.com/fastkart/assets/svg/1/vegetable.svg" class="blur-up lazyload" alt="">
                                     <h5>[[${c.cname}]]</h5>
@@ -496,27 +496,25 @@
 															<i class="fa-regular fa-heart theme-color"></i>
 														</button>
 													</div>
-                                                <a href="product-left-thumbnail.html">
-                                                    <img src="../assets/images/vegetable/product/1.png"
-                                                        class="img-fluid blur-up lazyload" alt="">
+                                                <a th:href="@{/product-details/{id}(id=${p.id})}">
+                                                    <img src="../assets/images/vegetable/product/1.png" class="img-fluid blur-up lazyload" alt="">
                                                 </a>
                                                 <ul style="justify-content: space-evenly;" class="product-option">
                                                     <li data-bs-toggle="tooltip" data-bs-placement="top" title="">
-                                                        <a href="javascript:void(0)" data-bs-toggle="modal"
-                                                            data-bs-target="#view">
+                                                        <a href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#view">
                                                             <i data-feather="eye"></i>
                                                         </a>
                                                     </li>
                                                 </ul>
                                             </div>
                                             <div class="product-detail">
-                                                <a href="product-left-thumbnail.html">
-                                                    <h6 class="name h-100">Chocalate Powder</h6>
+                                                <a th:href="@{/product-details/{id}(id=${p.id})}">
+                                                    <h6 class="name h-100">[[${p.pname}]]</h6>
                                                 </a>
 
                                                 <h5 class="sold text-content">
-                                                    <span class="theme-color price">$26.69</span>
-                                                    <del>28.56</del>
+                                                    <span class="theme-color price">[[${p.discount_price}]]</span>
+                                                    <del>[[${p.price}]]</del>
                                                 </h5>
 
                                                 <div class="product-rating mt-sm-2 mt-1">
@@ -637,7 +635,7 @@
 															<i class="fa-regular fa-heart theme-color"></i>
 														</button>
 													</div>
-                                                <a href="product-left-thumbnail.html">
+                                                <a th:href="@{/product-details/{id}(id=${p.id})}">
                                                     <img src="../assets/images/vegetable/product/1.png"
                                                         class="img-fluid blur-up lazyload" alt="">
                                                 </a>
@@ -651,13 +649,13 @@
                                                 </ul>
                                             </div>
                                             <div class="product-detail">
-                                                <a href="product-left-thumbnail.html">
-                                                    <h6 class="name h-100">Chocalate Powder</h6>
+                                                <a th:href="@{/product-details/{id}(id=${p.id})}">
+                                                    <h6 class="name h-100">[[${p.pname}]]</h6>
                                                 </a>
 
                                                 <h5 class="sold text-content">
-                                                    <span class="theme-color price">$26.69</span>
-                                                    <del>28.56</del>
+                                                    <span class="theme-color price">[[${p.discount_price}]]</span>
+                                                    <del>[[${p.price}]]</del>
                                                 </h5>
 
                                                 <div class="product-rating mt-sm-2 mt-1">

@@ -1,5 +1,6 @@
 package com.FastKart.Dao;
 
+import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -16,15 +17,20 @@ public class subCategoryDao {
 
 	@Autowired private SubCategoryRepository subCategoryRepository;
 
-	public subCategory addSubCategory(subCategory subcat) {
-		subCategory subCategory = subCategoryRepository.save(subcat);
-		return subCategory;
+	public boolean addsubCategory(subCategory subCategory) {
+		subCategory.setCreated_at(LocalDateTime.now());
+		return this.subCategoryRepository.save(subCategory)!=null;
 	}
 
 	public List<subCategory> showAllSubCategory() {
 		List<subCategory> findAllSubCategory = (List<subCategory>) subCategoryRepository.findAll();
 		return findAllSubCategory;
 	}
+	
+	public subCategory getSubCategoryByName(String subcategoryName) {
+        return subCategoryRepository.findBySubCname(subcategoryName)
+            .orElse(null); 
+    }
 
 	/*
 	 * public List<subCategory> findSubCategoriesByCategoryId(Integer categoryId) {

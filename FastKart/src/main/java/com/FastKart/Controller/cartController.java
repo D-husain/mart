@@ -30,7 +30,7 @@ public class cartController {
 			return "redirect:/login";
 		}
 	}
-
+	
 	@GetMapping("/deleteCart/{id}")
 	public String deleteCart(@PathVariable("id") int id, Model m) {
 		cartdao.deleteCart(id);

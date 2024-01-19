@@ -28,7 +28,7 @@ public class Address {
 	private String city;
 	private String state;
 	private int pinCode;
-	
+	private boolean isDefault;
 	private LocalDateTime created_at;
 	private LocalDateTime updated_at;
 	
@@ -130,8 +130,25 @@ public class Address {
 		this.type = type;
 	}
 
+	public boolean isDefault() {
+		return isDefault;
+	}
+
+	public void setDefault(boolean isDefault) {
+		this.isDefault = isDefault;
+	}
+
+	@Override
+	public String toString() {
+		return "Address [id=" + id + ", user=" + user + ", name=" + name + ", contact=" + contact + ", address="
+				+ address + ", type=" + type + ", country=" + country + ", city=" + city + ", state=" + state
+				+ ", pinCode=" + pinCode + ", isDefault=" + isDefault + ", created_at=" + created_at + ", updated_at="
+				+ updated_at + "]";
+	}
+
 	public Address(int id, User user, String name, String contact, String address, String type, String country,
-			String city, String state, int pinCode, LocalDateTime created_at, LocalDateTime updated_at) {
+			String city, String state, int pinCode, boolean isDefault, LocalDateTime created_at,
+			LocalDateTime updated_at) {
 		super();
 		this.id = id;
 		this.user = user;
@@ -143,20 +160,16 @@ public class Address {
 		this.city = city;
 		this.state = state;
 		this.pinCode = pinCode;
+		this.isDefault = isDefault;
 		this.created_at = created_at;
 		this.updated_at = updated_at;
-	}
-
-	@Override
-	public String toString() {
-		return "Address [id=" + id + ", user=" + user + ", name=" + name + ", contact=" + contact + ", address="
-				+ address + ", type=" + type + ", country=" + country + ", city=" + city + ", state=" + state
-				+ ", pinCode=" + pinCode + ", created_at=" + created_at + ", updated_at=" + updated_at + "]";
 	}
 
 	public Address() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
+
+	
 
 }

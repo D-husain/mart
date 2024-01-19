@@ -11,7 +11,7 @@
     <meta name="keywords" content="Fastkart">
     <meta name="author" content="Fastkart">
     <link rel="icon" href="../assets/images/favicon/1.png" type="image/x-icon">
-    <title>Product Left</title>
+    <title>[[${product.pname}]]</title>
 
     <!-- Google font -->
     <link rel="preconnect" href="https://fonts.gstatic.com/">
@@ -73,7 +73,7 @@
             <div class="row">
                 <div class="col-12">
                     <div class="breadscrumb-contain">
-                        <h2>Creamy Chocolate Cake</h2>
+                        <h2>[[${product.pname}]]</h2>
                         <nav>
                             <ol class="breadcrumb mb-0">
                                 <li class="breadcrumb-item">
@@ -82,7 +82,7 @@
                                     </a>
                                 </li>
 
-                                <li class="breadcrumb-item active">Creamy Chocolate Cake</li>
+                                <li class="breadcrumb-item active">[[${product.pname}]]</li>
                             </ol>
                         </nav>
                     </div>
@@ -205,9 +205,9 @@
                         <div class="col-xl-6 wow fadeInUp">
                             <div class="right-box-contain">
                                 <h6 class="offer-top">30% Off</h6>
-                                <h2 class="name">Creamy Chocolate Cake</h2>
+                                <h2 class="name">[[${product.pname}]]</h2>
                                 <div class="price-rating">
-                                    <h3 class="theme-color price">$49.50 <del class="text-content">$58.46</del> <span
+                                    <h3 class="theme-color price">[[${product.discount_price}]] <del class="text-content">[[${product.price}]]</del> <span
                                             class="offer theme-color">(8% off)</span></h3>
                                     <div class="product-rating custom-rate">
                                         <ul class="rating">
@@ -855,7 +855,7 @@
                 <div class="col-12">
                     <div class="slider-6_1 product-wrapper">
                     
-                        <div>
+                        <div th:each="p,iterStat:${related}">
                             <div class="product-box-3 wow fadeInUp">
                                 <div class="product-header">
                                     <div class="product-image">
@@ -889,9 +889,9 @@
 
                                 <div class="product-footer">
                                     <div class="product-detail">
-                                        <span class="span-name">Cake</span>
-                                        <a href="product-left-thumbnail.html">
-                                            <h5 class="name">Chocolate Chip Cookies 250 g</h5>
+                                        <span class="span-name">[[${p.category.cname}]]</span>
+                                        <a th:href="@{/product-details/{id}(id=${p.id})}">
+                                            <h5 class="name">[[${p.pname}]]</h5>
                                         </a>
                                         <div class="product-rating mt-2">
                                             <ul class="rating">
@@ -914,7 +914,7 @@
                                             <span>(5.0)</span>
                                         </div>
                                         <h6 class="unit">500 G</h6>
-                                        <h5 class="price"><span class="theme-color">$10.25</span> <del>$12.57</del>
+                                        <h5 class="price"><span class="theme-color">[[${p.discount_price}]]</span> <del>[[${p.price}]]</del>
                                         </h5>
 										<div class="add-to-cart-box bg-white">
 											<button class="btn btn-add-cart addcart-button theme-color">
@@ -1027,8 +1027,8 @@
                             <img src="../assets/images/product/category/1.jpg" class="img-fluid blur-up lazyload"
                                 alt="">
                             <div class="content">
-                                <h5>Creamy Chocolate Cake</h5>
-                                <h6>$32.96<del class="text-danger">$96.00</del><span>55% off</span></h6>
+                                <h5>[[${product.pname}]]</h5>
+                                <h6>[[${product.discount_price}]]<del class="text-danger">[[${product.price}]]</del><span>55% off</span></h6>
                             </div>
                         </div>
                         <div class="selection-section">

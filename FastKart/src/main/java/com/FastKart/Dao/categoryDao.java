@@ -1,5 +1,6 @@
 package com.FastKart.Dao;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,9 +14,9 @@ public class categoryDao {
 	
 	@Autowired private CategoryRepository categoryRepository;
 	
-	public Category addCategory(Category c) {
-		Category category = categoryRepository.save(c);
-		return category;
+	public boolean addCategory(Category c) {
+		 c.setCreated_at(LocalDateTime.now());
+		return this.categoryRepository.save(c)!=null;
 	}
 	
 	public List<Category> showAllCategory(){
@@ -27,13 +28,12 @@ public class categoryDao {
         return (List<Category>) categoryRepository.findAll();
     }
 
-	
 	public List<Category> getTopCategoriesOfTheWeek() {
 		List<Category> categoriesOfTheWeek = categoryRepository.findTopCategoriesOfCurrentWeek();
 		return categoriesOfTheWeek;
 	}
 	
-	public Category getCategory(int id) {		
+	public Category getCategoryById(int id) {		
 		return categoryRepository.findById(id).get();
 	}
 	

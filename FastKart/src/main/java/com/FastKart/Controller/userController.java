@@ -22,7 +22,6 @@ import com.FastKart.services.EmailService;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
-import jakarta.validation.Valid;
 
 @Controller
 public class userController {
@@ -40,7 +39,7 @@ public class userController {
 	
 
 	@PostMapping("/userRegister")
-	public String userRegister(@Valid @ModelAttribute("user") User user, BindingResult result, @RequestParam(value = "checkbox", defaultValue = "false") boolean checkbox,
+	public String userRegister(@ModelAttribute("user") User user, BindingResult result, @RequestParam(value = "checkbox", defaultValue = "false") boolean checkbox,
 			Model m, HttpSession session, RedirectAttributes redirAttrs) {
 
 		if (!checkbox || result.hasErrors()) {
@@ -51,20 +50,66 @@ public class userController {
 			redirAttrs.addFlashAttribute("error", "You have not checked terms & condition");
 			return "redirect:/sign-up";
 		}
-		user.setRole("user");
-		user.setCreated_at(LocalDateTime.now());
-		user.setPassword(passwordEncoder.encode(user.getPassword()));
-		User u = udao.userRegister(user);
-
-		if (u != null) {
-			System.out.println("User registered successfully: " + u.getUsername());
-			redirAttrs.addFlashAttribute("success", "Register successfully");
+		
+		String to = user.getEmail();
+		String subject = "Register";
+		String message = ""
+				+ "<table border='0' cellpadding='0' cellspacing='0' width='100%'>"
+				+ "<tr>"
+				+ "<td bgcolor='#F9FAFC'>"
+				+ "<div align='center' style='padding:5px 0;'>"
+				+ "<table border='0' cellpadding='0' cellspacing='0' style='font-family:Arial,Helvetica,sans-serif;font-size:16px;line-height:1.5em;max-width: 500px;'>"
+				+ "<thead>"
+				+ "<tr>"
+				+ "<td style='text-align: center;'>"
+				+ "<img src='https://i0.wp.com/www.writefromscratch.com/wp-content/uploads/2018/12/demo-logo.png?ssl=1' style='margin-bottom: 1rem; width: 110px;' alt=''>"
+				+ "</td>"
+				+ "</tr>"
+				+ "<tr>"
+				+ "<td style='background-color: #1f74ca; color: white; padding: 0 20px; border-radius: 15px 15px 0 0;'>"
+				+ "<h2 align='center'>Thank You</h2>"
+				+ "</td>"
+				+ "</tr>"
+				+ "</thead>"
+				+ "<tbody style='background-color: white;padding: 40px 20px;border-radius: 0 0 15px 15px;display: block;box-shadow: 0 10px 30px -30px black;'>"
+				+ "<tr>"
+				+ "<td>"
+				+ "<p align='center' style='margin: 0; color: #475467;'>Hey,<strong>"+user.getUsername()+"</strong></p>"
+				+ "</td>"
+				+ "</tr>"
+				+ "<tr>"
+				+ "<td>"
+				+ "<p align='center' style='color: #7a899f;margin-bottom: 0;font-size: 14px;'>Thank you for registered.We're so excited to share the latest news and updates about our product with you.If you'd like to learn more, follow us on social media!</p>"
+				+ "</td>"
+				+ "</tr>"
+				+ "</tbody>"
+				+ "<tfoot>"
+				+ "<tr>"
+				+ "<td>"
+				+ "<p align='center'>"
+				+ "<small style='color:#7a899f;'>&copy;2023 Copyright <a href='http://localhost:8080/' target='_blank' style='text-decoration: none; color: #1f74ca;'>FasrKart</a>. All Rights Reserved.</small>"
+				+ "</p>" + "</td>" + "</tr>" + "</tfoot>" + "</table>" + "</div>" + "</td>"
+				+ "</tr>" + "</table>";
+		
+		boolean flag = this.emailService.sendEmail(subject, message, to);
+		
+		if (flag) {
+			user.setRole("user");
+			user.setCreated_at(LocalDateTime.now());
+			user.setPassword(passwordEncoder.encode(user.getPassword()));
+			User u = udao.userRegister(user);
+			
+			if (u != null) {
+				redirAttrs.addFlashAttribute("success", "Register successfully");
+			} else {
+				redirAttrs.addFlashAttribute("error", "Something went wrong");
+				return "redirect:/sign-up";
+			}
 		} else {
-			System.out.println("Failed to register user");
-
-			redirAttrs.addFlashAttribute("error", "Something went wrong");
+			redirAttrs.addFlashAttribute("error", "Contact failed.");
+			return "redirect:/sign-up";
 		}
-
+		
 		return "redirect:/login";
 	}
 	
@@ -348,13 +393,19 @@ public class userController {
 	        redirAttrs.addFlashAttribute("error", "Password fields cannot be empty.");
 	        return "redirect:/reset_password";
 	    }else if (!newpassword.equals(confirmPassword)) {
-	        redirAttrs.addFlashAttribute("error", "Do not match password.");
+	        redirAttrs.addFlashAttribute("error", "Passwords do not match.");
 	        return "redirect:/reset_password";
 	    }
-
+		
 		User user = this.userRepository.getUserByUserName(email);
 
 		if (user != null) {
+			
+			if (!this.bCryptPasswordEncoder.matches(newpassword, user.getPassword())) {
+	            redirAttrs.addFlashAttribute("error", "Incorrect current password.");
+	            return "redirect:/reset_password";
+	        }
+			
 			user.setPassword(this.bCryptPasswordEncoder.encode(newpassword));
 			this.userRepository.save(user);
 			

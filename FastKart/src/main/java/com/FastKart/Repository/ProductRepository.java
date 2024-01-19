@@ -21,9 +21,42 @@ public interface ProductRepository extends CrudRepository<Product, Integer> {
 	@Query("SELECT p FROM Product p WHERE p.category.cname = :cname")
 	List<Product> findByCategory(@Param("cname") String categoryName);
 
-
 	@Query(value = "SELECT * FROM product WHERE created_at >= DATE_SUB(CURDATE(), INTERVAL 1 WEEK) ORDER BY created_at DESC", nativeQuery = true)
 	List<Product> findLatestProducts();
+
+	@Query("SELECT p FROM Product p where p.category.id = ?1")
+	List<Product> findByProductCategoryId(int cid);
+
+	Product getById(Integer proId);
+
+	@Query("SELECT p FROM Product p where p.category.cname = ?1")
+	List<Product> findByProductCategoryName(String category);
+	
+	@Query("SELECT p FROM Product p where p.subcategory.subcname = ?1")
+	List<Product> findByProductSubCategoryName(String subcategory);
+	
+	@Query("SELECT p FROM Product p where p.subCategoryItem.subitemname = ?1")
+	List<Product> findByProductSubCategoryItemName(String subcategoryitem);
+
+	@Query("SELECT p FROM Product p WHERE p.pname LIKE %?1%")
+	public List<Product> search(String keyword);
+	
+	@Query("SELECT p FROM Product p ORDER BY p.price ASC")
+	List<Product> sortByPriceLowToHigh();
+
+	@Query("SELECT p FROM Product p ORDER BY p.price DESC")
+	List<Product> sortByPriceHighToLow();
+
+	@Query("SELECT p FROM Product p ORDER BY p.pname DESC")
+	List<Product> sortByProductNameZ();
+
+	@Query("SELECT p FROM Product p ORDER BY p.pname ASC")
+	List<Product> sortByProductNameA();
+
+	List<Product> findByPriceBetween(int min, int max);
+
+	
+
 
 
 
