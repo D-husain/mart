@@ -207,7 +207,7 @@
 									<div id="collapseThree" class="accordion-collapse collapse show" aria-labelledby="headingThree">
 										<div class="accordion-body">
 											<div class="range-slider">
-												<input type="text" id="priceRangeSlider" class="js-range-slider" value="">
+												<input type="text" id="priceRangeSlider" enterkeyhint="" class="js-range-slider" value="">
 											</div>
 										</div>
 									</div>
@@ -715,10 +715,10 @@
     	                            if (previousCheckbox && previousCheckbox !== this) {
     	                                $(previousCheckbox).prop('checked', false);
     	                            }
-    	                            filterByCategory(category.cname);
+    	                            filterByCategory(category.id);
     	                            previousCheckbox = this;
     	                        } else {
-    	                            getAllProducts();
+    	                        	getAllProducts();
     	                        }
     	                    });
     	                });
@@ -735,9 +735,9 @@
     	fetchCategoryData();
     });
     
-    function filterByCategory(category) {
+    function filterByCategory(id) {
     	$.ajax({
-    		url: '/api/shop?category=' + category,
+    		url: '/api/shop?categoryId=' + id,
     		method: 'GET',
     		dataType: 'json',
     		success: function(response) {

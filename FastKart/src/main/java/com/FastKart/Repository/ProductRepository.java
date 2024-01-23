@@ -15,11 +15,17 @@ public interface ProductRepository extends CrudRepository<Product, Integer> {
 
 	int countByCategory(Category category);
 
-	@Query("SELECT p FROM Product p WHERE DATE(p.created_at) = CURRENT_DATE")
-	List<Product> findTopProductsCreatedToday();
+	//@Query("SELECT p FROM Product p WHERE DATE(p.created_at) = CURRENT_DATE ORDER BY created_at DESC")
+	//List<Product> findTopProductsCreatedToday();
+	
+	 @Query("SELECT p FROM Product p WHERE DATE(p.created_at) = CURRENT_DATE ORDER BY p.created_at DESC")
+	    List<Product> findTopProductsCreatedToday();
 
 	@Query("SELECT p FROM Product p WHERE p.category.cname = :cname")
 	List<Product> findByCategory(@Param("cname") String categoryName);
+	
+	@Query("SELECT p FROM Product p WHERE p.subcategory.subcname = :subcname")
+	List<Product> findBySubCategory(@Param("subcname") String subcategoryName);
 
 	@Query(value = "SELECT * FROM product WHERE created_at >= DATE_SUB(CURDATE(), INTERVAL 1 WEEK) ORDER BY created_at DESC", nativeQuery = true)
 	List<Product> findLatestProducts();
@@ -55,7 +61,8 @@ public interface ProductRepository extends CrudRepository<Product, Integer> {
 
 	List<Product> findByPriceBetween(int min, int max);
 
-	
+	@Query("SELECT p FROM Product p WHERE p.category.id = ?1 AND p.subCategoryItem.subitemname=?2")
+	List<Product> findProductsByCategoryAndsubcategoryitem(int categoryId, String subcategoryitem);
 
 
 

@@ -96,8 +96,8 @@ public class UrlController {
 		List<Product> showTopProductsToday = pdao.showTopProductsToday();
 		model.addAttribute("Todayproducts", showTopProductsToday);
 
-		List<Product> showPetFoodProducts = pdao.showPetFoodProducts();
-		model.addAttribute("Petfood", showPetFoodProducts);
+		List<Product> showfruitsandvegetablesProducts = pdao.showFruitsandVegetablesProducts();
+		model.addAttribute("fruitandvegetable", showfruitsandvegetablesProducts);
 		
 		List<Product> showSnacksFoodProducts = pdao.showSnacksFoodProducts();
 		model.addAttribute("Snacksfood", showSnacksFoodProducts);
@@ -105,7 +105,7 @@ public class UrlController {
 		
 		return "index";
 	}
-
+	
 //========================================================== ACCOUNT PAGES ======================================================================	
 
 	@GetMapping("/sign-up")
@@ -173,31 +173,36 @@ public class UrlController {
 	
 	@GetMapping("api/shop")
 	public ResponseEntity<List<ProductDTO>> shop(
-			@RequestParam(name = "category", required = false) String category,
-			@RequestParam(name = "subcategoryitem", required = false) String subcategoryitem) {
+	        @RequestParam(name = "categoryId", required = false, defaultValue = "0") int categoryId,
+	        @RequestParam(name = "subcategoryitem", required = false) String subcategoryitem) {
 
 	    List<ProductDTO> productDTOList = new ArrayList<>();
-	    List<Product> productList = null;
+	    List<Product> productList;
 
-	    if (category == null && subcategoryitem == null) {
+	    if (categoryId == 0 && subcategoryitem == null) {
 	        productList = pdao.showAllProduct();
-	    }
-	    else if (category != null && subcategoryitem == null) {
-	        productList = pdao.viewProductsByCategoryName(category);
-	    }
-	    else if(category == null && subcategoryitem != null) {
-	    	productList = pdao.viewProductsBySubCategoryItemName(subcategoryitem);
-	    }
-
-	    for (Product product : productList) {
-	        ProductDTO productDTO = pdao.mapProductToDTO(product);
-	        productDTOList.add(productDTO);
+	    } else if (categoryId != 0 && subcategoryitem == null) {
+	        productList = pdao.viewProductsByCategoryId(categoryId);
+	    } else if (categoryId == 0 && subcategoryitem != null) {
+	        productList = pdao.viewProductsBySubCategoryItemName(subcategoryitem);
+	    } else {
+	    	 productList = pdao.getProductsByCategorysubcategoryitem(categoryId, subcategoryitem);
 	    }
 
-	    System.out.println("Filtered products count: " + productList.size());
+	    if (productList != null) {
+	        for (Product product : productList) {
+	            ProductDTO productDTO = pdao.mapProductToDTO(product);
+	            productDTOList.add(productDTO);
+	        }
+	    }
+	    
+	    int productCount = productDTOList.size();
+
+	    System.out.println("Filtered products count: " + productCount);
 
 	    return new ResponseEntity<>(productDTOList, HttpStatus.OK);
 	}
+
 	
 	@GetMapping("/api/sort")
 	public ResponseEntity<List<ProductDTO>> sortProducts(@RequestParam("sort") String sortType) {

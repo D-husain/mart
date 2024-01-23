@@ -48,7 +48,28 @@
     <!-- Template css -->
     <link id="color-link" rel="stylesheet" type="text/css" href="../assets/css/style.css">
     
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+	
+	<style>
+		.table-responsive {
+			max-height: 500px;
+			overflow-x: hidden;
+			overflow-y: auto;
+		}
+		
+		.table-responsive::-webkit-scrollbar-track {
+			-webkit-box-shadow: inset 0 0 6px #ecf3fa;
+			box-shadow: inset 0 0 6px #ecf3fa
+		}
+		
+		.table-responsive::-webkit-scrollbar {
+			width: 6px
+		}
+		
+		.table-responsive::-webkit-scrollbar-thumb {
+			background-color: rgba(14, 148, 122)
+		}
+	</style>
 </head>
 
 <body class="bg-effect">
@@ -230,7 +251,7 @@
                         <div th:if="${Latestproducts.size() > 0}" class="section-t-space">
                             <div class="category-menu">
                                 <h3>Latest Products</h3>
-                                <ul class="product-list border-0 p-0 d-block">
+                                <ul class="product-list border-0 p-0 d-block table-responsive">
                                     <li th:each="p, iterStat : ${Latestproducts}">
                                         <div class="offer-product">
                                             <a th:href="@{/product-details/{id}(id=${p.id})}" class="offer-image">
@@ -474,7 +495,7 @@
                     </div>
 
                     <div class="title d-block">
-                        <h2>Pet Foods</h2>
+                        <h2>Fruits & Vegetables</h2>
                         <span class="title-leaf">
                             <svg class="icon-width">
                                 <use xlink:href="https://themes.pixelstrap.com/fastkart/assets/svg/leaf.svg#leaf"></use>
@@ -485,7 +506,7 @@
 
                     <div class="product-border overflow-hidden wow fadeInUp">
                         <div class="product-box-slider no-arrow">
-                            <div th:each="p, iterStat : ${Petfood}">
+                            <div th:each="p, iterStat : ${fruitandvegetable}">
                                 <div class="row m-0">
                                     <div class="col-12 px-0">
                                         <div class="product-box">
@@ -550,7 +571,7 @@
                                 </div>
                             </div>
                             
-                            <div th:unless="${Petfood.size() > 0}">
+                            <div th:unless="${fruitandvegetable.size() > 0}">
 								<p>no product</p>                            
                             </div>
 

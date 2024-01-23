@@ -24,18 +24,31 @@ public class productDao {
 		return product;
 	}
 
+	/*
+	 * public List<Product> showLatestProducts() { List<Product> latestProducts =
+	 * productRepository.findLatestProducts(); return latestProducts; }
+	 */
+	
 	public List<Product> showLatestProducts() {
-		List<Product> latestProducts = productRepository.findLatestProducts();
-		return latestProducts;
-	}
+        List<Product> latestProducts = productRepository.findLatestProducts();
+        int numberOfProductsToShow = Math.min(20, latestProducts.size());
+        List<Product> limitedProducts = latestProducts.subList(0, numberOfProductsToShow);
+        return limitedProducts;
+    }
 
+	/*
+	 * public List<Product> showTopProductsToday() { List<Product> topProductsToday
+	 * = productRepository.findTopProductsCreatedToday(); return topProductsToday; }
+	 */
+	
 	public List<Product> showTopProductsToday() {
-		List<Product> topProductsToday = productRepository.findTopProductsCreatedToday();
-		return topProductsToday;
+	    List<Product> topProductsToday = productRepository.findTopProductsCreatedToday();
+	    int numberOfProductsToShow = Math.min(20, topProductsToday.size());
+	    return topProductsToday.subList(0, numberOfProductsToShow);
 	}
 
-	public List<Product> showPetFoodProducts() {
-		List<Product> PetFoodProducts = productRepository.findByCategory("\r\nPet Foods");
+	public List<Product> showFruitsandVegetablesProducts() {
+		List<Product> PetFoodProducts = productRepository.findByCategory("Fruits & Vegetables");
 		return PetFoodProducts;
 	}
 	
@@ -158,6 +171,11 @@ public class productDao {
 	public List<Product> filterByPriceRange(int min, int max) {
         return productRepository.findByPriceBetween(min, max);
     }
+
+	public List<Product> getProductsByCategorysubcategoryitem(int categoryId, String subcategoryitem) {
+	    List<Product> products = productRepository.findProductsByCategoryAndsubcategoryitem(categoryId, subcategoryitem);
+	    return products;
+	}
 
 
 	
