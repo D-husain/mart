@@ -21,7 +21,7 @@ public class cartDao {
 	@Autowired private UserRepository userRepository;
 	
 
-	public Cart addToCart(Cart cart, int pid, int quntity, Principal principal) {
+	public void addToCart(int pid, int quntity, Principal principal) {
 		Product product = productRepository.findById(pid).get();
 		String name = principal.getName();
 		User user = userRepository.getUserByUserName(name);
@@ -35,18 +35,15 @@ public class cartDao {
 				existingCartItem.setQuntity(updatedQty);
 				existingCartItem.setTotal(product.getPrice() * updatedQty);
 				cartRepository.save(existingCartItem);
-				return existingCartItem;
 			} else {
 				Cart newCartItem = new Cart();
 				newCartItem.setQuntity(quntity);
 				newCartItem.setTotal(quntity * product.getPrice());
 				newCartItem.setProduct(product);
 				newCartItem.setUser(user);
-				Cart savedCart = cartRepository.save(newCartItem);
-				return savedCart;
+				cartRepository.save(newCartItem);
 			}
 		}
-		return cart;
 	}
 
 	public List<Cart> viewCart(Principal principal) {
@@ -84,15 +81,26 @@ public class cartDao {
 		return grandTotal;
 	}
 	
+	public void updateCart(int id, int qty, int total) {
+        Cart cartItem = cartRepository.findById(id).orElse(null);
+        if (cartItem != null) {
+            cartItem.setQuntity(qty);
+            cartItem.setTotal(qty);
+            cartRepository.save(cartItem);
+        }
+    }
 
-	public void updateCart(int id, int quntity) {
-		Cart cart = cartRepository.findById(id).orElse(null);
-		if (cart != null) {
-			cart.setQuntity(quntity);
-			cart.setTotal(quntity * cart.getProduct().getPrice());
-			cartRepository.save(cart);
-		} 
-	}
+	public boolean updateCart(Integer id, int qty) {
+        Cart cartItem = cartRepository.getById(id);
+        
+        if (cartItem != null) {
+            int total = cartItem.getProduct().getPrice() * qty;
+            updateCart(id, qty, total);
+            return true;
+        }
+        return false;
+    }
+	
 	
 	public void deleteCart(int id) {
 		cartRepository.deleteById(id);

@@ -24,4 +24,16 @@ public class couponDao {
 		return allCoupon;
 	}
 
+	
+	public void AddCoupon(Coupon coupons) {
+		couponRepository.save(coupons);
+	}
+	
+	public List<Coupon> ShowCoupon() {
+		return this.couponRepository.findAll();
+	}
+	
+	public void DeleteCoupon(int id) {
+		couponRepository.deleteById(id);
+	}
 }

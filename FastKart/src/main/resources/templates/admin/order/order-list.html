@@ -24,20 +24,20 @@
     <!-- Fontawesome css -->
     <link rel="stylesheet" type="text/css" href="admin/assets/css/vendors/font-awesome.css">
 
-    <!-- Linear Icon -->
-    <link rel="stylesheet" href="../../../cdn.linearicons.com/free/1.0.0/icon-font.min.css">
-
-    <!-- Themify icon css -->
-    <link rel="stylesheet" type="text/css" href="admin/assets/css/vendors/themify.css">
-
-    <!-- Feather icon css -->
-    <link rel="stylesheet" type="text/css" href="admin/assets/css/vendors/feather-icon.css">
+    <!-- Linear Icon css -->
+    <link rel="stylesheet" href="admin/assets/css/linearicon.css">
 
     <!-- remixicon css -->
     <link rel="stylesheet" type="text/css" href="admin/assets/css/remixicon.css">
 
     <!-- Data Table css -->
     <link rel="stylesheet" type="text/css" href="admin/assets/css/datatables.css">
+
+    <!-- Themify icon css-->
+    <link rel="stylesheet" type="text/css" href="admin/assets/css/vendors/themify.css">
+
+    <!-- Feather icon css -->
+    <link rel="stylesheet" type="text/css" href="admin/assets/css/vendors/feather-icon.css">
 
     <!-- Plugins css -->
     <link rel="stylesheet" type="text/css" href="admin/assets/css/vendors/scrollbar.css">
@@ -47,7 +47,17 @@
     <link rel="stylesheet" type="text/css" href="admin/assets/css/vendors/bootstrap.css">
 
     <!-- App css -->
-	    <link rel="stylesheet" type="text/css" href="admin/assets/css/style.css">
+    <link rel="stylesheet" type="text/css" href="admin/assets/css/style.css">
+    
+    <!-- Use the CDN link instead of local file -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.9.2/min/dropzone.min.js"></script>
+	
+	<!-- jQuery -->
+	<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+	
+	<!-- DataTables JS -->
+	<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.js"></script>
+	
 	<style type="text/css">
 		.all-package tbody tr td.order-pending span {
 			background-color: rgba(144, 234, 255, 0.46);
@@ -407,6 +417,10 @@
 		</div>
 	</div>
     <!--  Order Details End -->
+    
+    <script type="text/javascript">
+    $('#table_id').DataTable();
+    </script>
 
     <!-- latest js -->
     <script src="admin/assets/js/jquery-3.6.0.min.js"></script>
@@ -435,7 +449,7 @@
 
     <!-- Data table js -->
     <script src="admin/assets/js/jquery.dataTables.js"></script>
-    <script src="admin/assets/js/custom-data-table.js"></script>
+    <!-- <script src="admin/assets/js/custom-data-table.js"></script> -->
 
     <!-- all checkbox select js -->
     <script src="admin/assets/js/checkbox-all-check.js"></script>

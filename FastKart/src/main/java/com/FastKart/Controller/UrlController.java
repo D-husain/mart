@@ -379,21 +379,20 @@ public class UrlController {
 
 	@PostMapping("/user-coupon")
 	public String addCouponForUser(Principal principal, @ModelAttribute("usercoupon") UserCoupon userCoupon,
-			RedirectAttributes redirAttrs, Model model, Cart cart, HttpSession session) {
+			RedirectAttributes redirAttrs, Model model,HttpSession session) {
 
 		if (principal != null) {
 			UserCoupon ucoupon = usercdao.addUserCoupon(userCoupon, principal);
+			List<Coupon> allCoupons = coupondao.allCoupon();
 
 			if (ucoupon != null) {
-				List<Coupon> allCoupons = coupondao.allCoupon();
-				
-				if (!allCoupons.isEmpty()) {
-					session.setAttribute("coupon", ucoupon);
-					redirAttrs.addFlashAttribute("success", "Coupon applied successfully");
-				} else {
-					redirAttrs.addFlashAttribute("error", "No coupons available");
-				}
-			} else {
+				session.setAttribute("coupon", ucoupon);
+				redirAttrs.addFlashAttribute("success", "Coupon applied successfully");
+			}
+			else if(allCoupons.isEmpty()) {
+				redirAttrs.addFlashAttribute("error", "No coupons available");
+			}
+			else {
 				redirAttrs.addFlashAttribute("error", "No coupon code provided");
 			}
 		}

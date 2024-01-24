@@ -2,6 +2,8 @@ package com.FastKart.Repository;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
@@ -63,6 +65,8 @@ public interface ProductRepository extends CrudRepository<Product, Integer> {
 
 	@Query("SELECT p FROM Product p WHERE p.category.id = ?1 AND p.subCategoryItem.subitemname=?2")
 	List<Product> findProductsByCategoryAndsubcategoryitem(int categoryId, String subcategoryitem);
+
+	 Page<Product> findAll(Pageable pageable);
 
 
 

@@ -24,7 +24,7 @@ public class cartController {
 	@PostMapping("/addToCart")
 	public String addToCart(@ModelAttribute Cart cart, @RequestParam("pid") int pid, @RequestParam("quntity") int quntity, Principal principal) {
 		if (principal != null && udao.isUserLoggedIn(principal)) {
-			cartdao.addToCart(cart, pid, quntity, principal);
+			cartdao.addToCart(pid, quntity, principal);
 			return "redirect:/cart";
 		} else {
 			return "redirect:/login";

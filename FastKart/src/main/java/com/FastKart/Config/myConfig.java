@@ -54,6 +54,8 @@ public class myConfig {
 		    .authenticationProvider(authenticationProvider())
 		        .authorizeHttpRequests(authorize -> authorize
 		            .requestMatchers("/user/**").hasRole("USER")
+		            .requestMatchers("/api/cart/**").authenticated()
+		            .requestMatchers("/api/wishlist/**").authenticated()
 		            .requestMatchers("/**","/css/**", "/image/**", "/do_register", "/").permitAll()
 		        )
 		        .formLogin(form -> form

@@ -49,8 +49,11 @@
     <!-- App css -->
     <link rel="stylesheet" type="text/css" href="admin/assets/css/style.css">
     
-    <!-- jQuery -->
-	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+   <!-- jQuery -->
+	<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+	
+	<!-- DataTables JS -->
+	<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.js"></script>
 	
 	<script src="https://cdn.ckeditor.com/4.16.1/standard/ckeditor.js"></script>
 </head>
@@ -265,7 +268,7 @@
 								<div class="form-group">
 									<label for="exampleInputName1">Product Description</label>
 									<div class="col-sm-12">
-										<textarea id="editor" th:field="*{description}"></textarea>
+										<textarea id="editor" th:field="*{description}" name="description"></textarea>
 									</div>
 									<span id="cnameerr" class="text-danger" style="font-size: 14px"></span>
 								</div>
@@ -296,18 +299,26 @@
 					$.ajax({
 						type: 'POST',
 						enctype: 'multipart/form-data',
-						url: '/product/add', // Update URL endpoint
+						url: '/product/add',
 						data: formData,
 						processData: false,
 						contentType: false,
 						success: function() {
 							$('#add-product').modal('hide');
-							$('#insert').addClass('show');
 							getAllProduct();
-							$('#productForm')[0].reset();
-							setTimeout(function() {
-								$('#insert').removeClass('show');
-							}, 3000);
+							// Show success notification
+							$.notify('<i class="fas fa-bell"></i></i><strong>Product Item</strong> add successfully...', {
+						    type: 'theme',
+						    allow_dismiss: true,
+						    delay: 3000,
+						    showProgressbar: true,
+						    timer: 300,
+						    // timer: 555555500,
+						    animate: {
+						        enter: 'animated fadeInDown',
+						        exit: 'animated fadeOutUp'
+						    }
+						});
 						},
 						error: function(error) {
 							alert(error)
@@ -371,7 +382,7 @@
 
 								tableBody.append(tr);
 							});				
-					//getPagination('#myTable');
+					 $('#table_id').DataTable();
 				},
 				error : function(error) {
 					alert('Error fetching products: ' + error);
@@ -466,7 +477,7 @@
 
     <!-- Data table js -->
     <script src="admin/assets/js/jquery.dataTables.js"></script>
-    <script src="admin/assets/js/custom-data-table.js"></script>
+   <!--  <script src="admin/assets/js/custom-data-table.js"></script> -->
 
     <!-- sidebar effect -->
     <script src="admin/assets/js/sidebareffect.js"></script>

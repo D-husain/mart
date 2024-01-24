@@ -6,7 +6,7 @@ $(document).ready(function() {
 function fetchWishlistData() {
 	$.ajax({
 		type: 'GET',
-		url: '/wishlist/data',
+		url: 'api/wishlist/data',
 		success: function(wishlistData) {
 			const wishlistItemsContainer = $('#wishlistItems');
 
@@ -83,7 +83,7 @@ function fetchWishlistData() {
 
 
 $(document).ready(function() {
-	$('body').on('click', '[id^="addToCartBtn"]', function(e) {
+	$('.bg-white').on('click', '[id^="addToCartBtn"]', function(e) {
 		e.preventDefault(); // Prevent the default form submission
 
 		var btnId = $(this).attr('id').replace('addToCartBtn', '');
@@ -91,7 +91,7 @@ $(document).ready(function() {
 
 		$.ajax({
 			type: 'POST',
-			url: 'user/addToCart', // URL for the addToCart endpoint
+			url: '/api/cart/addToCart', // URL for the addToCart endpoint
 			data: formData,
 			success: function(response) {
 				fetchWishlistData();
@@ -129,7 +129,7 @@ $('div').on('click', '.delete', function() {
 	$('#confirmDelete').on('click', function() {
 		$.ajax({
 			type: "DELETE",
-			url: "/wishlist/delete/" + id,
+			url: "api/wishlist/delete/" + id,
 			cache: false,
 			success: function() {
 				$('#removeWishlist').modal('hide');
@@ -159,7 +159,7 @@ $('div').on('click', '.delete', function() {
 function fetchwishlistcount() {
 	$.ajax({
 		type: 'GET',
-		url: '/user/wishlist/count', // Assuming the correct endpoint URL
+		url: '/api/wishlist/count', // Assuming the correct endpoint URL
 		success: function(size) {
 			var wishlistCountElement = $('#wishlistcount');
 

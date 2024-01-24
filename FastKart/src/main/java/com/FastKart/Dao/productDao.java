@@ -3,6 +3,8 @@ package com.FastKart.Dao;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
@@ -103,6 +105,10 @@ public class productDao {
 		return findAllProduct;
 	}
 	
+	public Page<Product> getPaginatedProducts(int page, int size) {
+	    PageRequest pageable = PageRequest.of(page, size);
+	    return productRepository.findAll(pageable);
+	}
 	public ProductDTO getapiProductById(int id) {
 	    try {
 	        Product product = productRepository.findById(id)

@@ -193,24 +193,27 @@
                                             <div class="onhover-div">
                                                 <ul class="cart-list">
                                                 
-                                                    <li th:each="c, iterStat : ${viewCart}" class="product-box-contain">
-                                                        <div class="drop-cart">
-                                                            <a href="product-left-thumbnail.html" class="drop-image">
-                                                                <img src="../assets/images/vegetable/product/1.png"
-                                                                    class="blur-up lazyload" alt="">
-                                                            </a>
-
-                                                            <div class="drop-contain">
-                                                                <a href="product-left-thumbnail.html">
-                                                                    <h5>[[${c.product.pname}]]</h5>
-                                                                </a>
-                                                                <h6><span>[[${c.quntity}]] x</span> ₹[[${c.product.price}]]</h6>
-                                                                <button class="close-button close_button">
-                                                                    <i class="fa-solid fa-xmark"></i>
-                                                                </button>
-                                                            </div>
-                                                        </div>
-                                                    </li>
+                                                    <div class="table-responsive-xl">
+													<table class="">
+														<tbody>
+															<tr th:each="c, iterStat : ${viewCart}" class="product-box-contain">
+																<td>
+																<a href="product-left-thumbnail.html" class="drop-image"> 
+																<img style="max-width: 100px; max-height: 100px;" src="../assets/images/vegetable/product/1.png" class="blur-up lazyload" alt="">
+																</a>
+																</td>
+																<td><a href="product-left-thumbnail.html">
+																		<h5 th:text="${c.product.pname}"></h5>
+																</a>
+																	<h6>
+																		<span th:text="${c.quntity}"></span> x ₹<span
+																			th:text="${c.product.price}"></span>
+																	</h6>
+																	</td>
+															</tr>
+														</tbody>
+													</table>
+												</div>
 
 												<div th:if="${loggedInUser eq null}">
 													<div class="emptycart-content text-center">
@@ -275,11 +278,11 @@
                                                 </li>
 
                                                 <li class="product-box-contain">
-                                                    <a href="sign-up">Register</a>
+                                                    <a href="/sign-up">Register</a>
                                                 </li>
 
                                                 <li class="product-box-contain">
-                                                    <a href="forgot">Forgot Password</a>
+                                                    <a href="/forgot">Forgot Password</a>
                                                 </li>
                                             </ul>
                                         </div>

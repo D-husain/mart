@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -29,6 +30,9 @@ import com.FastKart.entities.Product;
 import com.FastKart.entities.SubCategoryItem;
 import com.FastKart.entities.User;
 import com.FastKart.entities.subCategory;
+
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 
 @Controller
 
@@ -58,6 +62,15 @@ public class adminController {
 		}
 		return "redirect:/admin";
 	}
+	
+	@GetMapping("/admin-logout")
+    public String logout(HttpServletRequest request, HttpServletResponse response) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication != null) {
+            new SecurityContextLogoutHandler().logout(request, response, authentication);
+        }
+        return "redirect:/admin-login?logout";
+    }
 	
 //========================================================= Handler to get Admin Categorys page ===========================================================
 		@GetMapping("/category")
@@ -119,12 +132,9 @@ public class adminController {
 		
 		
 //======================================================= Handler to get Admin allCoupon page ============================================================		
-	@GetMapping("/allCoupon")
+	@GetMapping("/coupon")
 	public String allCoupon(Model m) {
-		 
-		List<Coupon> allCoupon = coupondao.allCoupon();
-		m.addAttribute("allCoupon", allCoupon);
-		return "admin/admin-allCoupon";
+		return "admin/coupon/coupon-list";
 	}
 	
 	
@@ -170,6 +180,11 @@ public class adminController {
 	@ModelAttribute("Product")
 	public Product getDefaultproduct() {
 		return new Product();
+	}
+	
+	@ModelAttribute("Coupon")
+	public Coupon getDefaultcoupon() {
+		return new Coupon();
 	}
 	
 	

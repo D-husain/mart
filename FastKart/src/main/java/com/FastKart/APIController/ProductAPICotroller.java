@@ -5,8 +5,11 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -53,6 +56,25 @@ public class ProductAPICotroller {
 	        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 	    }
 	}
+	
+	@GetMapping("/api/products")
+    public ResponseEntity<Page<ProductDTO>> getPaginatedProducts(
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size) {
+        
+        Page<Product> resultPage = pdao.getPaginatedProducts(page, size);
+
+        if (resultPage.hasContent()) {
+            List<ProductDTO> productDTOList = resultPage.getContent()
+                .stream()
+                .map(pdao::mapProductToDTO)
+                .collect(Collectors.toList());
+
+            return new ResponseEntity<>(new PageImpl<>(productDTOList, resultPage.getPageable(), resultPage.getTotalElements()), HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
 	
 	
 	@PostMapping("product/add")

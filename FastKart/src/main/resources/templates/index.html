@@ -970,9 +970,6 @@
     <div class="bg-overlay"></div>
     <!-- Bg overlay End -->
 
-    <!-- latest jquery-->
-    <script src="../assets/js/jquery-3.6.0.min.js"></script>
-
     <!-- jquery ui-->
     <script src="../assets/js/jquery-ui.min.js"></script>
 
@@ -1069,7 +1066,7 @@
 
     			$.ajax({
     				type: 'POST',
-    				url: 'user/addToWishlist',
+    				url: 'api/wishlist/addToWishlist',
     				data: formData,
     				success: function(response) {
     					//fetchheaderwishData();
@@ -1118,9 +1115,10 @@
 
     			$.ajax({
     				type: 'POST',
-    				url: 'user/addToCart',
+    				url: '/api/cart/addToCart',
     				data: formData,
     				success: function(response) {
+    					fetchCartData();
     					//fetchheaderCartData();
     					//fetchheadertotal();
     					//fetchcartcount();

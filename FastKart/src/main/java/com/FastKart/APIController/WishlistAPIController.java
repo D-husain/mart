@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.FastKart.Dao.WishListDao;
@@ -25,6 +26,7 @@ import com.FastKart.entities.User;
 import com.FastKart.entities.WishList;
 
 @Controller
+@RequestMapping("/api/wishlist")
 public class WishlistAPIController {
 
 	@Autowired private ProductRepository productrepo;
@@ -32,7 +34,7 @@ public class WishlistAPIController {
 	@Autowired private UserRepository userRepository;
 	@Autowired private WishListDao wishListDao;
 
-	@PostMapping("/user/addToWishlist")
+	@PostMapping("/addToWishlist")
 	public ResponseEntity<String> addToWishlist(@RequestParam int pid, Principal principal) {
 	    if (principal == null) {
 	        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Please log in to add items to the wishlist.");
@@ -74,7 +76,7 @@ public class WishlistAPIController {
 
 
 
-	@GetMapping("/wishlist/data")
+	@GetMapping("/data")
 	public ResponseEntity<List<WishlistDTO>> getWishlistData(Principal principal) {
 		try {
 			if (principal == null) {
@@ -94,7 +96,7 @@ public class WishlistAPIController {
 				Product product = wishlistItem.getProduct();
 				if (product != null) {
 					wishlistDTO.setProductid(product.getId());
-					wishlistDTO.setImage1(product.getProduct_image().getImage1()); 
+					//wishlistDTO.setImage1(product.getProduct_image().getImage1()); 
 					wishlistDTO.setPname(product.getPname()); // Corrected field naming convention
 					wishlistDTO.setPrice(product.getPrice());
 					wishlistDTO.setDiscount_price(product.getDiscount_price());
@@ -112,7 +114,7 @@ public class WishlistAPIController {
 		}
 	}
 
-	@GetMapping("user/wishlist/count")
+	@GetMapping("/count")
 	public ResponseEntity<Integer> getuserWishlistsize(Principal principal) {
 
 		if (principal == null) {
@@ -124,7 +126,7 @@ public class WishlistAPIController {
 		return ResponseEntity.ok(wishlistItems.size());
 	}
 
-	@DeleteMapping("/wishlist/delete/{id}")
+	@DeleteMapping("/delete/{id}")
 	public ResponseEntity<String> deleteWishlist(@PathVariable Integer id) {
 		wishListDao.deleteWishList(id);
 		return ResponseEntity.status(HttpStatus.OK).body("Product delete successfully.");
