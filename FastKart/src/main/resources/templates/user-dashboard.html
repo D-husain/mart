@@ -342,7 +342,6 @@
                                                         <th scope="col">Order Date</th>
                                                         <th scope="col">Status</th>
                                                         <th scope="col">Price</th>
-                                                        <th scope="col">Track Order</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
@@ -370,9 +369,6 @@
 														</th:block>
 														<td>
                                                             <h6>₹[[${o.total}]]</h6>
-                                                        </td>
-                                                        <td>
-                                                            <a th:href="@{/order-tracking/{id}(id=${o.id})}" class="success text-first underline">Track <i class="fa-solid fa-arrow-right fa-fade"></i></a>
                                                         </td>
                                                     </tr>
 
@@ -733,6 +729,11 @@
 							<td class="pt-1 font-medium">: <label class="text-dark">
 							<a class="link-secondary" th:href="@{/invoice/{id}(id=${order.id})}">&nbsp;&nbsp;<i class="fa-solid fa-download"></i></a></label></td>
 							</th:block>
+						</tr>
+						
+						<tr>
+							<td class="pt-1 text-gray-600">Track Orders</td>
+							<td class="pt-1 font-medium">: <span><a th:href="@{/order-tracking/{id}(id=${order.id})}">Track <i class="fa-solid fa-arrow-right fa-fade"></i></a></span></td>
 						</tr>
 					</table>
 				</div>
