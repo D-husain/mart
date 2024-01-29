@@ -47,7 +47,7 @@ public class contactController {
 				+"</tr>"
 				+"<tr>"
 				+"<td>"
-				+"<p align='center' style='color: #7a899f;margin-bottom: 0;font-size: 14px;'>Thank You for contact us</p>"
+				+"<p align='center' style='margin: 0; color: #475467;'>Thank You for contact us</p>"
 				+"</td>"
 				+"</tr>"
 				+"</tbody>"

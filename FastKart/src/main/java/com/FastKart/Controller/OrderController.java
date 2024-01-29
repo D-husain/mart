@@ -117,6 +117,7 @@ public class OrderController {
 		return null;
 	}
 
+	
 	private String generateOrderHtml(List<OrderDetails> order) {
 	    String jspContent = "<html>\n" + "<head>\n" + "<style>"
 	            + "body { font-family: Arial, sans-serif; } table { width: 100%; border-collapse: collapse; } th, td { border: 1px solid #0da487; padding: 8px; text-align: left; }.store{color: #0da487; font-family: cursive; text-align: center; display: flex; justify-content: center; align-items: center;}.invoice{ text-align: center; font-family: serif; } th { background-color: rgb(13 164 135 / 49%); }"

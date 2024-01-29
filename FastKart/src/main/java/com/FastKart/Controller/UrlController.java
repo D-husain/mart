@@ -534,9 +534,10 @@ public class UrlController {
 		}
 	}
 
-	@GetMapping("/order-tracking")
-	public String order_tracking() {
-
+	@GetMapping("/order-tracking/{id}")
+	public String order_tracking(@PathVariable("id") int id, Model model, Principal principal) {
+		Orders order=orderdao.findOrdersById(id);
+		model.addAttribute("order", order);
 		return "order-tracking";
 	}
 

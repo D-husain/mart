@@ -55,6 +55,10 @@ public class OrderDao {
 		return orderRepository.findByUser(loggedInUser);
 	}
 	
+	public Orders findOrdersById(int id) {
+		Orders orderById = orderRepository.findById(id).get();
+		return orderById;
+	}
 	
 	 public List<OrderDetails> getOrderDetailsByOrderId(int orderId) {
     	 List<OrderDetails> orderDetailsList = orderDetailsRepository.findByOrderid(orderId);

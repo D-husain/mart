@@ -18,25 +18,7 @@ public class Contact {
 	private String email;
 	private long number;
 	private String message;
-	
-	public Contact() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
-	public Contact(int id, String fname, String lname, String email, long number, String message) {
-		super();
-		this.id = id;
-		this.fname = fname;
-		this.lname = lname;
-		this.email = email;
-		this.number = number;
-		this.message = message;
-	}
-	@Override
-	public String toString() {
-		return "Contact [id=" + id + ", fname=" + fname + ", lname=" + lname + ", email=" + email + ", number=" + number
-				+ ", message=" + message + "]";
-	}
+	private String replay;
 	public int getId() {
 		return id;
 	}
@@ -73,4 +55,31 @@ public class Contact {
 	public void setMessage(String message) {
 		this.message = message;
 	}
+	public String getReplay() {
+		return replay;
+	}
+	public void setReplay(String replay) {
+		this.replay = replay;
+	}
+	@Override
+	public String toString() {
+		return "Contact [id=" + id + ", fname=" + fname + ", lname=" + lname + ", email=" + email + ", number=" + number
+				+ ", message=" + message + ", replay=" + replay + "]";
+	}
+	public Contact(int id, String fname, String lname, String email, long number, String message, String replay) {
+		super();
+		this.id = id;
+		this.fname = fname;
+		this.lname = lname;
+		this.email = email;
+		this.number = number;
+		this.message = message;
+		this.replay = replay;
+	}
+	public Contact() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+	
+	
 }

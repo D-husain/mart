@@ -48,7 +48,7 @@
     <!-- Template css -->
     <link id="color-link" rel="stylesheet" type="text/css" href="../assets/css/style.css">
     
-	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+	 <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 	
 	<style>
 		.table-responsive {
@@ -1117,32 +1117,47 @@
     				type: 'POST',
     				url: '/api/cart/addToCart',
     				data: formData,
-    				success: function(response) {
+    				success: function(response, textStatus, xhr) {
     					fetchCartData();
     					//fetchheaderCartData();
     					//fetchheadertotal();
     					//fetchcartcount();
     					//fetchWishlistData();
 
-    					if (response === "Product added successfully.") {
-    						alert('Product added successfully.');
-    						$('#insert').addClass('show');
-    						setTimeout(function() {
-    							$('#insert').removeClass('show');
-    						}, 3000);
-    					}
+    					 if (xhr.status === 200) {
+    						$.notify('<i class="fas fa-check"></i></i><strong>Cart Item</strong> added successfully...', {
+        					    type: 'success',
+        					    allow_dismiss: true,
+        					    delay: 3000,
+        					    showProgressbar: true,
+        					    timer: 300,
+        					    // timer: 555555500,
+        					    animate: {
+        					        enter: 'animated fadeInDown',
+        					        exit: 'animated fadeOutUp'
+        					    }
+        					});
+    					} else if (xhr.status === 401) {
+    						$.notify('<i class="fas fa-check"></i></i><strong>Please log in</strong> to add items to your cart.', {
+        					    type: 'success',
+        					    allow_dismiss: true,
+        					    delay: 3000,
+        					    showProgressbar: true,
+        					    timer: 300,
+        					    // timer: 555555500,
+        					    animate: {
+        					        enter: 'animated fadeInDown',
+        					        exit: 'animated fadeOutUp'
+        					    }
+        					});
+                        } else {
+                            alert("Unexpected response: " + xhr.status);
+                        }
     				},
     				error: function(xhr) {
-    					if (xhr.status === 401) {
-    						alert('error not login');
-    						$('#info').addClass('show');
-    						setTimeout(function() {
-    							$('#info').removeClass('show');
-    						}, 3000);
-    					} else {
+    					
     						console.error('Error:', xhr);
     						alert('error not add');
-    					}
     				}
     			});
     		});

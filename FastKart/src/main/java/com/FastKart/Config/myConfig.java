@@ -1,5 +1,8 @@
 package com.FastKart.Config;
 
+import javax.sql.DataSource;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
@@ -9,11 +12,16 @@ import org.springframework.security.config.annotation.web.configurers.AbstractHt
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.rememberme.JdbcTokenRepositoryImpl;
+import org.springframework.security.web.authentication.rememberme.PersistentTokenRepository;
 
 @Configuration
 @EnableWebSecurity
 public class myConfig {
-	
+		
+		@Autowired private DataSource dataSource;
+		
+		@Autowired private UserDetailsService userDetailsService;
 
 		@Bean
 		public BCryptPasswordEncoder passwordEncoder() {
@@ -68,10 +76,22 @@ public class myConfig {
 		                response.sendRedirect("/login?error=true");
 		            })
 		        )
+		        .rememberMe(rememberMe -> rememberMe
+		                .userDetailsService(userDetailsService) // Set your UserDetailsService
+		                .tokenRepository(persistentTokenRepository())
+		                .tokenValiditySeconds(604800) // Remember Me token valid for 7 days
+		            )
 		        .csrf(AbstractHttpConfigurer::disable);
 
 		    return http.build();
 		}
+		
+		@Bean
+	    public PersistentTokenRepository persistentTokenRepository() {
+	        JdbcTokenRepositoryImpl tokenRepo = new JdbcTokenRepositoryImpl();
+	        tokenRepo.setDataSource(dataSource);
+	        return tokenRepo;
+	    }
 
 		@Bean
 		public SecurityFilterChain adminSecurityFilterChain(HttpSecurity http) throws Exception {

@@ -96,7 +96,27 @@
 			font-weight: 700;
 			position: relative
 		}
+		
+		.table-details {
+			max-height: 500px;
+			overflow-x: hidden;
+			overflow-y: auto;
+		}
+		
+		.table-details::-webkit-scrollbar-track {
+			-webkit-box-shadow: inset 0 0 6px #ecf3fa;
+			box-shadow: inset 0 0 6px #ecf3fa
+		}
+		
+		.table-details::-webkit-scrollbar {
+			width: 6px
+		}
+		
+		.table-details::-webkit-scrollbar-thumb {
+			background-color: rgba(14, 148, 122)
+		}
 	</style>
+	
 </head>
 
 <body>
@@ -182,12 +202,13 @@
                                                                         <i class="ri-eye-line"></i>
                                                                     </a>
                                                                 </li>
-
+															  <th:block th:if="${o.status != 5 && o.status !=4}">
                                                                 <li>
                                                                     <a href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#exampleModalToggle">
                                                                         <i class="ri-delete-bin-line"></i>
                                                                     </a>
                                                                 </li>
+                                                              </th:block>
                                                             </ul>
                                                         </td>
                                                     </tr>
@@ -400,7 +421,7 @@
 															<h3>
 																expected date of delivery:  <span th:each="i, iterStat : ${#numbers.sequence(1,5)}" th:utext="${#temporals.format(o.orderdate.plusDays(i), 'dd-MMM-yyyy')}" th:if="${iterStat.last}"></span>
 															</h3>
-															<a href="order-tracking.html">track order</a>
+															<a th:href="@{/invoice/{id}(id=${o.id})}">Download order</a>
 														</div>
 													</div>
 												</div>

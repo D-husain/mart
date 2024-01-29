@@ -365,7 +365,7 @@
                                                 <a class="nav-link" href="/shop">Shop</a>
                                             </li>
 
-                                            <li class="nav-item dropdown">
+                                            <!-- <li class="nav-item dropdown">
                                                 <a class="nav-link dropdown-toggle" href="javascript:void(0)"
                                                     data-bs-toggle="dropdown">Product</a>
 
@@ -406,86 +406,30 @@
                                                             Sticky</a>
                                                     </li>
                                                 </ul>
-                                            </li>
+                                            </li> -->
 
                                             <li class="nav-item dropdown dropdown-mega">
                                                 <a class="nav-link dropdown-toggle ps-xl-2 ps-0"
                                                     href="javascript:void(0)" data-bs-toggle="dropdown">Mega Menu</a>
 
                                                 <div class="dropdown-menu dropdown-menu-2">
-                                                    <div class="row">
-                                                        <div class="dropdown-column col-xl-3">
-                                                            <h5 class="dropdown-header">Daily Vegetables</h5>
-                                                            <a class="dropdown-item" href="shop-left-sidebar.html">Beans
-                                                                & Brinjals</a>
-
-                                                            <a class="dropdown-item"
-                                                                href="shop-left-sidebar.html">Broccoli & Cauliflower</a>
-
-                                                            <a href="shop-left-sidebar.html"
-                                                                class="dropdown-item">Chilies, Garlic</a>
-
-                                                            <a class="dropdown-item"
-                                                                href="shop-left-sidebar.html">Vegetables & Salads</a>
-
-                                                            <a class="dropdown-item"
-                                                                href="shop-left-sidebar.html">Gourd, Cucumber</a>
-
-                                                            <a class="dropdown-item" href="shop-left-sidebar.html">Herbs
-                                                                & Sprouts</a>
-
-                                                            <a href="demo-personal-portfolio.html"
-                                                                class="dropdown-item">Lettuce & Leafy</a>
+                                                    <div th:with="subcatList=${subcategoryshow[1]}" class="row">
+                                                        <div th:each="sub : ${subcatList}" class="dropdown-column col-xl-3">
+                                                            <h5 class="dropdown-header">[[${sub.subcname}]]</h5>
+                                                            <tr th:with="subcatItemList=${subcategoryItemshow[sub.id]}">
+                                                            <a th:each="subitem : ${subcatItemList}" class="dropdown-item" href="shop-left-sidebar.html">[[${subitem.subitemname}]]</a>
+															</tr>
                                                         </div>
-
-                                                        <div class="dropdown-column col-xl-3">
-                                                            <h5 class="dropdown-header">Baby Tender</h5>
-                                                            <a class="dropdown-item" href="shop-left-sidebar.html">Beans
-                                                                & Brinjals</a>
-
-                                                            <a class="dropdown-item"
-                                                                href="shop-left-sidebar.html">Broccoli & Cauliflower</a>
-
-                                                            <a class="dropdown-item"
-                                                                href="shop-left-sidebar.html">Chilies, Garlic</a>
-
-                                                            <a class="dropdown-item"
-                                                                href="shop-left-sidebar.html">Vegetables & Salads</a>
-
-                                                            <a class="dropdown-item"
-                                                                href="shop-left-sidebar.html">Gourd, Cucumber</a>
-
-                                                            <a class="dropdown-item"
-                                                                href="shop-left-sidebar.html">Potatoes & Tomatoes</a>
-
-                                                            <a href="shop-left-sidebar.html" class="dropdown-item">Peas
-                                                                & Corn</a>
-                                                        </div>
-
-                                                        <div class="dropdown-column col-xl-3">
-                                                            <h5 class="dropdown-header">Exotic Vegetables</h5>
-                                                            <a class="dropdown-item"
-                                                                href="shop-left-sidebar.html">Asparagus & Artichokes</a>
-
-                                                            <a class="dropdown-item"
-                                                                href="shop-left-sidebar.html">Avocados & Peppers</a>
-
-                                                            <a class="dropdown-item"
-                                                                href="shop-left-sidebar.html">Broccoli & Zucchini</a>
-
-                                                            <a class="dropdown-item"
-                                                                href="shop-left-sidebar.html">Celery, Fennel & Leeks</a>
-
-                                                            <a class="dropdown-item"
-                                                                href="shop-left-sidebar.html">Chilies & Lime</a>
-                                                        </div>
-
+														</div>
                                                         <div class="dropdown-column dropdown-column-img col-3"></div>
-                                                    </div>
                                                 </div>
                                             </li>
+                                            
+                                            <li class="nav-item">
+                                                <a class="nav-link" href="/contact">Contact</a>
+                                            </li>
 
-                                            <li class="nav-item dropdown">
+                                            <!-- <li class="nav-item dropdown">
                                                 <a class="nav-link dropdown-toggle" href="javascript:void(0)"
                                                     data-bs-toggle="dropdown">Blog</a>
                                                 <ul class="dropdown-menu">
@@ -499,9 +443,9 @@
                                                         <a class="dropdown-item" href="blog-list.html">Blog List</a>
                                                     </li>
                                                 </ul>
-                                            </li>
+                                            </li> -->
 
-                                            <li class="nav-item dropdown new-nav-item">
+                                            <!-- <li class="nav-item dropdown new-nav-item">
                                                 <label class="new-dropdown">New</label>
                                                 <a class="nav-link dropdown-toggle" href="javascript:void(0)"
                                                     data-bs-toggle="dropdown">Pages</a>
@@ -597,9 +541,9 @@
                                                         <a class="dropdown-item" href="wishlist.html">Wishlist</a>
                                                     </li>
                                                 </ul>
-                                            </li>
+                                            </li> -->
 
-                                            <li class="nav-item dropdown">
+                                            <!-- <li class="nav-item dropdown">
                                                 <a class="nav-link dropdown-toggle" href="javascript:void(0)"
                                                     data-bs-toggle="dropdown">Seller</a>
                                                 <ul class="dropdown-menu">
@@ -627,7 +571,7 @@
                                                             2</a>
                                                     </li>
                                                 </ul>
-                                            </li>
+                                            </li> -->
                                         </ul>
                                     </div>
                                 </div>

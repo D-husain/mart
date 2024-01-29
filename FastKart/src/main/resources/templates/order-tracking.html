@@ -74,7 +74,7 @@
                         <nav>
                             <ol class="breadcrumb mb-0">
                                 <li class="breadcrumb-item">
-                                    <a href="index.html">
+                                    <a href="/">
                                         <i class="fa-solid fa-house"></i>
                                     </a>
                                 </li>
@@ -102,8 +102,8 @@
                                 </div>
 
                                 <div class="order-details-name">
-                                    <h5 class="text-content">Tracking Code</h5>
-                                    <h2 class="theme-color">MH4285UY</h2>
+                                    <h5 class="text-content">Order ID</h5>
+                                    <h2 class="theme-color">#[[${order.id}]]</h2>
                                 </div>
                             </div>
                         </div>
@@ -156,7 +156,7 @@
 
                                 <div class="order-details-name">
                                     <h5 class="text-content">Destination</h5>
-                                    <h4>Flokagata 24, 105 Reykjavik, Iceland</h4>
+                                    <h4>[[${order.CheckOut.Address.address}]]</h4>
                                 </div>
                             </div>
                         </div>
@@ -169,23 +169,20 @@
 
                                 <div class="order-details-name">
                                     <h5 class="text-content">Estimated Time</h5>
-                                    <h4>7 Frb, 05:05pm</h4>
+                                    <h4 th:each="i, iterStat : ${#numbers.sequence(1,5)}" th:utext="${#temporals.format(order.orderdate.plusDays(i), 'dd-MMM-yyyy')}" th:if="${iterStat.last}"></h4>
                                 </div>
                             </div>
                         </div>
 
                         <div class="col-12 overflow-hidden">
                             <ol class="progtrckr">
+                            <th:block th:if="${order.status == 1}">
                                 <li class="progtrckr-done">
                                     <h5>Order Processing</h5>
-                                    <h6>05:43 AM</h6>
+                                    <h6>[[${order.ordertime}]]</h6>
                                 </li>
-                                <li class="progtrckr-done">
+                                <li class="progtrckr-todo">
                                     <h5>Pre-Production</h5>
-                                    <h6>01:21 PM</h6>
-                                </li>
-                                <li class="progtrckr-done">
-                                    <h5>In Production</h5>
                                     <h6>Processing</h6>
                                 </li>
                                 <li class="progtrckr-todo">
@@ -196,17 +193,94 @@
                                     <h5>Delivered</h5>
                                     <h6>Pending</h6>
                                 </li>
+                           </th:block>
+                           
+                           <th:block th:if="${order.status == 2}">
+                                <li class="progtrckr-done">
+                                    <h5>Order Processing</h5>
+                                    <h6>[[${order.ordertime}]]</h6>
+                                </li>
+                                <li class="progtrckr-done">
+                                    <h5>Pre-Production</h5>
+                                    <h6>[[${order.ordertime}]]</h6>
+                                </li>
+                                <li class="progtrckr-todo">
+                                    <h5>Shipped</h5>
+                                    <h6>Processing</h6>
+                                </li>
+                                <li class="progtrckr-todo">
+                                    <h5>Delivered</h5>
+                                    <h6>Pending</h6>
+                                </li>
+                           </th:block>
+                           
+                           <th:block th:if="${order.status == 3}">
+                                <li class="progtrckr-done">
+                                    <h5>Order Processing</h5>
+                                    <h6>[[${order.ordertime}]]</h6>
+                                </li>
+                                <li class="progtrckr-done">
+                                    <h5>Pre-Production</h5>
+                                    <h6>01:21 PM</h6>
+                                </li>
+                                <li class="progtrckr-done">
+                                    <h5>Shipped</h5>
+                                    <h6>01:21 PM</h6>
+                                </li>
+                                <li class="progtrckr-todo">
+                                    <h5>Delivered</h5>
+                                    <h6>Processing</h6>
+                                </li>
+                           </th:block>
+                           
+                           <th:block th:if="${order.status == 4}">
+                                <li class="progtrckr-done">
+                                    <h5>Order Processing</h5>
+                                    <h6>[[${order.ordertime}]]</h6>
+                                </li>
+                                <li class="progtrckr-done">
+                                    <h5>Pre-Production</h5>
+                                    <h6>01:21 PM</h6>
+                                </li>
+                                <li class="progtrckr-done">
+                                    <h5>Shipped</h5>
+                                    <h6>01:21 PM</h6>
+                                </li>
+                                <li class="progtrckr-done">
+                                    <h5>Delivered</h5>
+                                    <h6>01:21 PM</h6>
+                                </li>
+                           </th:block>
+                           
+                           <th:block th:if="${order.status == 5}">
+                               <li class="progtrckr-done">
+                                    <h5>Order Processing</h5>
+                                    <h6>[[${order.ordertime}]]</h6>
+                                </li>
+                                <li class="progtrckr-done">
+                                    <h5>Pre-Production</h5>
+                                    <h6>01:21 PM</h6>
+                                </li>
+                                <li class="progtrckr-done">
+                                    <h5>Shipped</h5>
+                                    <h6>01:21 PM</h6>
+                                </li>
+                                <li class="progtrckr-done">
+                                    <h5>Delivered</h5>
+                                    <h6>01:21 PM</h6>
+                                </li>
+                           </th:block>     
                             </ol>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </section>
+    </section><br>
     <!-- Order Detail Section End -->
 
     <!-- Order Table Section Start -->
-    <section class="order-table-section section-b-space">
+    <!-- <section class="order-table-section section-b-space">
         <div class="container-fluid-lg">
             <div class="row">
                 <div class="col-12">
@@ -254,7 +328,7 @@
                 </div>
             </div>
         </div>
-    </section>
+    </section> -->
     <!-- Order Table Section End -->
 
     <!-- Footer Section Start -->

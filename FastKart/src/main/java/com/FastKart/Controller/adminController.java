@@ -1,6 +1,5 @@
 package com.FastKart.Controller;
 
-import java.security.Principal;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -18,7 +17,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import com.FastKart.Dao.OrderDao;
 import com.FastKart.Dao.SubCategoryItemDao;
 import com.FastKart.Dao.categoryDao;
-import com.FastKart.Dao.couponDao;
 import com.FastKart.Dao.productDao;
 import com.FastKart.Dao.subCategoryDao;
 import com.FastKart.Dao.userDao;
@@ -44,7 +42,6 @@ public class adminController {
 	@Autowired private OrderDao orderdao;
 	@Autowired private productDao pdao;
 	@Autowired private userDao udao;
-	@Autowired private couponDao coupondao;
 	@Autowired private OrderDao odao;
 
 	
@@ -121,6 +118,11 @@ public class adminController {
 
 
 			return "admin/user/all-users";
+		}
+		
+		@GetMapping("inquirer")
+		public String inquery(Model model){
+			return "admin/user/inquiries";
 		}
 
 //========================================================== Handler to get Admin Create Coupon page =====================================================

@@ -4,13 +4,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.multipart.MultipartFile;
 
 import com.FastKart.Dao.SubCategoryItemDao;
-import com.FastKart.Dao.categoryDao;
 import com.FastKart.Dao.subCategoryDao;
-import com.FastKart.FileUpload.Upload_File;
-import com.FastKart.entities.Category;
 import com.FastKart.entities.SubCategoryItem;
 import com.FastKart.entities.subCategory;
 
