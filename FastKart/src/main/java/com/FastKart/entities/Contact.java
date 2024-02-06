@@ -11,48 +11,31 @@ import jakarta.persistence.Table;
 public class Contact {
 	
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
-	private String firstName;
-	private String lastName;
+	private String fname;
+	private String lname;
 	private String email;
 	private long number;
 	private String message;
-
-	public Contact(int id, String firstName, String lastName, String email, long number, String message) {
-		super();
-		this.id = id;
-		this.firstName = firstName;
-		this.lastName = lastName;
-		this.email = email;
-		this.number = number;
-		this.message = message;
-	}
-	
-	
-	public Contact() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
-
-
+	private String replay;
 	public int getId() {
 		return id;
 	}
 	public void setId(int id) {
 		this.id = id;
 	}
-	public String getFirstName() {
-		return firstName;
+	public String getFname() {
+		return fname;
 	}
-	public void setFirstName(String firstName) {
-		this.firstName = firstName;
+	public void setFname(String fname) {
+		this.fname = fname;
 	}
-	public String getLastName() {
-		return lastName;
+	public String getLname() {
+		return lname;
 	}
-	public void setLastName(String lastName) {
-		this.lastName = lastName;
+	public void setLname(String lname) {
+		this.lname = lname;
 	}
 	public String getEmail() {
 		return email;
@@ -72,12 +55,30 @@ public class Contact {
 	public void setMessage(String message) {
 		this.message = message;
 	}
-	
-	
+	public String getReplay() {
+		return replay;
+	}
+	public void setReplay(String replay) {
+		this.replay = replay;
+	}
 	@Override
 	public String toString() {
-		return "Contact [id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + ", email=" + email
-				+ ", number=" + number + ", message=" + message + "]";
+		return "Contact [id=" + id + ", fname=" + fname + ", lname=" + lname + ", email=" + email + ", number=" + number
+				+ ", message=" + message + ", replay=" + replay + "]";
+	}
+	public Contact(int id, String fname, String lname, String email, long number, String message, String replay) {
+		super();
+		this.id = id;
+		this.fname = fname;
+		this.lname = lname;
+		this.email = email;
+		this.number = number;
+		this.message = message;
+		this.replay = replay;
+	}
+	public Contact() {
+		super();
+		// TODO Auto-generated constructor stub
 	}
 	
 	

@@ -14,4 +14,4 @@ var notify = $.notify('<i class="fas fa-bell"></i></i><strong>Loading</strong> p
 
 setTimeout(function () {
     notify.update('message', '<i class="fas fa-bell"></i></i><strong>Loading</strong> Inner Data.');
-}, 1000);
+}, 2000);

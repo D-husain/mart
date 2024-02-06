@@ -9,24 +9,21 @@ import com.FastKart.Repository.UserRepository;
 import com.FastKart.entities.User;
 
 public class userDetailsImple implements UserDetailsService {
-	@Autowired
-	private UserRepository userRepository;
 	
+	@Autowired private UserRepository userRepository;
 
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-		
+
 		User user = userRepository.getUserByUserName(username);
-		
-       if(user== null) {
-    	   throw new UsernameNotFoundException("could not load user !!");
-    	   
-    	   
-       }
-		
-       // return customUserDetails cause we pass user in it constructor so we get all user information.
+
+		if (user == null) {
+			throw new UsernameNotFoundException("could not load user !!");
+
+		}
+
 		customUserDetails cuDetails = new customUserDetails(user);
 		return cuDetails;
-			}
+	}
 
 }

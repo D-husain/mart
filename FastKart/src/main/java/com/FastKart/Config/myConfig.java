@@ -1,5 +1,8 @@
 package com.FastKart.Config;
 
+import javax.sql.DataSource;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
@@ -9,12 +12,17 @@ import org.springframework.security.config.annotation.web.configurers.AbstractHt
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.rememberme.JdbcTokenRepositoryImpl;
+import org.springframework.security.web.authentication.rememberme.PersistentTokenRepository;
 
 @Configuration
 @EnableWebSecurity
 public class myConfig {
+		
+		@Autowired private DataSource dataSource;
+		
+		@Autowired private UserDetailsService userDetailsService;
 
-	// 3 important bean that is mendatory in every spring boot login configuration
 		@Bean
 		public BCryptPasswordEncoder passwordEncoder() {
 			return new BCryptPasswordEncoder();
@@ -23,65 +31,90 @@ public class myConfig {
 		@Bean
 		public UserDetailsService userDetailsService(){
 			return new userDetailsImple();
-			
-
 		}
-
-		public DaoAuthenticationProvider authenticationProvider() {
-
-			DaoAuthenticationProvider daoAuthenticationProvider = new DaoAuthenticationProvider();
-			daoAuthenticationProvider.setUserDetailsService(this.userDetailsService());
-			daoAuthenticationProvider.setPasswordEncoder(passwordEncoder());
-
-			return daoAuthenticationProvider;
-		}
-
-	// configure method 
-
 		
-		/*
-		 * protected void configure(AuthenticationManagerBuilder auth) throws Exception
-		 * { auth.authenticationProvider(authenticationProvider()); }
-		 */
-		 
+		@Bean
+		public UserDetailsService adminDetailsService(){
+			return new adminDetailsImple();
+		}
 
 		@Bean
-		public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-			http
-			.authorizeHttpRequests((authorize) -> authorize
-					//.requestMatchers("/admin/**").hasRole("ADMIN")
-					.requestMatchers("/user/**").hasRole("USER")
-					.requestMatchers("/**").permitAll()
-					.requestMatchers("/css/**").permitAll()
-					.requestMatchers("/image/**").permitAll()
-					.requestMatchers("/do_register").permitAll()
-					.requestMatchers("/index").permitAll()
-				
-               
-			)
-			.formLogin(form -> form
-					.loginPage("/login")
-					//.usernameParameter("email")
-					.defaultSuccessUrl("/home")
-					.failureUrl("/home")
-					.failureHandler((request, response, exception) -> System.out.println(exception))
-					.permitAll()
-					
-					
-					 ) .oauth2Login(oauth2Login -> oauth2Login .loginPage("/login")
-					 
-				   	
-			 ).logout(logout -> logout
-				       .logoutUrl("/logout")
-				       .logoutSuccessUrl("/login")
-				       .invalidateHttpSession(true)
-				       .deleteCookies("JSESSIONID") 
-				        
-
-			)
-			.csrf(AbstractHttpConfigurer::disable);
-
-			return http.build();
-
+		public DaoAuthenticationProvider authenticationProvider() {
+		    DaoAuthenticationProvider daoAuthenticationProvider = new DaoAuthenticationProvider();
+		    daoAuthenticationProvider.setUserDetailsService(userDetailsService());
+		    daoAuthenticationProvider.setPasswordEncoder(passwordEncoder());
+		    return daoAuthenticationProvider;
 		}
+
+		@Bean
+		public DaoAuthenticationProvider adminAuthenticationProvider() {
+		    DaoAuthenticationProvider daoAuthenticationProvider = new DaoAuthenticationProvider();
+		    daoAuthenticationProvider.setUserDetailsService(adminDetailsService());
+		    daoAuthenticationProvider.setPasswordEncoder(passwordEncoder());
+		    return daoAuthenticationProvider;
+		}
+
+		
+
+		@Bean
+		public SecurityFilterChain userSecurityFilterChain(HttpSecurity http) throws Exception {
+		    http
+		    .authenticationProvider(authenticationProvider())
+		        .authorizeHttpRequests(authorize -> authorize
+		            .requestMatchers("/user/**").hasRole("USER")
+		            .requestMatchers("/api/cart/**").authenticated()
+		            .requestMatchers("/api/wishlist/**").authenticated()
+		            .requestMatchers("/**","/css/**", "/image/**", "/do_register", "/").permitAll()
+		        )
+		        .formLogin(form -> form
+		            .loginPage("/login")
+		            .defaultSuccessUrl("/")
+		            .permitAll()
+		        )
+		        .oauth2Login(oauth2Login -> oauth2Login.loginPage("/login")
+		            .failureHandler((request, response, exception) -> {
+		                response.sendRedirect("/login?error=true");
+		            })
+		        )
+		        .rememberMe(rememberMe -> rememberMe
+		                .userDetailsService(userDetailsService) // Set your UserDetailsService
+		                .tokenRepository(persistentTokenRepository())
+		                .tokenValiditySeconds(604800) // Remember Me token valid for 7 days
+		            )
+		        .csrf(AbstractHttpConfigurer::disable);
+
+		    return http.build();
+		}
+		
+		@Bean
+	    public PersistentTokenRepository persistentTokenRepository() {
+	        JdbcTokenRepositoryImpl tokenRepo = new JdbcTokenRepositoryImpl();
+	        tokenRepo.setDataSource(dataSource);
+	        return tokenRepo;
+	    }
+
+		@Bean
+		public SecurityFilterChain adminSecurityFilterChain(HttpSecurity http) throws Exception {
+		    http
+		    .authenticationProvider(adminAuthenticationProvider())
+		        .authorizeHttpRequests(authorize -> authorize
+		            .requestMatchers("/admin/**").hasRole("ADMIN")
+		            .requestMatchers("/admin/assets/css/**", "/admin/assets/image/**", "/do_register").permitAll()
+		        )
+		        .formLogin(form -> form
+		            .loginPage("/admin/login")
+		            .defaultSuccessUrl("/admin/dashboard")
+		            .permitAll()
+		        )
+		        .oauth2Login(oauth2Login -> oauth2Login.loginPage("/admin/login")
+		            .failureHandler((request, response, exception) -> {
+		                response.sendRedirect("/admin/login?error=true");
+		            })
+		        )
+		        .csrf(AbstractHttpConfigurer::disable);
+
+		    return http.build();
+		}
+
+		
 }

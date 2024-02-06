@@ -1,7 +1,10 @@
 package com.FastKart.entities;
 
-import jakarta.persistence.CascadeType;
-import jakarta.persistence.Column;
+import java.time.LocalDateTime;
+import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
@@ -12,77 +15,83 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name="subcategory")
+@Table(name = "subcategory")
 public class subCategory {
 
-
-	
-
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
-	@Column(name="subCatName")
-	private String sub_cat_name;
-	@Column(name="subCat_Image")
-	private String sub_cat_image;
-	
+	private String subcname;
+	private String subcimg;
+	private String subcicon;
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "cid")
-   private Category category;
+	@JoinColumn(name = "category_id")
+	private Category category;
 
-	
-
-	
-	public subCategory() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
-
-	public subCategory(int id, String sub_cat_name, String sub_cat_image, Category category) {
-		super();
-		this.id = id;
-		this.sub_cat_name = sub_cat_name;
-		this.sub_cat_image = sub_cat_image;
-		this.category = category;
-	}
-
+	private LocalDateTime created_at;
+	private LocalDateTime updated_at;
 	public int getId() {
 		return id;
 	}
-
 	public void setId(int id) {
 		this.id = id;
 	}
-
-	public String getSub_cat_name() {
-		return sub_cat_name;
+	public String getSubcname() {
+		return subcname;
 	}
-
-	public void setSub_cat_name(String sub_cat_name) {
-		this.sub_cat_name = sub_cat_name;
+	public void setSubcname(String subcname) {
+		this.subcname = subcname;
 	}
-
-	public String getSub_cat_image() {
-		return sub_cat_image;
+	public String getSubcimg() {
+		return subcimg;
 	}
-
-	public void setSub_cat_image(String sub_cat_image) {
-		this.sub_cat_image = sub_cat_image;
+	public void setSubcimg(String subcimg) {
+		this.subcimg = subcimg;
 	}
-
+	public String getSubcicon() {
+		return subcicon;
+	}
+	public void setSubcicon(String subcicon) {
+		this.subcicon = subcicon;
+	}
 	public Category getCategory() {
 		return category;
 	}
-
 	public void setCategory(Category category) {
 		this.category = category;
 	}
-	
-	
+	public LocalDateTime getCreated_at() {
+		return created_at;
+	}
+	public void setCreated_at(LocalDateTime created_at) {
+		this.created_at = created_at;
+	}
+	public LocalDateTime getUpdated_at() {
+		return updated_at;
+	}
+	public void setUpdated_at(LocalDateTime updated_at) {
+		this.updated_at = updated_at;
+	}
 	@Override
 	public String toString() {
-		return "subCategory [id=" + id + ", sub_cat_name=" + sub_cat_name + ", sub_cat_image=" + sub_cat_image
-				+ ", category=" + category + "]";
+		return "subCategory [id=" + id + ", subcname=" + subcname + ", subcimg=" + subcimg + ", subcicon=" + subcicon
+				+ ", category=" + category + ",  created_at=" + created_at
+				+ ", updated_at=" + updated_at + "]";
+	}
+	public subCategory(int id, String subcname, String subcimg, String subcicon, Category category,
+			List<SubCategoryItem> subCategoryItems, LocalDateTime created_at, LocalDateTime updated_at) {
+		super();
+		this.id = id;
+		this.subcname = subcname;
+		this.subcimg = subcimg;
+		this.subcicon = subcicon;
+		this.category = category;
+		this.created_at = created_at;
+		this.updated_at = updated_at;
+	}
+	public subCategory() {
+		super();
+		// TODO Auto-generated constructor stub
 	}
 	
 }

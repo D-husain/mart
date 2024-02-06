@@ -12,8 +12,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.FastKart.Dao.WishListDao;
-import com.FastKart.entities.Product;
-import com.FastKart.entities.User;
 import com.FastKart.entities.WishList;
 
 @Controller

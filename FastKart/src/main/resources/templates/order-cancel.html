@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.com">
+
+
+<!-- Mirrored from themes.pixelstrap.com/fastkart/front-end/cart.html by HTTrack Website Copier/3.x [XR&CO'2014], Mon, 30 Oct 2023 11:45:41 GMT -->
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Fastkart">
+    <meta name="keywords" content="Fastkart">
+    <meta name="author" content="Fastkart">
+    <link rel="icon" href="../assets/images/favicon/1.png" type="image/x-icon">
+    <title>Cancel Order</title>
+
+    <!-- Google font -->
+    <link rel="preconnect" href="https://fonts.gstatic.com/">
+    <link href="https://fonts.googleapis.com/css2?family=Russo+One&amp;display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Exo+2:wght@400;500;600;700;800;900&amp;display=swap"
+        rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&amp;display=swap"
+        rel="stylesheet">
+
+    <!-- bootstrap css -->
+    <link id="rtl-link" rel="stylesheet" type="text/css" href="../assets/css/vendors/bootstrap.css">
+
+    <!-- font-awesome css -->
+    <link rel="stylesheet" type="text/css" href="../assets/css/vendors/font-awesome.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
+
+    <!-- feather icon css -->
+    <link rel="stylesheet" type="text/css" href="../assets/css/vendors/feather-icon.css">
+
+    <!-- slick css -->
+    <link rel="stylesheet" type="text/css" href="../assets/css/vendors/slick/slick.css">
+    <link rel="stylesheet" type="text/css" href="../assets/css/vendors/slick/slick-theme.css">
+
+    <!-- Iconly css -->
+    <link rel="stylesheet" type="text/css" href="../assets/css/bulk-style.css">
+
+    <!-- Template css -->
+    <link id="color-link" rel="stylesheet" type="text/css" href="../assets/css/style.css">
+    
+    <style>
+		.table-responsive {
+			max-height: 400px;
+			/* Set a max height for the table container */
+			overflow-y: auto;
+			/* Enable vertical scrolling */
+		}
+	</style>
+</head>
+
+<body>
+
+    <!-- Loader Start -->
+    <div class="fullpage-loader">
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+    </div>
+    <!-- Loader End -->
+
+    <!-- Header Start -->
+     <header th:insert="include/user/header :: header"> </header>
+    <!-- Header End -->
+
+    <!-- mobile fix menu start -->
+    <div th:insert="include/user/mobile-menu :: div"></div>
+    <!-- mobile fix menu end -->
+
+    <!-- Breadcrumb Section Start -->
+    <section class="breadscrumb-section pt-0">
+        <div class="container-fluid-lg">
+            <div class="row">
+                <div class="col-12">
+                    <div class="breadscrumb-contain">
+                        <h2>Cancel Order</h2>
+                        <nav>
+                            <ol class="breadcrumb mb-0">
+                                <li class="breadcrumb-item">
+                                    <a href="/">
+                                        <i class="fa-solid fa-house"></i>
+                                    </a>
+                                </li>
+                                <li class="breadcrumb-item active" aria-current="page">Cancel Order</li>
+                            </ol>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Breadcrumb Section End -->
+
+    <!-- Cart Section Start -->
+		<section class="checkout-section-2 section-b-space">
+        <div class="container-fluid-lg">
+            <div class="row g-sm-4 g-3">
+                <div class="col-lg-8">
+                    <div class="left-sidebar-checkout">
+                        <div class="checkout-detail-box">
+							<ul>
+								<li>
+									<div class="checkout-box">
+										<div class="checkout-title">
+											<h4 class="theme-color">Sorry! Your order has been cancelled!</h4>
+										</div>
+										<div class="checkout-detail">
+											<div class="row g-4">
+												<div class="col-xxl-12">
+													<div class="delivery-option">
+														<div class="delivery-category">
+															<div class="shipment-detail">
+																<div>
+																	<p class="text-gray-500">Hi User !</p>
+																	<p class="text-gray-500">There will be some error from your bank or internal server please try again later.</p>
+																</div>
+															</div>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</li>
+							</ul>
+						</div>
+                    </div>
+                </div>
+
+                <div class="col-lg-4">
+                    <div class="right-side-summery-box">
+                        <div class="summery-box-2">
+							<div class="summary-header">
+								<h3>
+									Order Summary <span class="ms-auto theme-color" style="float: right;">([[${cartItemCount}]] Items)</span>
+								</h3>
+							</div>
+
+							<ul class="summery-contain">
+                            
+                                <li th:each="c, iterStat : ${viewCart}">
+                                    <img src="../assets/images/vegetable/product/1.png"
+                                        class="img-fluid blur-up lazyloaded checkout-image" alt="">
+                                    <h4>[[${c.product.pname}]] <span>X [[${c.quntity}]]</span></h4>
+                                    <h4 class="price">₹[[${c.product.price}]]</h4>
+                                </li>
+
+                            </ul>
+                        </div>
+                        <br>
+                        
+                        <div class="summery-box-2">
+							<div class="summary-header">
+								<h3>
+									Price Summary
+								</h3>
+							</div>
+                            <ul class="summery-total">
+                                <li>
+                                    <h4>Order Total</h4>
+                                    <h4 class="price">₹[[${subTotalOfCart}]]</h4>
+                                </li>
+
+                                <li>
+                                    <h4>Shipping</h4>
+                                    <h4 class="price"
+										th:text="${shippingTotal eq 0 ? 'FREE' : '₹' + shippingTotal}"
+										th:classappend="${shippingTotal eq 0 ? 'theme-color' : ''}">
+									</h4>
+                                </li>
+
+                                <li th:if="${session.coupon != null}">
+                                    <h4 class="">Coupon Discount</h4>
+                                    <h4 class="price theme-color">-₹[[${discountAmount}]]</h4>
+                                </li>
+                                <li class="list-total">
+                                    <h4>Total (IND)</h4>
+                                    <h4 th:if="${session.coupon == null}" class="price theme-color">₹[[${totalWithShipping}]]</h4>
+                                    <h4 th:if="${session.coupon != null}" class="price theme-color">₹[[${discountedSubtotal}]]</h4>
+                                </li>
+                                
+                            </ul>
+                        </div>
+
+                        <button onclick="location.href = '/shop';" class="btn theme-bg-color text-white btn-md w-100 mt-4 fw-bold">
+                        <i class="fa-solid fa-arrow-left-long"></i>&nbsp;Return To Shopping</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Cart Section End -->
+    
+
+    <!-- Footer Section Start -->
+ 	<footer th:insert="include/user/footer :: footer"> </footer>
+    <!-- Footer Section End -->
+
+    <!-- Location Modal Start -->
+    <div th:insert="include/model/location-model :: div"> </div>
+    <!-- Location Modal End -->
+
+    <!-- Deal Box Modal Start -->
+    <div th:insert="include/model/deal-model :: div"> </div>
+    <!-- Deal Box Modal End -->
+
+    <!-- Tap to top start -->
+    <div class="theme-option">
+        <!-- <div class="setting-box">
+            <button class="btn setting-button">
+                <i class="fa-solid fa-gear"></i>
+            </button>
+
+            <div class="theme-setting-2">
+                <div class="theme-box">
+                    <ul>
+                        <li>
+                            <div class="setting-name">
+                                <h4>Color</h4>
+                            </div>
+                            <div class="theme-setting-button color-picker">
+                                <form class="form-control">
+                                    <label for="colorPick" class="form-label mb-0">Theme Color</label>
+                                    <input type="color" class="form-control form-control-color" id="colorPick"
+                                        value="#0da487" title="Choose your color">
+                                </form>
+                            </div>
+                        </li>
+
+                        <li>
+                            <div class="setting-name">
+                                <h4>Dark</h4>
+                            </div>
+                            <div class="theme-setting-button">
+                                <button class="btn btn-2 outline" id="darkButton">Dark</button>
+                                <button class="btn btn-2 unline" id="lightButton">Light</button>
+                            </div>
+                        </li>
+
+                        <li>
+                            <div class="setting-name">
+                                <h4>RTL</h4>
+                            </div>
+                            <div class="theme-setting-button rtl">
+                                <button class="btn btn-2 rtl-unline">LTR</button>
+                                <button class="btn btn-2 rtl-outline">RTL</button>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div> -->
+
+        <div class="back-to-top">
+            <a id="back-to-top" href="#">
+                <i class="fas fa-chevron-up"></i>
+            </a>
+        </div>
+    </div>
+    <!-- Tap to top end -->
+
+    <!-- Bg overlay Start -->
+    <div class="bg-overlay"></div>
+    <!-- Bg overlay End -->
+
+    <!-- latest jquery-->
+    <script src="../assets/js/jquery-3.6.0.min.js"></script>
+
+    <!-- jquery ui-->
+    <script src="../assets/js/jquery-ui.min.js"></script>
+
+    <!-- Bootstrap js-->
+    <script src="../assets/js/bootstrap/bootstrap.bundle.min.js"></script>
+    <script src="../assets/js/bootstrap/popper.min.js"></script>
+    <script src="../assets/js/bootstrap/bootstrap-notify.min.js"></script>
+
+    <!-- feather icon js-->
+    <script src="../assets/js/feather/feather.min.js"></script>
+    <script src="../assets/js/feather/feather-icon.js"></script>
+
+    <!-- Lazyload Js -->
+    <script src="../assets/js/lazysizes.min.js"></script>
+
+    <!-- Slick js-->
+    <script src="../assets/js/slick/slick.js"></script>
+    <script src="../assets/js/slick/custom_slick.js"></script>
+
+    <!-- Quantity js -->
+    <script src="../assets/js/quantity.js"></script>
+
+    <!-- script js -->
+    <script src="../assets/js/script.js"></script>
+
+    <!-- thme setting js -->
+    <script src="../assets/js/theme-setting.js"></script>
+</body>
+
+
+<!-- Mirrored from themes.pixelstrap.com/fastkart/front-end/cart.html by HTTrack Website Copier/3.x [XR&CO'2014], Mon, 30 Oct 2023 11:45:41 GMT -->
+</html>

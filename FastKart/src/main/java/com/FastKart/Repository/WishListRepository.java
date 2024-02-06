@@ -2,7 +2,9 @@ package com.FastKart.Repository;
 
 import java.util.List;
 
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.repository.query.Param;
 
 import com.FastKart.entities.Product;
 import com.FastKart.entities.User;
@@ -15,6 +17,10 @@ public interface WishListRepository  extends CrudRepository<WishList, Integer >{
 	
 	// this method is automatically count cart item according to user login
 	int countByUser(User user);
+
+	@Query("SELECT w FROM WishList w WHERE w.product = :product AND w.user.username = :username")
+	WishList findByProductAndUserId(@Param("product") Product product, @Param("username") String name);
+
 	
 	
 }

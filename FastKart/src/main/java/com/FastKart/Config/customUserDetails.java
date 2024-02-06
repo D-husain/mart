@@ -9,21 +9,22 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import com.FastKart.entities.User;
 
-public class customUserDetails implements UserDetails{
+public class customUserDetails implements UserDetails {
 
-	
 	public customUserDetails(User user) {
 		super();
 		this.user = user;
 	}
 
 	private User user;
+
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
 		SimpleGrantedAuthority simpleGrantedAuthority = new SimpleGrantedAuthority(user.getRole());
-		
+
 		return List.of(simpleGrantedAuthority);
 	}
+	
 
 	@Override
 	public String getPassword() {
