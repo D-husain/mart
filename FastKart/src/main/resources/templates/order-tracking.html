@@ -373,37 +373,37 @@
 							<tbody>
 								<tr th:if="${order.status >= 1}">
 									<td>Order Placed</td>
-									<td>26 Sep 2021</td>
+									<td>[[${order.orderdate}]]</td>
 									<td>[[${order.ordertime}]]</td>
-									<td>California</td>
+									<td>[[${order.CheckOut.Address.address}]]</td>
 								</tr>
 
 								<tr th:if="${order.status >= 2}">
 									<td>Preparing to Ship</td>
-									<td>03 Oct 2021</td>
-									<td>12:00 AM</td>
-									<td>Canada</td>
+									<td>[[${order.orderdate}]]</td>
+									<td>[[${order.ordertime}]]</td>
+									<td>[[${order.CheckOut.Address.address}]]</td>
 								</tr>
 
 								<tr th:if="${order.status >= 3}">
 									<td>Shipped</td>
-									<td>04 Oct 2021</td>
-									<td>12:00 AM</td>
-									<td>America</td>
+									<td>[[${order.orderdate}]]</td>
+									<td>[[${order.ordertime}]]</td>
+									<td>[[${order.CheckOut.Address.address}]]</td>
 								</tr>
 
 								<tr th:if="${order.status >= 4}">
 									<td>Delivered</td>
-									<td>10 Nov 2021</td>
-									<td>12:00 AM</td>
-									<td>Germany</td>
+									<td>[[${order.orderdate}]]</td>
+									<td>[[${order.ordertime}]]</td>
+									<td>[[${order.CheckOut.Address.address}]]</td>
 								</tr>
 
 								<tr th:if="${order.status >= 5}">
 									<td>Cancelled</td>
-									<td>10 Nov 2021</td>
-									<td>12:00 AM</td>
-									<td>Germany</td>
+									<td>[[${order.orderdate}]]</td>
+									<td>[[${order.ordertime}]]</td>
+									<td>[[${order.CheckOut.Address.address}]]</td>
 								</tr>
 							</tbody>
 						</table>

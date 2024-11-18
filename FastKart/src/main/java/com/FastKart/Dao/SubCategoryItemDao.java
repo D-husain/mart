@@ -9,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.FastKart.Repository.SubCategoryItemRepository;
-import com.FastKart.entities.Category;
 import com.FastKart.entities.SubCategoryItem;
 import com.FastKart.entities.subCategory;
 

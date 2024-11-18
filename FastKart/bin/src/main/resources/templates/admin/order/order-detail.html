@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" dir="ltr">
+<html lang="en" dir="ltr" xmlns:th="http://www.thymeleaf.com">
 
 
 <!-- Mirrored from themes.pixelstrap.com/fastkart/back-end/order-detail.html by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 31 Oct 2023 06:45:01 GMT -->
@@ -12,8 +12,8 @@
     <meta name="keywords"
         content="admin template, Fastkart admin template, dashboard template, flat admin template, responsive admin template, web app">
     <meta name="author" content="pixelstrap">
-    <link rel="icon" href="assets/images/favicon.png" type="image/x-icon">
-    <link rel="shortcut icon" href="assets/images/favicon.png" type="image/x-icon">
+    <link rel="icon" href="admin/assets/images/favicon.png" type="image/x-icon">
+    <link rel="shortcut icon" href="admin/assets/images/favicon.png" type="image/x-icon">
     <title>Fastkart - Order Details</title>
 
     <!-- Google font-->
@@ -22,29 +22,29 @@
         rel="stylesheet">
 
     <!-- Fontawesome css -->
-    <link rel="stylesheet" type="text/css" href="assets/css/vendors/font-awesome.css">
+    <link rel="stylesheet" type="text/css" href="admin/assets/css/vendors/font-awesome.css">
 
     <!-- Linear Icon css -->
-    <link rel="stylesheet" href="assets/css/linearicon.css">
+    <link rel="stylesheet" href="admin/assets/css/linearicon.css">
 
     <!-- Themify icon css -->
-    <link rel="stylesheet" type="text/css" href="assets/css/vendors/themify.css">
+    <link rel="stylesheet" type="text/css" href="admin/assets/css/vendors/themify.css">
 
     <!-- Feather icon css -->
-    <link rel="stylesheet" type="text/css" href="assets/css/vendors/feather-icon.css">
+    <link rel="stylesheet" type="text/css" href="admin/assets/css/vendors/feather-icon.css">
 
     <!-- remixicon css -->
-    <link rel="stylesheet" type="text/css" href="assets/css/remixicon.css">
+    <link rel="stylesheet" type="text/css" href="admin/assets/css/remixicon.css">
 
     <!-- Plugins css -->
-    <link rel="stylesheet" type="text/css" href="assets/css/vendors/scrollbar.css">
-    <link rel="stylesheet" type="text/css" href="assets/css/vendors/animate.css">
+    <link rel="stylesheet" type="text/css" href="admin/assets/css/vendors/scrollbar.css">
+    <link rel="stylesheet" type="text/css" href="admin/assets/css/vendors/animate.css">
 
     <!-- Bootstrap css -->
-    <link rel="stylesheet" type="text/css" href="assets/css/vendors/bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="admin/assets/css/vendors/bootstrap.css">
 
     <!-- App css -->
-    <link rel="stylesheet" type="text/css" href="assets/css/style.css">
+    <link rel="stylesheet" type="text/css" href="admin/assets/css/style.css">
 </head>
 
 <body>
@@ -62,14 +62,14 @@
                 <div class="header-logo-wrapper p-0">
                     <div class="logo-wrapper">
                         <a href="index.html">
-                            <img class="img-fluid main-logo" src="assets/images/logo/1.png" alt="logo">
-                            <img class="img-fluid white-logo" src="assets/images/logo/1-white.png" alt="logo">
+                            <img class="img-fluid main-logo" src="admin/assets/images/logo/1.png" alt="logo">
+                            <img class="img-fluid white-logo" src="admin/assets/images/logo/1-white.png" alt="logo">
                         </a>
                     </div>
                     <div class="toggle-sidebar">
                         <i class="status_toggle middle sidebar-toggle" data-feather="align-center"></i>
                         <a href="index.html">
-                            <img src="assets/images/logo/1.png" class="img-fluid" alt="">
+                            <img src="admin/assets/images/logo/1.png" class="img-fluid" alt="">
                         </a>
                     </div>
                 </div>
@@ -143,7 +143,7 @@
                         </li>
                         <li class="profile-nav onhover-dropdown pe-0 me-0">
                             <div class="media profile-media">
-                                <img class="user-profile rounded-circle" src="assets/images/users/4.jpg" alt="">
+                                <img class="user-profile rounded-circle" src="admin/assets/images/users/4.jpg" alt="">
                                 <div class="user-name-hide media-body">
                                     <span>Emay Walter</span>
                                     <p class="mb-0 font-roboto">Admin<i class="middle ri-arrow-down-s-line"></i></p>
@@ -197,7 +197,7 @@
                 <div>
                     <div class="logo-wrapper logo-wrapper-center">
                         <a href="index.html" data-bs-original-title="" title="">
-                            <img class="img-fluid for-white" src="assets/images/logo/full-white.png" alt="logo">
+                            <img class="img-fluid for-white" src="admin/assets/images/logo/full-white.png" alt="logo">
                         </a>
                         <div class="back-btn">
                             <i class="fa fa-angle-left"></i>
@@ -208,8 +208,8 @@
                     </div>
                     <div class="logo-icon-wrapper">
                         <a href="index.html">
-                            <img class="img-fluid main-logo main-white" src="assets/images/logo/1-white.png" alt="logo">
-                            <img class="img-fluid main-logo main-dark" src="assets/images/logo/logo-white.png"
+                            <img class="img-fluid main-logo main-white" src="admin/assets/images/logo/1-white.png" alt="logo">
+                            <img class="img-fluid main-logo main-dark" src="admin/assets/images/logo/logo-white.png"
                                 alt="logo">
                         </a>
                     </div>
@@ -461,7 +461,7 @@
                                                             <tr class="table-order">
                                                                 <td>
                                                                     <a href="javascript:void(0)">
-                                                                        <img src="assets/images/profile/1.jpg"
+                                                                        <img src="admin/assets/images/profile/1.jpg"
                                                                             class="img-fluid blur-up lazyload" alt="">
                                                                     </a>
                                                                 </td>
@@ -482,7 +482,7 @@
                                                             <tr class="table-order">
                                                                 <td>
                                                                     <a href="javascript:void(0)">
-                                                                        <img src="assets/images/profile/2.jpg"
+                                                                        <img src="admin/assets/images/profile/2.jpg"
                                                                             class="img-fluid blur-up lazyload" alt="">
                                                                     </a>
                                                                 </td>
@@ -503,7 +503,7 @@
                                                             <tr class="table-order">
                                                                 <td>
                                                                     <a href="javascript:void(0)">
-                                                                        <img src="assets/images/profile/3.jpg"
+                                                                        <img src="admin/assets/images/profile/3.jpg"
                                                                             class="img-fluid blur-up lazyload" alt="">
                                                                     </a>
                                                                 </td>
@@ -642,35 +642,35 @@
     <!-- Modal end -->
 
     <!-- latest js -->
-    <script src="assets/js/jquery-3.6.0.min.js"></script>
+    <script src="admin/assets/js/jquery-3.6.0.min.js"></script>
 
     <!-- Bootstrap js -->
-    <script src="assets/js/bootstrap/bootstrap.bundle.min.js"></script>
+    <script src="admin/assets/js/bootstrap/bootstrap.bundle.min.js"></script>
 
     <!-- feather icon js -->
-    <script src="assets/js/icons/feather-icon/feather.min.js"></script>
-    <script src="assets/js/icons/feather-icon/feather-icon.js"></script>
+    <script src="admin/assets/js/icons/feather-icon/feather.min.js"></script>
+    <script src="admin/assets/js/icons/feather-icon/feather-icon.js"></script>
 
     <!-- scrollbar simplebar js -->
-    <script src="assets/js/scrollbar/simplebar.js"></script>
-    <script src="assets/js/scrollbar/custom.js"></script>
+    <script src="admin/assets/js/scrollbar/simplebar.js"></script>
+    <script src="admin/assets/js/scrollbar/custom.js"></script>
 
     <!-- Sidebar js -->
-    <script src="assets/js/config.js"></script>
+    <script src="admin/assets/js/config.js"></script>
 
     <!-- customizer js -->
-    <script src="assets/js/customizer.js"></script>
+    <script src="admin/assets/js/customizer.js"></script>
 
     <!-- Plugins js -->
-    <script src="assets/js/sidebar-menu.js"></script>
-    <script src="assets/js/notify/bootstrap-notify.min.js"></script>
-    <script src="assets/js/notify/index.js"></script>
+    <script src="admin/assets/js/sidebar-menu.js"></script>
+    <script src="admin/assets/js/notify/bootstrap-notify.min.js"></script>
+    <script src="admin/assets/js/notify/index.js"></script>
 
     <!-- sidebar effect -->
-    <script src="assets/js/sidebareffect.js"></script>
+    <script src="admin/assets/js/sidebareffect.js"></script>
 
     <!-- Theme js -->
-    <script src="assets/js/script.js"></script>
+    <script src="admin/assets/js/script.js"></script>
 </body>
 
 

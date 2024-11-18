@@ -1,0 +1,675 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.com">
+
+
+<!-- Mirrored from themes.pixelstrap.com/fastkart/front-end/checkout.html by HTTrack Website Copier/3.x [XR&CO'2014], Mon, 30 Oct 2023 11:45:41 GMT -->
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Fastkart">
+    <meta name="keywords" content="Fastkart">
+    <meta name="author" content="Fastkart">
+    <link rel="icon" href="../assets/images/favicon/1.png" type="image/x-icon">
+    <title>Payment</title>
+
+    <!-- Google font -->
+    <link rel="preconnect" href="https://fonts.gstatic.com/">
+    <link href="https://fonts.googleapis.com/css2?family=Russo+One&amp;display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Exo+2:wght@400;500;600;700;800;900&amp;display=swap"
+        rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&amp;display=swap"
+        rel="stylesheet">
+
+    <!-- bootstrap css -->
+    <link id="rtl-link" rel="stylesheet" type="text/css" href="../assets/css/vendors/bootstrap.css">
+
+    <!-- font-awesome css -->
+    <link rel="stylesheet" type="text/css" href="../assets/css/vendors/font-awesome.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
+
+    <!-- feather icon css -->
+    <link rel="stylesheet" type="text/css" href="../assets/css/vendors/feather-icon.css">
+
+    <!-- slick css -->
+    <link rel="stylesheet" type="text/css" href="../assets/css/vendors/slick/slick.css">
+    <link rel="stylesheet" type="text/css" href="../assets/css/vendors/slick/slick-theme.css">
+
+    <!-- Iconly css -->
+    <link rel="stylesheet" type="text/css" href="../assets/css/bulk-style.css">
+
+    <!-- Template css -->
+    <link id="color-link" rel="stylesheet" type="text/css" href="../assets/css/style.css">
+    
+    <!--razorpay script-->
+    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+    
+    <style>
+		.scro {
+			max-height: 200px;
+			overflow-x: auto;
+			overflow-y: auto;
+		}
+		
+		.scro::-webkit-scrollbar-track {
+			-webkit-box-shadow: inset 0 0 8px #ecf3fa;
+			box-shadow: inset 0 0 8px #ecf3fa
+		}
+		
+		.scro::-webkit-scrollbar {
+			width: 6px
+		}
+		
+		.scro::-webkit-scrollbar-thumb {
+			background-color: rgba(14, 148, 122)
+		}
+	</style>
+</head>
+
+<body>
+    <!-- Loader Start -->
+    <div class="fullpage-loader">
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+    </div>
+    <!-- Loader End -->
+
+    <!-- Header Start -->
+    <header th:insert="include/user/header :: header"> </header>
+    <!-- Header End -->
+
+    <!-- mobile fix menu start -->
+    <div th:insert="include/user/mobile-menu :: div"></div>
+    <!-- mobile fix menu end -->
+
+    <!-- Breadcrumb Section Start -->
+    <section class="breadscrumb-section pt-0">
+        <div class="container-fluid-lg">
+            <div class="row">
+                <div class="col-12">
+                    <div class="breadscrumb-contain">
+                        <h2>Payment</h2>
+                        <nav>
+                            <ol class="breadcrumb mb-0">
+                                <li class="breadcrumb-item">
+                                    <a href="/">
+                                        <i class="fa-solid fa-house"></i>
+                                    </a>
+                                </li>
+                                <li class="breadcrumb-item active" aria-current="page">Payment</li>
+                            </ol>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Breadcrumb Section End -->
+
+    <!-- Checkout section Start -->
+    <section class="checkout-section-2 section-b-space">
+    <form action="/user-orders" method="post" id="someFormId">
+        <div class="container-fluid-lg">
+            <div class="row g-sm-4 g-3">
+                <div class="col-lg-8">
+                    <div class="left-sidebar-checkout">
+                        <div class="checkout-detail-box">
+                            <ul>
+                                <li>
+                                    <div class="checkout-icon">
+                                        <lord-icon target=".nav-item" src="https://cdn.lordicon.com/ggihhudh.json" trigger="loop-on-hover"
+                                            colors="primary:#121331,secondary:#646e78,tertiary:#0baf9a" class="lord-icon">
+                                        </lord-icon>
+                                    </div>
+                                    <div class="checkout-box">
+                                        <div class="checkout-title">
+                                            <h4>Delivery Address</h4>
+                                        </div>
+
+                                        <div class="checkout-detail">
+                                            <div class="row g-4">
+                                            
+                                                <div th:each="sh, iterStat : ${shipping}" class="col-xxl-12 col-lg-12 col-md-6">
+                                                    <div class="delivery-address-box">
+                                                        <div>
+                                                            <div class="form-check">
+                                                                <input class="form-check-input" type="hidden" name="shippingId" th:value="${sh.id}" id="flexRadioDefault1" required checked="checked">
+                                                            </div>
+
+                                                            <div class="label">
+                                                                <label>[[${sh.address.type}]]</label>
+                                                            </div>
+
+                                                            <ul class="delivery-address-detail">
+                                                                <li>
+                                                                    <h4 class="fw-500">[[${sh.address.name}]]</h4>
+                                                                </li>
+
+                                                                <li>
+                                                                    <p class="text-content"><span class="text-title">
+                                                                    Address : </span>[[${sh.address.address}]]</p>
+                                                                </li>
+
+                                                                <li>
+                                                                    <h6 class="text-content"><span class="text-title">
+                                                                    Pin Code :</span> [[${sh.address.pinCode}]]</h6>
+                                                                </li>
+
+                                                                <li>
+                                                                    <h6 class="text-content mb-0"><span class="text-title">
+                                                                    Phone :</span> +91 97245 79296</h6>
+                                                                </li>
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+
+                                <li>
+                                    <div class="checkout-icon">
+                                        <lord-icon target=".nav-item" src="https://cdn.lordicon.com/oaflahpk.json"
+                                            trigger="loop-on-hover" colors="primary:#0baf9a" class="lord-icon">
+                                        </lord-icon>
+                                    </div>
+                                    <div class="checkout-box">
+                                        <div class="checkout-title">
+                                            <h4>Delivery Option</h4>
+                                        </div>
+
+                                        <div class="checkout-detail">
+                                            <div class="row g-4">
+                                                <div class="col-xxl-12">
+                                                    <div class="delivery-option">
+                                                        <div class="delivery-category">
+                                                            <div class="shipment-detail">
+                                                                <div class="form-check custom-form-check hide-check-box">
+                                                                    <input class="form-check-input" type="hidden" value="Standard Delivery Option" name="deliveryoption" id="standard" checked>
+                                                                    <label class="form-check-label" for="standard">Standard
+                                                                        Delivery Option</label>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+
+                                <!-- <li>
+                                    <div class="checkout-icon">
+                                        <lord-icon target=".nav-item" src="https://cdn.lordicon.com/qmcsqnle.json" trigger="loop-on-hover" 
+                                        colors="primary:#0baf9a,secondary:#0baf9a" class="lord-icon">
+                                        </lord-icon>
+                                    </div>
+                                    <div class="checkout-box">
+                                        <div class="checkout-title">
+                                            <h4>Payment Option</h4>
+                                        </div>
+
+                                        <div class="checkout-detail">
+                                            <div class="accordion accordion-flush custom-accordion" id="accordionFlushExample">
+                                                <div class="accordion-item">
+                                                    <div class="accordion-header" id="flush-headingFour">
+                                                        <div class="accordion-button collapsed" data-bs-toggle="collapse" data-bs-target="#flush-collapseFour">
+                                                            <div class="custom-form-check form-check mb-0">
+                                                                <label class="form-check-label" for="cash">
+                                                                <input class="form-check-input mt-0" type="radio" name="paymentoption" value="Cash On Delivery" id="cash">
+                                                                 Cash On Delivery</label>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div id="flush-collapseFour"
+                                                        class="accordion-collapse collapse show"
+                                                        data-bs-parent="#accordionFlushExample">
+                                                        <div class="accordion-body">
+                                                            <p class="cod-review">Pay with cash upon delivery. <a href="javascript:void(0)">Know more.</a>
+                                                            </p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="accordion-item">
+                                                    <div class="accordion-header" id="flush-headingThree">
+                                                        <div class="accordion-button collapsed"
+                                                            data-bs-toggle="collapse"
+                                                            data-bs-target="#flush-collapseThree">
+                                                            <div class="custom-form-check form-check mb-0">
+                                                                <label class="form-check-label" for="wallet">
+                                                                <input class="form-check-input mt-0" type="radio" name="paymentoption" value="Online" id="wallet" checked="checked">
+                                                                <img src="https://cdn.razorpay.com/static/assets/logo/rzp_payment_icon.svg" alt="Credit Card/Debit Card/NetBanking"></label>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div id="flush-collapseThree" class="accordion-collapse collapse"
+                                                        data-bs-parent="#accordionFlushExample">
+                                                        <div class="accordion-body">
+                                                            <p class="cod-review">Pay securely by Credit or Debit card or Internet Banking through Razorpay. <a href="javascript:void(0)">Know more.</a>
+                                                            </p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                
+                                            </div>
+                                        </div>
+                                        
+                                    </div>
+                                </li> -->
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-4">
+                    <div class="right-side-summery-box">
+                        <div class="summery-box-2">
+							<div class="summary-header">
+								<h3>
+									Order Summary <span class="ms-auto theme-color" style="float: right;">([[${cartItemCount}]] Items)</span>
+								</h3>
+							</div>
+
+							<ul class="summery-contain scro">
+                            
+                                <li th:each="c, iterStat : ${viewCart}">
+                                    <img src="../assets/images/vegetable/product/1.png"
+                                        class="img-fluid blur-up lazyloaded checkout-image" alt="">
+                                    <h4>[[${c.product.pname}]] <span>X [[${c.quntity}]]</span></h4>
+                                    <h4 class="price">₹[[${c.product.price}]]</h4>
+                                    <input type="hidden" name="qty" th:value="${c.quntity}">
+           							<input type="hidden" name="pid" th:value="${c.product.id}">
+           							<input type="hidden" name="price" th:value="${c.product.price}">
+           							<input type="hidden" name="totals" th:value="${c.total}"/>
+                                </li>
+
+                            </ul>
+                        </div>
+                        <br>
+                        
+                        <div class="summery-box-2">
+							<div class="summary-header">
+								<h3>
+									Price Summary
+								</h3>
+							</div>
+                            <ul class="summery-total">
+                                <li>
+                                    <h4>Order Total</h4>
+                                    <h4 class="price">₹[[${subTotalOfCart}]]</h4>
+                                    <input type="hidden" name="amount" th:value="${subTotalOfCart}"/>
+                                </li>
+
+                                <li>
+                                    <h4>Shipping</h4>
+                                    <h4 class="price"
+										th:text="${shippingTotal eq 0 ? 'FREE' : '₹' + shippingTotal}"
+										th:classappend="${shippingTotal eq 0 ? 'theme-color' : ''}">
+									</h4>
+									<input type="hidden" name="charge" th:value="${shippingTotal}"/>
+                                </li>
+
+                                <li th:if="${session.coupon != null}">
+                                    <h4 class="">Coupon Discount</h4>
+                                    <h4 class="price theme-color">-₹[[${discountAmount}]]</h4>
+                                    <input type="hidden" name="discount" th:value="${discountAmount}"/>
+                                </li>
+                                
+                                 <li th:if="${session.coupon == null}">
+                                    <input type="hidden" name="discount" th:value="0"/>
+                                </li>
+                                
+                                <li class="list-total">
+                                    <h4>Total (IND)</h4>
+                                    <h4 th:if="${session.coupon == null}" class="price theme-color">₹[[${totalWithShipping}]]
+                                    <input type="hidden" name=total th:value="${totalWithShipping}"/>
+                                    </h4>
+                                    <h4 th:if="${session.coupon != null}" class="price theme-color">₹[[${discountedSubtotal}]]
+                                    <input type="hidden" name="total" th:value="${discountedSubtotal}"/>
+                                    </h4>
+                                </li>
+                                
+                            </ul>
+                        </div>
+
+                        <div class="checkout-offer">
+                            <div class="offer-title">
+                                <div class="offer-icon">
+                                    <img src="https://themes.pixelstrap.com/fastkart/assets/images/inner-page/offer.svg" class="img-fluid" alt="">
+                                </div>
+                                <div class="offer-name">
+                                    <h6>Available Offers</h6>
+                                </div>
+                            </div>
+
+                            <ul class="offer-detail">
+                                <li>
+                                    <p>Combo: BB Royal Almond/Badam Californian, Extra Bold 100 gm...</p>
+                                </li>
+                                <li>
+                                    <p>combo: Royal Cashew Californian, Extra Bold 100 gm + BB Royal Honey 500 gm</p>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <button id="rzp-button1" class="btn theme-bg-color text-white btn-md w-100 mt-4 fw-bold">Pay For Order</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+       </form>
+    </section>
+    <!-- Checkout section End -->
+
+	<script th:if="${session.coupon == null}">
+		amountToDisplay = '[[${totalWithShipping}]]';
+
+		var options = {
+			"key" : "rzp_test_WDOcX8hKAYmsF3",
+			"amount" : amountToDisplay * 100,
+			"currency" : "INR",
+			"name" : "Watch Store",
+			"description" : "Test Transaction",
+			"image" : "http://localhost:8081/assets/images/logo/logo_black.png",
+			//"order_id": "order_9A33XWu170gUtm", //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
+			"handler" : function(response) {
+				document.getElementById('someFormId').submit();
+			},
+			//"callback_url": "order.jsp",
+			"prefill" : {
+				"name" : "",
+				"email" : "",
+				"contact" : "+91 "
+			},
+			"notes" : {
+				"address" : ""
+			},
+			"theme" : {
+				"color" : "#445f84;"
+			},
+			"modal" : {
+				"ondismiss" : function() {
+					 $('#confirmCancel').modal('show');
+				}
+			}
+		};
+		var rzp1 = new Razorpay(options);
+		rzp1.on('payment.failed', function(response) {
+			alert("Payment failed: " + response.error.description);
+		});
+		document.getElementById('rzp-button1').onclick = function(e) {
+			rzp1.open();
+			e.preventDefault();
+		}
+	</script>
+
+	<!-- /* Else block if session.coupon is not null */ -->
+	<script th:if="${session.coupon != null}">
+		amountToDisplay = '[[${discountedSubtotal}]]';
+
+		var options = {
+			"key" : "rzp_test_WDOcX8hKAYmsF3",
+			"amount" : amountToDisplay * 100,
+			"currency" : "INR",
+			"name" : "Fast Kart",
+			"description" : "Test Transaction",
+			"image" : "http://localhost:8080/assets/images/logo/1.png",
+			//"order_id": "order_9A33XWu170gUtm", //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
+			"handler" : function(response) {
+				document.getElementById('someFormId').submit();
+			},
+			//"callback_url": "order.jsp",
+			"prefill" : {
+				"name" : "",
+				"email" : "",
+				"contact" : "+91 "
+			},
+			"notes" : {
+				"address" : ""
+			},
+			"theme" : {
+				"color" : "#445f84;"
+			},
+			"modal" : {
+				"ondismiss" : function() {
+					 $('#confirmCancel').modal('show');
+				}
+			}
+		};
+		var rzp1 = new Razorpay(options);
+		rzp1.on('payment.failed', function(response) {
+			alert("Payment failed: " + response.error.description);
+		});
+		document.getElementById('rzp-button1').onclick = function(e) {
+			rzp1.open();
+			e.preventDefault();
+		}
+	</script>
+	
+	<!-- Remove Profile Modal Start -->
+    <div class="modal fade theme-modal remove-profile" id="confirmCancel" tabindex="-1"
+        aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-fullscreen-sm-down">
+            <div class="modal-content">
+                <div class="modal-header d-block text-center">
+                    <h5 class="modal-title w-100" id="exampleModalLabel22">Are You Sure?</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                        <i class="fa-solid fa-xmark"></i>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="remove-box">
+                        <p>Do you want to cancel your order?</p>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-animation btn-md fw-bold" data-bs-dismiss="modal">No</button>
+                    <button onclick="location.href = '/order-cancel';" class="btn theme-bg-color btn-md fw-bold text-light" >Yes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade theme-modal remove-profile" id="removeAddress" tabindex="-1"
+        aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-fullscreen-sm-down">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title text-center" id="exampleModalLabel12">Done!</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                        <i class="fa-solid fa-xmark"></i>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="remove-box text-center">
+                        <h4 class="text-content">It's Removed.</h4>
+                    </div>
+                </div>
+                <div class="modal-footer pt-0">
+                    <button type="button" class="btn theme-bg-color btn-md fw-bold text-light"
+                        data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Remove Profile Modal End -->
+
+	<!-- Footer Section Start -->
+     <footer th:insert="include/user/footer :: footer"> </footer>
+    <!-- Footer Section End -->
+
+    <!-- Location Modal Start -->
+     <div th:insert="include/model/location-model :: div"> </div>
+    <!-- Location Modal End -->
+
+    <!-- Add address modal box start -->
+    <div class="modal fade theme-modal" id="edit-address" tabindex="-1" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-fullscreen-sm-down">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel1">Edit address</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                        <i class="fa-solid fa-xmark"></i>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="form-floating mb-4 theme-form-floating">
+                            <input type="text" class="form-control" id="fname" placeholder="Enter First Name">
+                            <label for="fname">First Name</label>
+                        </div>
+                    </form>
+
+                    <form>
+                        <div class="form-floating mb-4 theme-form-floating">
+                            <input type="text" class="form-control" id="lname" placeholder="Enter Last Name">
+                            <label for="lname">Last Name</label>
+                        </div>
+                    </form>
+
+                    <form>
+                        <div class="form-floating mb-4 theme-form-floating">
+                            <input type="email" class="form-control" id="email" placeholder="Enter Email Address">
+                            <label for="email">Email Address</label>
+                        </div>
+                    </form>
+
+                    <form>
+                        <div class="form-floating mb-4 theme-form-floating">
+                            <textarea class="form-control" placeholder="Leave a comment here" id="address"
+                                style="height: 100px"></textarea>
+                            <label for="address">Enter Address</label>
+                        </div>
+                    </form>
+
+                    <form>
+                        <div class="form-floating mb-4 theme-form-floating">
+                            <input type="email" class="form-control" id="pin" placeholder="Enter Pin Code">
+                            <label for="pin">Pin Code</label>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary btn-md" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn theme-bg-color btn-md text-white" data-bs-dismiss="modal">Save
+                        changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Add address modal box end -->
+
+    <!-- Deal Box Modal Start -->
+    <div th:insert="include/model/deal-model :: div"> </div>
+    <!-- Deal Box Modal End -->
+
+    <!-- Tap to top start -->
+    <div class="theme-option">
+        <div class="setting-box">
+            <button class="btn setting-button">
+                <i class="fa-solid fa-gear"></i>
+            </button>
+
+            <div class="theme-setting-2">
+                <div class="theme-box">
+                    <ul>
+                        <li>
+                            <div class="setting-name">
+                                <h4>Color</h4>
+                            </div>
+                            <div class="theme-setting-button color-picker">
+                                <form class="form-control">
+                                    <label for="colorPick" class="form-label mb-0">Theme Color</label>
+                                    <input type="color" class="form-control form-control-color" id="colorPick"
+                                        value="#0da487" title="Choose your color">
+                                </form>
+                            </div>
+                        </li>
+
+                        <li>
+                            <div class="setting-name">
+                                <h4>Dark</h4>
+                            </div>
+                            <div class="theme-setting-button">
+                                <button class="btn btn-2 outline" id="darkButton">Dark</button>
+                                <button class="btn btn-2 unline" id="lightButton">Light</button>
+                            </div>
+                        </li>
+
+                        <li>
+                            <div class="setting-name">
+                                <h4>RTL</h4>
+                            </div>
+                            <div class="theme-setting-button rtl">
+                                <button class="btn btn-2 rtl-unline">LTR</button>
+                                <button class="btn btn-2 rtl-outline">RTL</button>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="back-to-top">
+            <a id="back-to-top" href="#">
+                <i class="fas fa-chevron-up"></i>
+            </a>
+        </div>
+    </div>
+    <!-- Tap to top end -->
+
+    <!-- Bg overlay Start -->
+    <div class="bg-overlay"></div>
+    <!-- Bg overlay End -->
+
+    <!-- latest jquery-->
+    <script src="../assets/js/jquery-3.6.0.min.js"></script>
+
+    <!-- jquery ui-->
+    <script src="../assets/js/jquery-ui.min.js"></script>
+
+    <!-- Lordicon Js -->
+    <script src="../assets/js/lusqsztk.js"></script>
+
+    <!-- Bootstrap js-->
+    <script src="../assets/js/bootstrap/bootstrap.bundle.min.js"></script>
+    <script src="../assets/js/bootstrap/popper.min.js"></script>
+    <script src="../assets/js/bootstrap/bootstrap-notify.min.js"></script>
+
+    <!-- feather icon js-->
+    <script src="../assets/js/feather/feather.min.js"></script>
+    <script src="../assets/js/feather/feather-icon.js"></script>
+
+    <!-- Lazyload Js -->
+    <script src="../assets/js/lazysizes.min.js"></script>
+
+    <!-- Delivery Option js -->
+    <script src="../assets/js/delivery-option.js"></script>
+
+    <!-- Slick js-->
+    <script src="../assets/js/slick/slick.js"></script>
+    <script src="../assets/js/slick/custom_slick.js"></script>
+
+    <!-- Quantity js -->
+    <script src="../assets/js/quantity.js"></script>
+
+    <!-- script js -->
+    <script src="../assets/js/script.js"></script>
+
+    <!-- thme setting js -->
+    <script src="../assets/js/theme-setting.js"></script>
+</body>
+
+
+<!-- Mirrored from themes.pixelstrap.com/fastkart/front-end/checkout.html by HTTrack Website Copier/3.x [XR&CO'2014], Mon, 30 Oct 2023 11:45:42 GMT -->
+</html>

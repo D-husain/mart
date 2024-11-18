@@ -8,11 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
-import com.FastKart.Dao.categoryDao;
 import com.FastKart.Dao.productDao;
-import com.FastKart.Dao.subCategoryDao;
-import com.FastKart.Repository.CategoryRepository;
-import com.FastKart.Repository.ProductRepository;
 import com.FastKart.entities.Product;
 
 
@@ -22,17 +18,6 @@ public class productController {
 	@Autowired
 	private productDao pdao;
 	
-	@Autowired
-	private categoryDao cdao;
-	
-	@Autowired
- private subCategoryDao scdao;
-	
-	@Autowired
-	private CategoryRepository categoryRepository;
-	
-	@Autowired
-	private ProductRepository productRepository;
 
 	/*
 	 * @PostMapping("insertProduct") private String addProduct(@ModelAttribute

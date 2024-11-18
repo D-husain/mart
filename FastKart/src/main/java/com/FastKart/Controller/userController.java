@@ -123,7 +123,7 @@ public class userController {
 		boolean loggedIn = false;
 
 		for (User user : list) {
-			if (user_name.equals(user.getUsername()) && password.equals(user.getPassword())) {
+			if (user_name.equals(user.getEmail()) && password.equals(user.getPassword())) {
 				session.setAttribute("user", user);
 				page_move = "redirect:/dashboard";
 				loggedIn = true;
@@ -376,10 +376,11 @@ public class userController {
 
 		if (user != null) {
 			
-			if (!this.bCryptPasswordEncoder.matches(newpassword, user.getPassword())) {
-	            redirAttrs.addFlashAttribute("error", "Incorrect current password.");
-	            return "redirect:/reset_password";
-	        }
+			/*
+			 * if (!this.bCryptPasswordEncoder.matches(newpassword, user.getPassword())) {
+			 * redirAttrs.addFlashAttribute("error", "Incorrect current password."); return
+			 * "redirect:/reset_password"; }
+			 */
 			
 			user.setPassword(this.bCryptPasswordEncoder.encode(newpassword));
 			this.userRepository.save(user);

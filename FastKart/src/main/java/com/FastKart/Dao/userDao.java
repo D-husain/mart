@@ -31,7 +31,7 @@ public class userDao {
 
 		if (principal != null && principal.getName() != null && !principal.getName().isEmpty()) {
 			String name = principal.getName();
-			User user = userRepository.getUserByUserName(name);
+			userRepository.getUserByUserName(name);
 			// Perform any additional checks or operations if needed
 			return true;
 		}

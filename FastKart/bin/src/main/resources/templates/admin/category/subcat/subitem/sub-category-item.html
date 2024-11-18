@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr" xmlns:th="http://www.thymeleaf.com">
+
+<!-- Mirrored from themes.pixelstrap.com/fastkart/back-end/category.html by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 31 Oct 2023 06:45:00 GMT -->
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+        content="Fastkart admin is super flexible, powerful, clean &amp; modern responsive bootstrap 5 admin template with unlimited possibilities.">
+    <meta name="keywords"
+        content="admin template, Fastkart admin template, dashboard template, flat admin template, responsive admin template, web app">
+    <meta name="author" content="pixelstrap">
+    <link rel="icon" href="admin/assets/images/favicon.png" type="image/x-icon">
+    <link rel="shortcut icon" href="admin/assets/images/favicon.png" type="image/x-icon">
+    <title>SubCategoryItem</title>
+    <!-- Google font-->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&amp;display=swap"
+        rel="stylesheet">
+
+    <!-- Fontawesome css -->
+    <link rel="stylesheet" type="text/css" href="admin/assets/css/vendors/font-awesome.css">
+
+    <!-- Linear Icon css -->
+    <link rel="stylesheet" href="admin/assets/css/linearicon.css">
+
+    <!-- remixicon css -->
+    <link rel="stylesheet" type="text/css" href="admin/assets/css/remixicon.css">
+
+    <!-- Data Table css -->
+    <link rel="stylesheet" type="text/css" href="admin/assets/css/datatables.css">
+
+    <!-- Themify icon css-->
+    <link rel="stylesheet" type="text/css" href="admin/assets/css/vendors/themify.css">
+
+    <!-- Feather icon css -->
+    <link rel="stylesheet" type="text/css" href="admin/assets/css/vendors/feather-icon.css">
+
+    <!-- Plugins css -->
+    <link rel="stylesheet" type="text/css" href="admin/assets/css/vendors/scrollbar.css">
+    <link rel="stylesheet" type="text/css" href="admin/assets/css/vendors/animate.css">
+
+    <!-- Bootstrap css -->
+    <link rel="stylesheet" type="text/css" href="admin/assets/css/vendors/bootstrap.css">
+
+    <!-- App css -->
+    <link rel="stylesheet" type="text/css" href="admin/assets/css/style.css">
+    
+    <!-- Use the CDN link instead of local file -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.9.2/min/dropzone.min.js"></script>
+	
+	<!-- jQuery -->
+	<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+	
+	<!-- DataTables JS -->
+	<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.js"></script>
+	
+</head>
+
+<body>
+    <!-- tap on top start -->
+    <div class="tap-top">
+        <span class="lnr lnr-chevron-up"></span>
+    </div>
+    <!-- tap on tap end -->
+
+    <!-- page-wrapper Start-->
+    <div class="page-wrapper compact-wrapper" id="pageWrapper">
+        <!-- Page Header Start-->
+         <div th:insert="admin/include/header :: div"> </div>
+        <!-- Page Header Ends-->
+
+        <!-- Page Body Start -->
+        <div class="page-body-wrapper">
+            <!-- Page Sidebar Start-->
+            <div th:insert="admin/include/sidebar :: div"> </div>
+            <!-- Page Sidebar Ends-->
+
+            <!-- Container-fluid starts-->
+            <div class="page-body">
+                <!-- All User Table Start -->
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="card card-table">
+                                <div class="card-body">
+                                    <div class="title-header option-title">
+                                        <h5>All SubCategory</h5>
+                                        <form class="d-inline-flex">
+                                            <a data-bs-toggle="modal" data-bs-target="#add-sub-category-item" class="align-items-center btn btn-theme d-flex">
+                                                <i data-feather="plus-square"></i>Add New
+                                            </a>
+                                        </form>
+                                    </div>
+
+                                    <div class="table-responsive category-table">
+                                        <div>
+                                            <table class="table all-package theme-table" id="table_id">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Product Name</th>
+                                                        <th>Date</th>
+                                                        <th>Product Image</th>
+                                                        <th>Icon</th>
+                                                        <th>Option</th>
+                                                    </tr>
+                                                </thead>
+
+                                                <tbody>
+
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- All User Table Ends-->
+
+                <div class="container-fluid">
+                    <!-- footer start-->
+                     <footer th:insert="admin/include/footer :: div"> </footer>
+                    <!-- footer end-->
+                </div>
+            </div>
+            <!-- Container-fluid end -->
+        </div>
+        <!-- Page Body End -->
+        
+        <!-- Modal Start -->
+        <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1">
+            <div class="modal-dialog  modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-body">
+                        <h5 class="modal-title" id="staticBackdropLabel">Logging Out</h5>
+                        <p>Are you sure you want to log out?</p>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        <div class="button-box">
+                            <button type="button" class="btn btn--no" data-bs-dismiss="modal">No</button>
+                            <button type="button" class="btn  btn--yes btn-primary">Yes</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Modal End -->
+    </div>
+    
+    <!-- add Sub category Start -->
+	<div class="modal fade theme-modal remove-coupon" id="add-sub-category-item" aria-hidden="true" tabindex="-1">
+		<div class="modal-dialog modal-xl modal-dialog-centered" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalLongTitle">Add SubCategory</h5>
+					 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                        <i class="fas fa-times"></i>
+                    </button>
+				</div>
+				<form id="SubcategoryFormItem" class="theme-form theme-form-2 mega-form" enctype="multipart/form-data">
+					<div class="modal-body">
+						<div class="row">
+							<div class="col-6">
+								<div class="form-group">
+									<label for="exampleInputName1">Category Select</label>
+									<div class="form-group col-sm-12">
+										<select class="form-control w-100" name="category" id="categorySelect" onchange="loadSubcategories()">
+											<option selected disabled>Select Category</option>
+										</select>
+									</div>
+								</div>
+							</div>
+
+							<div class="col-6">
+								<div class="form-group">
+									<label for="exampleInputName1">SubCategory Select</label>
+									<div class="form-group col-sm-12">
+										<select class="form-control w-100" name="subcategory" id="subcategorySelect">
+											<option selected disabled>Select Subcategory</option>
+										</select>
+									</div>
+								</div>
+							</div>
+
+							<div class="col-12">
+								<div class="form-group">
+									<label for="exampleInputName1">SubCategoryItem Name</label> 
+									<input type="text" id="cname" name="subcategorynitemName" class="form-control" placeholder="SubCategory Name" onblur="checkCname()"> 
+										<span id="cnameerr" class="text-danger" style="font-size: 14px"></span>
+								</div>
+							</div>
+						</div>
+
+						</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-dismiss="modal">No</button>
+						<button type="submit" id="submitSubCategoryItem" onclick="return validate()" class="btn btn-primary">Confirm</button>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+	<!-- add Sub category End -->
+
+    <!-- Delete Modal Box Start -->
+    <div class="modal fade theme-modal remove-coupon" id="delete-item" aria-hidden="true" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header d-block text-center">
+                    <h5 class="modal-title w-100" id="exampleModalLabel22">Are You Sure ?</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="remove-box">
+                        <p>You really want to delete <span class="theme-color">Subcategory item</span> ?</p>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-animation btn-md fw-bold" data-bs-dismiss="modal">No</button>
+                    <button type="button" class="btn btn-animation btn-md fw-bold" id="confirmDelete" >Yes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Delete Modal Box End -->
+    
+    <div id="loadingIndicator" style="display: none;">
+    <img src="admin\assets\loading\Eclipse-1s-200px.gif" alt="Loading...">
+</div>
+    
+    <script type="text/javascript">
+    $(document).ready(function() {
+    	$.notify('<i class="fas fa-bell"></i></i><strong>Loading</strong> your data Do not close this page...', {
+		    type: 'theme',
+		    allow_dismiss: true,
+		    delay: 3000,
+		    showProgressbar: true,
+		    timer: 300,
+		    // timer: 555555500,
+		    animate: {
+		        enter: 'animated fadeInDown',
+		        exit: 'animated fadeOutUp'
+		    }
+		});
+    	getAllSubCategoriesItem();
+    });
+    
+    $(document).ready(function() {
+    	$("#submitSubCategoryItem").click(function(e) {
+    		e.preventDefault();
+    		var formData = new FormData($('#SubcategoryFormItem')[0]);
+    		
+    			$.ajax({
+    				type: 'POST',
+    				url: '/api/subcategoryitemadd',
+    				data: formData,
+    				processData: false,
+    				contentType: false,
+    				success: function() {
+    					$('#add-sub-category-item').modal('hide');
+    					getAllSubCategoriesItem();
+    					$('#SubcategoryFormItem')[0].reset();
+    					
+    					 // Show success notification
+    					$.notify('<i class="fas fa-check"></i></i><strong>Subcategory Item</strong> added successfully...', {
+    					    type: 'theme',
+    					    allow_dismiss: true,
+    					    delay: 3000,
+    					    showProgressbar: true,
+    					    timer: 300,
+    					    // timer: 555555500,
+    					    animate: {
+    					        enter: 'animated fadeInDown',
+    					        exit: 'animated fadeOutUp'
+    					    }
+    					});
+
+    				},
+    				error: function(error) {
+    					alert(error);
+    					$('#add-sub-category-item').modal('hide');
+    				}
+    			});
+    	});
+    });
+    
+    function getAllSubCategoriesItem() {
+    	
+        $.ajax({
+            url: '/subcategory/item/data',
+            method: 'GET',
+            dataType: 'json',
+            success: function(json) {
+                var tableBody = $('table tbody');
+                tableBody.empty();
+
+                $(json).each(function(index, subcategoryitem) {
+                    var tr = '<tr>' +
+                        '<td>' + subcategoryitem.subitemname + '</td>' +
+                        '<td>26-12-2021</td>' +
+                        '<td>' +
+                        '<div class="table-image">' +
+                        '<img src="admin/assets/images/product/1.png" class="img-fluid" alt="">' +
+                        '</div>' +
+                        '</td>' +
+                        '<td>' +
+                        '<div class="category-icon">' +
+                        '<img src="https://themes.pixelstrap.com/fastkart/assets/svg/1/vegetable.svg" class="img-fluid" alt="">' +
+                        '</div>' +
+                        '</td>' +
+                        '<td>' +
+                        '<ul>' +
+                        /* '<li>' +
+                        '<a href="order-detail.html">' +
+                        '<i class="ri-eye-line"></i>' +
+                        '</a>' +
+                        '</li>' + */
+                        '<li>' +
+                        '<a data-id=' + subcategoryitem.id + ' class="edit">' +
+                        '<i class="ri-pencil-line"></i>' +
+                        '</a>' +
+                        '</li>' +
+                        '<li>' +
+                        '<a class="delete" data-id=' + subcategoryitem.id + '>' +
+                        '<i class="ri-delete-bin-line"></i>' +
+                        '</a>' +
+                        '</li>' +
+                        '</ul>' +
+                        '</td>' +
+                        '</tr>';
+                    tableBody.append(tr);
+                });
+                $('#table_id').DataTable();
+            },
+            error: function(error) {
+                alert('Error fetching subcategoriesitem: ' + error);
+            }
+        });
+    }
+    
+    $('table').on('click', '.delete', function() {
+    	var id = $(this).data('id');
+
+    	$('#delete-item').modal('show');
+
+    	// Confirm delete action
+    	$('#confirmDelete').on('click', function() {
+    		$.ajax({
+    			type: "DELETE",
+    			url: "/subcategory/item/delete/" + id,
+    			cache: false,
+    			success: function() {
+    				$('#delete-item').modal('hide');
+    				$('a[data-id="' + id + '"]').closest('tr').fadeOut('slow', function() {
+    					$(this).remove();
+    				});
+    				
+    				// Show success notification
+						$.notify('<i class="fas fa-check"></i></i><strong>Subcategory Item</strong> deleted successfully...', {
+					    type: 'theme',
+					    allow_dismiss: true,
+					    delay: 3000,
+					    showProgressbar: true,
+					    timer: 300,
+					    // timer: 555555500,
+					    animate: {
+					        enter: 'animated fadeInDown',
+					        exit: 'animated fadeOutUp'
+					    }
+					});
+    			},
+    			error: function(error) {
+    				console.error('Error deleting category:', error);
+    				$('#delete-item').modal('hide');
+    			}
+    		});
+    	});
+    });
+
+    </script>
+    
+    <script>
+		document.addEventListener('DOMContentLoaded', function () {
+		    fetch('/category/data')
+		        .then(response => response.json())
+		        .then(data => {
+		            const categorySelect = document.getElementById('categorySelect');
+		
+		            categorySelect.innerHTML = '<option selected disabled>Select Category</option>';
+		
+		            data.forEach(category => {
+		                const option = document.createElement('option');
+		                option.value = category.id;  
+		                option.text = category.cname;
+		                categorySelect.appendChild(option);
+		            });
+		        })
+		        .catch(error => {
+		            console.error('Error fetching category data:', error);
+		        });
+		});
+		
+		
+		function loadSubcategories() {
+	        var categoryId = document.getElementById("categorySelect").value;
+	        var subcategorySelect = document.getElementById("subcategorySelect");
+	
+	        subcategorySelect.innerHTML = '<option selected disabled>Select Subcategory</option>';
+	
+	        fetch('/getSubcategories?categoryId=' + categoryId)
+	            .then(response => response.json())
+	            .then(subcategories => {
+	                subcategories.forEach(function(sub) {
+	                    var option = document.createElement("option");
+	                    option.value = sub.subcname;
+	                    option.text = sub.subcname;
+	                    subcategorySelect.add(option);
+	                });
+	            })
+	            .catch(error => console.error('Error fetching subcategories:', error));
+	    	}
+	</script>
+
+	 <!-- Bootstrap js -->
+    <script src="admin/assets/js/bootstrap/bootstrap.bundle.min.js"></script>
+
+    <!-- feather icon js -->
+    <script src="admin/assets/js/icons/feather-icon/feather.min.js"></script>
+    <script src="admin/assets/js/icons/feather-icon/feather-icon.js"></script>
+
+    <!-- scrollbar simplebar js -->
+    <script src="admin/assets/js/scrollbar/simplebar.js"></script>
+    <script src="admin/assets/js/scrollbar/custom.js"></script>
+
+    <!-- customizer js -->
+    <script src="admin/assets/js/customizer.js"></script>
+
+    <!-- Sidebar js -->
+    <script src="admin/assets/js/config.js"></script>
+
+    <!-- Plugins JS -->
+    <script src="admin/assets/js/sidebar-menu.js"></script>
+    <script src="admin/assets/js/notify/bootstrap-notify.min.js"></script>
+    <!-- <script src="admin/assets/js/notify/index.js"></script> -->
+
+    <!-- Data table js -->
+    <script src="admin/assets/js/jquery.dataTables.js"></script>
+    <!-- <script src="admin/assets/js/custom-data-table.js"></script> -->
+
+    <!-- sidebar effect -->
+    <script src="admin/assets/js/sidebareffect.js"></script>
+
+    <!-- Theme js -->
+    <script src="admin/assets/js/script.js"></script>
+</body>
+
+
+<!-- Mirrored from themes.pixelstrap.com/fastkart/back-end/category.html by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 31 Oct 2023 06:45:00 GMT -->
+</html>

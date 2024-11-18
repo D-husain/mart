@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr" xmlns:th="http://www.thymeleaf.com">
+
+
+<!-- Mirrored from themes.pixelstrap.com/fastkart/back-end/all-users.html by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 31 Oct 2023 06:44:51 GMT -->
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+        content="Fastkart admin is super flexible, powerful, clean &amp; modern responsive bootstrap 5 admin template with unlimited possibilities.">
+    <meta name="keywords"
+        content="admin template, Fastkart admin template, dashboard template, flat admin template, responsive admin template, web app">
+    <meta name="author" content="pixelstrap">
+    <link rel="icon" href="admin/assets/images/favicon.png" type="image/x-icon">
+    <link rel="shortcut icon" href="admin/assets/images/favicon.png" type="image/x-icon">
+    <title>Fastkart - All User Inquiries</title>
+    <!-- Google font-->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&amp;display=swap"
+        rel="stylesheet">
+
+    <!-- Fontawesome css -->
+    <link rel="stylesheet" type="text/css" href="admin/assets/css/vendors/font-awesome.css">
+
+    <!-- Linear Icon css -->
+    <link rel="stylesheet" href="admin/assets/css/linearicon.css">
+
+    <!-- remixicon css -->
+    <link rel="stylesheet" type="text/css" href="admin/assets/css/remixicon.css">
+
+    <!-- Data Table css -->
+    <link rel="stylesheet" type="text/css" href="admin/assets/css/datatables.css">
+
+    <!-- Themify icon css-->
+    <link rel="stylesheet" type="text/css" href="admin/assets/css/vendors/themify.css">
+
+    <!-- Feather icon css -->
+    <link rel="stylesheet" type="text/css" href="admin/assets/css/vendors/feather-icon.css">
+
+    <!-- Plugins css -->
+    <link rel="stylesheet" type="text/css" href="admin/assets/css/vendors/scrollbar.css">
+    <link rel="stylesheet" type="text/css" href="admin/assets/css/vendors/animate.css">
+
+    <!-- Bootstrap css -->
+    <link rel="stylesheet" type="text/css" href="admin/assets/css/vendors/bootstrap.css">
+
+    <!-- App css -->
+    <link rel="stylesheet" type="text/css" href="admin/assets/css/style.css">
+    
+  	<!-- jQuery -->
+	<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+	
+	<!-- DataTables JS -->
+	<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.js"></script>
+</head>
+
+<body>
+    <!-- tap on top start -->
+    <div class="tap-top">
+        <span class="lnr lnr-chevron-up"></span>
+    </div>
+    <!-- tap on tap end -->
+
+    <!-- page-wrapper Start-->
+    <div class="page-wrapper compact-wrapper" id="pageWrapper">
+        <!-- Page Header Start-->
+        <div th:insert="admin/include/header :: div"> </div>
+        <!-- Page Header Ends-->
+
+        <!-- Page Body Start -->
+        <div class="page-body-wrapper">
+            <!-- Page Sidebar Start-->
+            <div th:insert="admin/include/sidebar :: div"> </div>
+            <!-- Page Sidebar Ends-->
+
+            <!-- Container-fluid starts-->
+            <div class="page-body">
+                <!-- All User Table Start -->
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="card card-table">
+                                <div class="card-body">
+
+                                    <div class="table-responsive table-product">
+                                        <table class="table all-package theme-table" id="table_id">
+                                            <thead>
+                                                <tr>
+                                                    <th>ID</th>
+                                                    <th>Inquirer Name</th>
+                                                    <th>Email</th>
+                                                    <th>Actions</th>
+                                                </tr>
+                                            </thead>
+
+                                            <tbody>
+
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- All User Table Ends-->
+
+                <div class="container-fluid">
+                    <!-- footer start-->
+                     <footer th:insert="admin/include/footer :: div"> </footer>
+                    <!-- footer end-->
+                </div>
+            </div>
+            <!-- Container-fluid end -->
+        </div>
+        <!-- Page Body End -->
+
+        <!-- Modal Start -->
+        <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1">
+            <div class="modal-dialog  modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-body">
+                        <h5 class="modal-title" id="staticBackdropLabel">Logging Out</h5>
+                        <p>Are you sure you want to log out?</p>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        <div class="button-box">
+                            <button type="button" class="btn btn--no" data-bs-dismiss="modal">No</button>
+                            <button type="button" class="btn  btn--yes btn-primary">Yes</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Modal End -->
+    </div>
+
+    <!-- Reply Modal Start -->
+	<div class="modal fade" id="replyModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+		<div class="modal-dialog modal-dialog-centered" role="document">
+			<div class="modal-content">
+				<div class="modal-body" id="replyFormSection">
+					<form id="replyForm">
+						<input type="hidden" name="email" id="inquirerEmail" />
+						<div class="row">
+							<div class="col-12">
+								<label>Inquirer Message</label>
+								<div class="form-group">
+									<textarea readonly class="form-control" name="message" id="inquirerMessages" rows="4" placeholder="Inquirer's message" style="resize: auto"></textarea>
+								</div>
+								<input type="hidden" name="contactId" id="inquirerId" />
+							</div>
+							<div class="col-12">
+								<label>Your reply</label>
+								<div class="form-group">
+									<textarea class="form-control" name="reply" id="inquirerReplay" rows="6" onkeypress="checkreply()" placeholder="your message" style="resize: auto"></textarea>
+									<span id='reperr' class='text-danger'></span>
+								</div>
+							</div>
+						</div>
+						<div class="modal-footer" id="replyFormFooter">
+							<button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-dismiss="modal">No</button>
+							<button onclick='return sendReplyButton()' type="submit" class="btn btn-primary">Send</button>
+						</div>
+					</form>
+				</div>
+				<div class="modal-body" id="replyDetailsSection" style="display: none;">
+					<div class="row">
+						<div class="col-12">
+							<label>Inquirer Message</label>
+							<div class="form-group">
+								<p id="inquirerMessage"></p>
+							</div>
+						</div>
+						<div class="col-12">
+							<label>Your Reply</label>
+							<div class="form-group">
+								<p id="yourReply"></p>
+							</div>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-dismiss="modal">Close</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+    <!-- Reply Modal End -->
+	
+	
+	<script type="text/javascript">
+			$(document).ready(function() {
+				getAllinquirie();
+			});
+			
+			function getAllinquirie() {
+			    $.ajax({
+			        url: '/contact/data',
+			        method: 'GET',
+			        dataType: 'json',
+			        success: function(json) {
+			            var tableBody = $('table tbody');
+			            tableBody.empty();
+
+			            $(json).each(function(index, contact) {
+			                var tr = $('<tr>' +
+			                    '<td class="text-center">' + (index + 1) + '</td>' +
+			                    '<td>' +
+			                    '<div class="user-name">' +
+			                    '<span>' + contact.fname + ' ' + contact.lname + '</span>' +
+			                    '</div>' +
+			                    '</td>' +
+			                    '<td>' + contact.email + '</td>' +
+			                    '<td>' +
+			                    '<ul>' +
+			                    '<li>' +
+			                    '<a class="reply" data-id=' + contact.id + '>' +
+			                    '<i class="ri-mail-send-line"></i>' +
+			                    '</a>' +
+			                    '</li>' +
+			                    '</ul>' +
+			                    '</td>' +
+			                    '</tr>');
+			                tableBody.append(tr);
+			            });
+
+			            $('#table_id').DataTable();
+			        },
+			        error: function(error) {
+			            alert('Error fetching inquiries: ' + error);
+			        }
+			    });
+			}
+			
+			$('table').on('click', '.reply', function() {
+			    var id = $(this).data('id');
+			    $.getJSON('/reply/' + id, function(reply) {
+			        if (reply !== null && reply.replay !== null) {
+			            $('#inquirerMessage').text(reply.message);
+			            $('#yourReply').text(reply.replay);
+			            $('#replyDetailsSection').show();
+			            $('#replyFormSection').hide();
+			        } else {
+			            $('#inquirerId').val(reply.id);
+			            $('#inquirerMessages').val(reply.message);
+			            $('#inquirerEmail').val(reply.email);
+			            $('#replyDetailsSection').hide();
+			            $('#replyFormSection').show();
+			        }
+			        $('#replyModal').modal('show');
+			    });
+			});
+
+			function checkreply() {
+				let reply = document.getElementById('inquirerReplay').value;
+				let reperr = document.getElementById('reperr');
+				let r = /[a-zA-Z0-9@,]+$/
+				if (reply === "") {
+					reperr.innerHTML = "Please enter the your reply";
+					return false;
+				} else if (!reply.match(r)) {
+					reperr.innerHTML = "Invalid your reply";
+					return false;
+				} else {
+					reperr.innerHTML = "";
+					return true;
+				}
+			}
+
+			function sendReplyButton() {
+				let isreplyValid = checkreply();
+				return isreplyValid;
+			}
+
+			$(document).ready(function() {
+			    $('#replyForm').submit(function(e) {
+			        e.preventDefault(); 
+			                
+			        var formData = {
+			            contactId: $('#inquirerId').val(),
+			            reply: $('#inquirerReplay').val(),
+			            email: $('#inquirerEmail').val(),
+			            message: $('#inquirerMessages').val()
+			        };
+			        
+			        $.ajax({
+			            type: 'POST',
+			            url: '/user/replyMessage',
+			            data: formData,
+						success: function() {
+							$('#replyModal').modal('hide');
+							$('#replyForm')[0].reset();
+							getAllinquirie();
+							// Show success notification
+							$.notify('<i class="fas fa-check"></i></i><strong>Reply </strong> send successfully...', {
+						    type: 'theme',
+						    allow_dismiss: true,
+						    delay: 3000,
+						    showProgressbar: true,
+						    timer: 300,
+						    // timer: 555555500,
+						    animate: {
+						        enter: 'animated fadeInDown',
+						        exit: 'animated fadeOutUp'
+						    }
+						});
+						},
+			            error: function(xhr, status, error){
+			                console.error(xhr, status, error);
+			                $('#replyModal').modal('hide');
+			            	 // Show success notification
+							$.notify('<i class="fas fa-check"></i></i><strong>Reply Send</strong> error...', {
+						    type: 'theme',
+						    allow_dismiss: true,
+						    delay: 3000,
+						    showProgressbar: true,
+						    timer: 300,
+						    // timer: 555555500,
+						    animate: {
+						        enter: 'animated fadeInDown',
+						        exit: 'animated fadeOutUp'
+						    }
+						});
+			            }
+			        });
+			    });
+			});
+
+	</script>
+
+
+    <!-- Bootstrap js -->
+    <script src="admin/assets/js/bootstrap/bootstrap.bundle.min.js"></script>
+
+    <!-- feather icon js -->
+    <script src="admin/assets/js/icons/feather-icon/feather.min.js"></script>
+    <script src="admin/assets/js/icons/feather-icon/feather-icon.js"></script>
+
+    <!-- scrollbar simplebar js -->
+    <script src="admin/assets/js/scrollbar/simplebar.js"></script>
+    <script src="admin/assets/js/scrollbar/custom.js"></script>
+
+    <!-- customizer js -->
+    <script src="admin/assets/js/customizer.js"></script>
+
+    <!-- Sidebar js -->
+    <script src="admin/assets/js/config.js"></script>
+
+    <!-- Plugins JS -->
+    <script src="admin/assets/js/sidebar-menu.js"></script>
+    <script src="admin/assets/js/notify/bootstrap-notify.min.js"></script>
+    <!-- <script src="admin/assets/js/notify/index.js"></script> -->
+
+    <!-- Data table js -->
+    <script src="admin/assets/js/jquery.dataTables.js"></script>
+    <!-- <script src="admin/assets/js/custom-data-table.js"></script> -->
+
+    <!-- all checkbox select js -->
+    <script src="admin/assets/js/checkbox-all-check.js"></script>
+
+    <!-- sidebar effect -->
+    <script src="admin/assets/js/sidebareffect.js"></script>
+
+    <!-- Theme js -->
+    <script src="admin/assets/js/script.js"></script>
+</body>
+
+
+<!-- Mirrored from themes.pixelstrap.com/fastkart/back-end/all-users.html by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 31 Oct 2023 06:44:53 GMT -->
+</html>

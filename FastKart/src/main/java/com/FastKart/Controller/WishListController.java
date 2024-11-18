@@ -26,7 +26,7 @@ public class WishListController {
 		
 		if(principal!=null) {
 			
-			WishList addToWishList = wdao.addToWishList(w, pid, principal);
+			wdao.addToWishList(w, pid, principal);
 			return "redirect:/wishList";
 		}
 		 else {
