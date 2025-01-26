@@ -345,7 +345,8 @@
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                
+
+                                                <th:block th:if="${orders.size() > 0}">
                                                     <tr th:each="o, iterStat : ${orders}">
                                                     	<td>[[${iterStat.index+1}]]</td>
                                                         <td class="product-image text-dark" data-bs-toggle="modal" th:data-bs-target="'#order-detils'+${o.id}">#[[${o.id}]]</td>
@@ -371,28 +372,30 @@
                                                             <h6>₹[[${o.total}]]</h6>
                                                         </td>
                                                     </tr>
+                                                    </th:block>
+                                                    <th:block th:unless="${orders.size() > 0}">
+                                                        <tr>
+                                                            <td colspan="5" class="text-center text-content">No orders found.</td>
+                                                        </tr>
+                                                    </th:block>
 
                                                 </tbody>
                                             </table>
                                         </div>
-                                        <nav class="custome-pagination">
+                                        <!-- Pagination -->
+                                        <nav class="custome-pagination" th:if="${totalPages > 1}">
                                             <ul class="pagination justify-content-center">
-                                                <li class="page-item disabled">
-                                                    <a class="page-link" href="javascript:void(0)" tabindex="-1">
+                                                <li class="page-item" th:classappend="${currentPage == 1} ? 'disabled'">
+                                                    <a class="page-link" th:href="@{/orders?page=1}" tabindex="-1">
                                                         <i class="fa-solid fa-angles-left"></i>
                                                     </a>
                                                 </li>
-                                                <li class="page-item active">
-                                                    <a class="page-link" href="javascript:void(0)">1</a>
+                                                <li class="page-item" th:each="pageNum : ${#numbers.sequence(1, totalPages)}"
+                                                    th:classappend="${pageNum == currentPage} ? 'active'">
+                                                    <a class="page-link" th:href="@{/orders?page=} + ${pageNum}">[[${pageNum}]]</a>
                                                 </li>
-                                                <li class="page-item" aria-current="page">
-                                                    <a class="page-link" href="javascript:void(0)">2</a>
-                                                </li>
-                                                <li class="page-item">
-                                                    <a class="page-link" href="javascript:void(0)">3</a>
-                                                </li>
-                                                <li class="page-item">
-                                                    <a class="page-link" href="javascript:void(0)">
+                                                <li class="page-item" th:classappend="${currentPage == totalPages} ? 'disabled'">
+                                                    <a class="page-link" th:href="@{/orders?page=} + ${totalPages}">
                                                         <i class="fa-solid fa-angles-right"></i>
                                                     </a>
                                                 </li>
@@ -1087,7 +1090,7 @@
                         <div class="col-xxl-12">
                             <form>
                                 <div class="form-floating theme-form-floating">
-                                    <input type="text" class="form-control" id="address3" value="94080">
+                                    <input type="text" class="form-control" id="address3" >
                                     <label for="address3">Pin Code</label>
                                 </div>
                             </form>

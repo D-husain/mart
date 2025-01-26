@@ -68,5 +68,12 @@ public class userDao {
 	public List<User> fechAllUser() {
 		return (List<User>) this.userRepository.findAll();
 	}
-	
+
+	public boolean findByUsername(String username) {
+		return userRepository.existsByUsername(username);
+	}
+
+	public boolean findByUseremail(String useremail) {
+		return userRepository.findByEmail(useremail).isCheckbox();
+	}
 }

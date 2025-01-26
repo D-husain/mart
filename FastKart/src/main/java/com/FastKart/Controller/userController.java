@@ -45,7 +45,16 @@ public class userController {
 		if (!checkbox || result.hasErrors()) {
 			redirAttrs.addFlashAttribute("error", "Please fill out all fields and accept terms.");
 			return "redirect:/sign-up";
-		} 
+		}
+        // Check if username already exists
+        if (udao.findByUsername(user.getUsername())) {
+            redirAttrs.addFlashAttribute("error", "Username already exists. Please choose another one.");
+            return "redirect:/sign-up";
+        }
+        if (udao.findByUseremail(user.getEmail())) {
+            redirAttrs.addFlashAttribute("error", "Useremail already exists. Please choose another one.");
+            return "redirect:/sign-up";
+        }
 		else if (!checkbox) {
 			redirAttrs.addFlashAttribute("error", "You have not checked terms & condition");
 			return "redirect:/sign-up";
@@ -106,7 +115,7 @@ public class userController {
 				return "redirect:/sign-up";
 			}
 		} else {
-			redirAttrs.addFlashAttribute("error", "Contact failed.");
+			redirAttrs.addFlashAttribute("error", " failed.");
 			return "redirect:/sign-up";
 		}
 		

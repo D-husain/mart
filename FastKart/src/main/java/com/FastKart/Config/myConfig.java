@@ -98,7 +98,7 @@ public class myConfig {
 		    http
 		    .authenticationProvider(adminAuthenticationProvider())
 		        .authorizeHttpRequests(authorize -> authorize
-		            .requestMatchers("/admin/**").hasRole("ADMIN")
+		            .requestMatchers("/admin/**").hasRole("admin")
 		            .requestMatchers("/admin/assets/css/**", "/admin/assets/image/**", "/do_register").permitAll()
 		        )
 		        .formLogin(form -> form
